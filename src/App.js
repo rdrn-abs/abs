@@ -1,9 +1,10 @@
 import { React } from 'react';
 import './App.scss';
+import Game from './components/Game';
 
-const App = () =>
+const App = (context) =>
 	<div className="App">
-		Ready to start.
+		<Game { ...context }/>
 	</div>;
 
 export default App;

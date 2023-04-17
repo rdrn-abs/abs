@@ -9,7 +9,8 @@ const InputBox = (context) => {
 			value={ state.input }
 			disabled={ state.wordCheckPass }
 			onChange={ (event) =>
-				setState({ ...state, input: event.target.value }) }
+				setState((prevState) =>
+					({ ...prevState, input: event.target.value })) }
 		/>
 
 	);

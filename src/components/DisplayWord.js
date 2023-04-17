@@ -2,9 +2,7 @@ import React from 'react';
 import ScrambleManager from '../services/scramblerManager';
 
 const DisplayWord = (context) => {
-	const { state: { word }} = context;
-
-	const scrambledWord = ScrambleManager.scramble(word);
+	const scrambledWord = ScrambleManager.scramble(context);
 
 	return <div>
 		<h2>{scrambledWord.toUpperCase()}</h2>

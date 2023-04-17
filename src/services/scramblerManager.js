@@ -1,7 +1,7 @@
 import { shuffle } from '@laufire/utils/collection';
 import { rndValue } from '@laufire/utils/random';
 
-const scramble = (word) => {
+const scramble = ({ state: { word }}) => {
 	const strArr = word.split('');
 
 	return shuffle(strArr).join('');

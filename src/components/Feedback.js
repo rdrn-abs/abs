@@ -1,6 +1,6 @@
 import React from 'react';
-import Discount from './Discount';
 import { peek } from '@laufire/utils/debug';
+import GameOverScreen from './GameOverScreen';
 
 const Feedback = (context) => {
 	const { state: { wordCheckPass }} = context;
@@ -8,7 +8,9 @@ const Feedback = (context) => {
 	peek(wordCheckPass);
 
 	return <div>
-		{wordCheckPass ? <Discount { ...context }/> : <div/>}
+		{wordCheckPass
+			? <GameOverScreen { ...context }/>
+			: <div/>}
 	</div>;
 };
 

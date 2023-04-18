@@ -1,25 +1,19 @@
 import { shuffle } from '@laufire/utils/collection';
 import { rndValue } from '@laufire/utils/random';
 
-const scramble = ({ state: { word }}) => {
+const scramble = (word) => {
 	const strArr = word.split('');
 
 	return shuffle(strArr).join('');
 };
 const createWord = (context) => {
-	const { config: { wordList }, state, setState } = context;
+	const { config: { wordList }} = context;
+	const word = rndValue(wordList);
+	const scrambledWord = scramble(word);
 
-	setState({ ...state,
-		word: rndValue(wordList), input: '',
-		wordCheckPass: false });
+	return { word, scrambledWord };
 };
-const checkWord = (context) => {
-	const { state, setState } = context;
-	const { word, input } = state;
-
-	(input.toLowerCase() === word.toLowerCase())
-	&& setState({ ...state, wordCheckPass: true, input: input.toUpperCase() });
-};
+const checkWord = (word, input) => input.toLowerCase() === word.toLowerCase();
 const clearInput = (context) => {
 	const { state, setState } = context;
 

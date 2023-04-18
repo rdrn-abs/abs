@@ -1,7 +1,7 @@
 
 import React from 'react';
 const Discount = (context) => {
-	const { state: { discountCode }} = context;
+	const { config: { discountCode }} = context;
 
 	return <div>
 		<div>You got the discount</div>

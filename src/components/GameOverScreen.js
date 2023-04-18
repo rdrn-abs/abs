@@ -1,11 +1,12 @@
 import React from 'react';
 import Discount from './Discount';
-import NewGameButton from './NewGameButton';
+import ClickDiscount from './ClickDiscount';
 
 const GameOverScreen = (context) =>
 	<div>
+		<ClickDiscount { ...context }/>
 		<Discount { ...context }/>
-		<NewGameButton { ...context }/>
+
 	</div>;
 
 export default GameOverScreen;

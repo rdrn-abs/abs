@@ -9,18 +9,24 @@ const scramble = (word) => {
 const createWord = (context) => {
 	const { config: { wordList }} = context;
 	const word = rndValue(wordList);
+
 	const scrambledWord = scramble(word);
 
 	return { word, scrambledWord };
 };
 const checkWord = (word, input) => input.toLowerCase() === word.toLowerCase();
+
 const clearInput = (context) => {
 	const { state, setState } = context;
 
 	setState({ ...state, input: '' });
 };
+
+const showDiscount = ({ state, setState }) =>
+	setState({ ...state, discountShown: true });
+
 const ScramblerManager = {
-	scramble, checkWord, createWord, clearInput,
+	scramble, checkWord, createWord, clearInput, showDiscount,
 };
 
 export default ScramblerManager;

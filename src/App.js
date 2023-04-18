@@ -2,11 +2,14 @@ import { React, useEffect, useState } from 'react';
 import './App.scss';
 import Game from './components/Game';
 import ScramblerManager from './services/scramblerManager';
+import Success from './components/Success';
 
 const App = (context) => {
 	const [state, setState] = useState({
 		input: '',
 		wordObject: {},
+		discountShown: false,
+
 	});
 	const extendedContext = { ...context, state, setState };
 
@@ -20,7 +23,8 @@ const App = (context) => {
 	}, []);
 
 	return <div className="App">
-		<Game { ...extendedContext }/>
+		{!state.discountShown && <Game { ...extendedContext }/>}
+		<Success { ...extendedContext }/>
 
 	</div>;
 };

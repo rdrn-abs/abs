@@ -6,6 +6,7 @@ const Discount = (context) => {
 	return <div>
 		<div>You got the discount</div>
 		<div>{discountCode}</div>
+		<h3>Play more!! Come back tomorrow for the new discount</h3>
 	</div>;
 };
 

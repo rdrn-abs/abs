@@ -1,6 +1,6 @@
 import React from 'react';
-import GameOverScreen from './GameOverScreen';
 import ScrambleManager from '../services/scramblerManager';
+import ClickDiscount from './ClickDiscount';
 
 const Success = (context) => {
 	const { state } = context;
@@ -9,7 +9,7 @@ const Success = (context) => {
 	return <div>
 		{word
 			? ScrambleManager.checkWord(word, input)
-			&& <GameOverScreen { ...context }/>
+			&& <ClickDiscount { ...context }/>
 			: <div/>}
 	</div>;
 };

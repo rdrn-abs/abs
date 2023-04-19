@@ -8,8 +8,17 @@
 		font-variant: small-caps;
 		background-color:aqua;
 		font-size: 20px;
+		font-weight: bold;
 	}
 	.test-word{
-		font-size:20px
+		font-size:20px;
+		width:1.2rem;
+		padding:5px;
+		margin:3px;
+	}
+
+	.highlighted{
+		background-color: yellow;
+
 	}
 }

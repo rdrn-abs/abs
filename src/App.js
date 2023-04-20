@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Game from './components/Game';
 import ScramblerManager from './services/scramblerManager';

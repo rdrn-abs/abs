@@ -1,8 +1,11 @@
 import React from 'react';
 import ScramblerManager from '../services/scramblerManager';
+import { peek } from '@laufire/utils/debug';
 
 const InputHandler = (contextData) => {
-	const { state, setState } = contextData;
+	const { state, setState, data } = contextData;
+
+	peek(ScramblerManager.updateLetters(contextData));
 
 	return setState({
 		...state,
@@ -10,7 +13,7 @@ const InputHandler = (contextData) => {
 			...state.wordObject,
 			scrambledLetters: ScramblerManager.updateLetters(contextData),
 		},
-		input: ScramblerManager.checkValidLetter(contextData),
+		input: data,
 	});
 }
 	;
@@ -23,7 +26,8 @@ const InputBox = (context) => {
 			className="text-input"
 			value={ state.input }
 			onChange={ (event) =>
-				InputHandler({ ...context, data: event.target.value }) }
+				InputHandler({ ...context,
+					data: event.target.value }) }
 
 		/>
 

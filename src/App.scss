@@ -6,12 +6,22 @@
 	}
 	.text-input{
 		font-variant: small-caps;
-		background-color:aqua;
-		font-size: 20px;
+		font-size: 3rem;
 		font-weight: bold;
+		border:none;
+		border-bottom: 2px solid rgb(206, 203, 203);
+		padding: 7px 0;
+		background: transparent;
+		transition: border-color 0.2s;
+		outline: none;
+		letter-spacing: .2em;
+	}
+	.text-input:focus{
+		border:none;
+		border-bottom: 2px solid rgb(99, 98, 98);
 	}
 	.test-word{
-		font-size:20px;
+		font-size: 3rem;
 		width:1.2rem;
 		padding:5px;
 		margin:3px;

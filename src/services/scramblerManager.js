@@ -1,4 +1,4 @@
-import { shuffle } from '@laufire/utils/collection';
+import { map, shuffle } from '@laufire/utils/collection';
 import { rndValue } from '@laufire/utils/random';
 
 const scramble = (word) => {
@@ -19,7 +19,7 @@ const createWord = (context) => {
 
 	return { word, scrambledLetters };
 };
-const checkWord = (word, input) => input.toLowerCase() === word.toLowerCase();
+const checkWord = (word, input) => word.toUpperCase() === input.toUpperCase();
 
 const clearInput = (context) => {
 	const { state, setState } = context;
@@ -30,31 +30,46 @@ const clearInput = (context) => {
 const showDiscount = ({ state, setState }) =>
 	setState({ ...state, discountShown: true });
 
+const frequencyTable = (table) => table.reduce((allItems, item) => {
+	const currCount = allItems[item] ?? 0;
+
+	return {
+		...allItems,
+		[item]: currCount + 1,
+	};
+}, {});
+
+const resetHighlightLetters = (scrambledLetters) => scrambledLetters
+	.map((letter) => ({ ...letter,
+		entered: false }));
+
 const updateLetters = (context) => {
 	const { state, data } = context;
 	const { wordObject: { scrambledLetters }} = state;
 
-	return scrambledLetters.map((item) =>
-		(item.letter === data
-			? { ...item, entered: true }
-			: item));
-};
-const checkValidLetter = (context) => {
-	const { state, data } = context;
-	const { wordObject: { scrambledLetters }} = state;
-	const lettersAr = scrambledLetters.reduce((item) => item.letter, []);
+	const inputLetterFreq = frequencyTable(data.split(''));
+	const updatedLetters = resetHighlightLetters(scrambledLetters);
 
-	data.split('');
+	map(inputLetterFreq, (key, item) => {
+		const filtered = updatedLetters
+			.filter((letter) => item === letter.letter);
+		const correctedFiltered = filtered
+			.slice(0, Math.min(filtered.length, key));
 
-	return scrambledLetters.map((item) =>
-		(item.letter === data
-			? data
-			: ''));
+		correctedFiltered.map((itemm) => {
+			const found = updatedLetters.find((letter) => letter === itemm);
+
+			found.entered = true;
+			return updatedLetters;
+		});
+	});
+
+	return updatedLetters;
 };
 
 const ScramblerManager = {
 	scramble, checkWord, createWord, clearInput, showDiscount,
-	updateLetters, checkValidLetter,
+	updateLetters,
 };
 
 export default ScramblerManager;

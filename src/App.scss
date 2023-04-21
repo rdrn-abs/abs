@@ -4,8 +4,19 @@
 	button {
 		font-weight: bold;
 	}
+	.game-card{
+		width:60%;
+		background-color:rgb(234, 237, 237);
+		margin:5rem auto;
+		padding: 5rem;
+	}
+	.display-word{
+		margin-top: 4rem;
+
+	}
 	.text-input{
-		font-variant: small-caps;
+		text-align: center;
+		text-transform: uppercase;
 		font-size: 3rem;
 		font-weight: bold;
 		border:none;
@@ -16,9 +27,14 @@
 		outline: none;
 		letter-spacing: .2em;
 	}
+	.text-input::placeholder {
+		font-size: 2rem;
+		color:rgb(210, 215, 215)
+
+	}
 	.text-input:focus{
 		border:none;
-		border-bottom: 2px solid rgb(99, 98, 98);
+		border-bottom: 2px solid rgb(166, 103, 103);
 	}
 	.test-word{
 		font-size: 3rem;
@@ -31,4 +47,43 @@
 		background-color: yellow;
 
 	}
+	.discount-btn{
+		padding: 2rem;
+		font-size:2rem;
+
+	}
+
+	.discount-btn::before {
+	content: '';
+		border-radius: 1000px;
+		min-width: calc(300px + 12px);
+		min-height: calc(60px + 12px);
+		border: 6px solid #00FFCB;
+		box-shadow: 0 0 60px rgba(0,255,203,.64);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0;
+		transition: all .3s ease-in-out 0s;
+	}
+	.discount-btn::after {
+		content: '';
+		width: 30px; height: 30px;
+		border-radius: 100%;
+		border: 6px solid #00FFCB;
+		position: absolute;
+		z-index: -1;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		animation: ring 1.5s infinite;
+	}
+
+	.discount-code{
+		font-size: 3rem;
+		text-transform: uppercase;
+		padding: 1.5rem;
+	}
+
 }

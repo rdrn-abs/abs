@@ -25,6 +25,8 @@ const InputBox = (context) => {
 		<input
 			className="text-input"
 			value={ state.input }
+			placeholder="Click here to start"
+			pattern="A-Z"
 			onChange={ (event) =>
 				InputHandler({ ...context,
 					data: event.target.value }) }

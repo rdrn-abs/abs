@@ -9,9 +9,12 @@ const ClickDiscount = (context) => {
 	peek(discountShown);
 
 	return <div>
-		{!discountShown
-			&& <button onClick={ () => ScramblerManager.showDiscount(context) }>
-				Click here to claim your discount</button>}
+		{	!discountShown 	&& <button
+			className="discount-btn"
+			onClick={ () => ScramblerManager.showDiscount(context) }
+		// eslint-disable-next-line react/jsx-closing-bracket-location
+		>	Click here to claim your discount
+		</button>}
 		{discountShown && <Discount { ...context }/>}
 	</div>;
 };

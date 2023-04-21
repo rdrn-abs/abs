@@ -1,5 +1,5 @@
 import React from 'react';
-import ScrambleManager from '../services/scramblerManager';
+import ScramblerManager from '../services/scramblerManager';
 import ClickDiscount from './ClickDiscount';
 
 const Success = (context) => {
@@ -8,7 +8,7 @@ const Success = (context) => {
 
 	return <div>
 		{word
-			? ScrambleManager.checkWord(word, input)
+			? ScramblerManager.checkWord(word, input)
 			&& <ClickDiscount { ...context }/>
 			: <div/>}
 	</div>;

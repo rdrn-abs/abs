@@ -38,7 +38,7 @@
 	}
 	.test-word{
 		font-size: 3rem;
-		width:1.2rem;
+
 		padding:5px;
 		margin:3px;
 	}
@@ -47,43 +47,51 @@
 		background-color: yellow;
 
 	}
+
 	.discount-btn{
 		padding: 2rem;
 		font-size:2rem;
+		width:max-content;
+		display: block;
+
 
 	}
 
-	.discount-btn::before {
-	content: '';
-		border-radius: 1000px;
-		min-width: calc(300px + 12px);
-		min-height: calc(60px + 12px);
-		border: 6px solid #00FFCB;
-		box-shadow: 0 0 60px rgba(0,255,203,.64);
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		opacity: 0;
-		transition: all .3s ease-in-out 0s;
-	}
-	.discount-btn::after {
-		content: '';
-		width: 30px; height: 30px;
-		border-radius: 100%;
-		border: 6px solid #00FFCB;
-		position: absolute;
-		z-index: -1;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		animation: ring 1.5s infinite;
-	}
+
 
 	.discount-code{
 		font-size: 3rem;
 		text-transform: uppercase;
 		padding: 1.5rem;
+	}
+	@media only screen and (max-width: 400px) {
+		.game-card{
+			width:100%;
+			padding: 1rem;
+			margin:  0;
+		}
+		.text-input::placeholder {
+			font-size: 1.5rem;
+			color:rgb(210, 215, 215)
+
+		}
+		.text-input{
+
+			font-size: 1.5rem;
+			letter-spacing: .1rem;
+			width:80%;
+		}
+		.test-word{
+			font-size: 2rem;
+
+			padding:5px;
+			margin:3px;
+		}
+		.discount-btn{
+			padding: 1rem;
+			font-size:1.5rem;
+
+		}
 	}
 
 }

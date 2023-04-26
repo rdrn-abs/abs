@@ -10,7 +10,7 @@ const ClickDiscount = (context) => {
 
 	return <div>
 		{	!discountShown 	&& <button
-			className="discount-btn"
+			className="btn btn-border01"
 			onClick={ () => ScramblerManager.showDiscount(context) }
 		// eslint-disable-next-line react/jsx-closing-bracket-location
 		>	Click here to claim your discount

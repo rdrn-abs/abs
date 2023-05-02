@@ -26,7 +26,7 @@ const SPFMeter = (context) => {
 				// eslint-disable-next-line no-magic-numbers
 				customSegmentStops={ [0, 100, 150, 200, 400] }
 				segmentColors={ ['#bf616a', '#d08770', '#ebcb8b', '#a3be8c'] }
-				paddingHorizontal={ 0 }
+				paddingHorizontal={ 30 }
 				paddingVertical={ 34 }
 				needleTransitionDuration={ 100 }
 			/>

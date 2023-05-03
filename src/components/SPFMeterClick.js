@@ -32,7 +32,9 @@ const SPFMeterClick = (context) => {
 					minValue={ 0 }
 					maxValue={ 100 }
 					value={ state.spf }
-					segmentValueFormatter={ SPFManager.segmentValueFormatter }
+					segmentValueFormatter={
+						SPFManager.segmentValueFormatter(context)
+					}
 					// eslint-disable-next-line no-magic-numbers
 					customSegmentStops={ [0, 2, 4, 10, 15, 30, 50, 70, 100] }
 					fluidWidth={ true }

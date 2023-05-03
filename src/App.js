@@ -1,15 +1,15 @@
 import { React, useState, useEffect } from 'react';
 import './App.scss';
-import SPFMeter from './components/SPFMeter';
 import SPFManager from './services/SPFManager';
-import SPFMeterClick from './components/SPFMeterClick';
+import SPFLabels from './components/SPFLabels.js';
 
 // eslint-disable-next-line max-lines-per-function
 const App = (context) => {
 	const [state, setState] = useState({
 		globalMouse: { x: 0, y: 0 },
 		localMouse: { x: 0, y: 0 },
-		spf: 0,
+		spf: 2,
+
 	});
 
 	const extendedContext = { ...context, state, setState };
@@ -35,8 +35,8 @@ const App = (context) => {
 
 	return <div className="App">
 		Ready to start.
-		<SPFMeter { ...extendedContext }/>
-		<SPFMeterClick { ...extendedContext }/>
+
+		<SPFLabels { ...extendedContext }/>
 	</div>;
 };
 

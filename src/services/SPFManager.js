@@ -1,4 +1,5 @@
 /* eslint-disable no-magic-numbers */
+import { find } from '@laufire/utils/collection';
 import { peek } from '@laufire/utils/debug';
 
 const updateGlobalMousePos = (context) => {
@@ -23,42 +24,32 @@ const updateLocalMousePos = (context) => {
 	}));
 };
 
-const segmentValueFormatter = (value) => {
-	// eslint-disable-next-line no-magic-numbers
-	if(value < 20)
-		return `${ value } `;
+const segmentValueFormatter = (context) => {
+	peek(context);
 
-	// eslint-disable-next-line no-magic-numbers
-	if(value < 60)
-		return `${ value } 😐`;
+	const label = 600;
 
-	// eslint-disable-next-line no-magic-numbers
-	if(value < 100)
-		return `${ value } 😌`;
+	return label;
 };
+const findNeedlePosition = (context) => {
+	const { state: { localMouse }, config: { spfDictionary }} = context;
+	const mousePosPercent = localMouse.x / 5;
 
+	peek('mousePos', localMouse.x);
+	peek('mousePosPercent', mousePosPercent);
+	const value = find(spfDictionary, (val, key) =>
+		mousePosPercent < key);
+
+	peek('protection', value.protection);
+	return localMouse.x * 2;
+};
 // eslint-disable-next-line complexity
 const findProtection = (context) => {
 	const { state: { spf }, config: { spfDictionary }} = context;
 
-	if(spf < 2)
-		return '50%';
-	if(spf < 4)
-		return '75%';
-	if(spf < 10)
-		return '90%';
-	if(spf < 15)
-		return '93%';
-	if(spf < 30)
-		return '97%';
-	if(spf < 50)
-		return '98%';
-	if(spf < 70)
-		return '98.5%';
-	if(spf <= 100)
-		return '99%';
+	return find(spfDictionary, (percentage, key) => spf < key);
 };
 const SPFManager = { updateGlobalMousePos, updateLocalMousePos,
-	segmentValueFormatter, findProtection };
+	segmentValueFormatter, findProtection, findNeedlePosition };
 
 export default SPFManager;

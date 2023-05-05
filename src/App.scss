@@ -4,36 +4,39 @@
 	button {
 		font-weight: bold;
 	}
-	.box{
-		border: 1px solid #222;
-		display: inline-block;
+
+	.box {
 		width: 500px;
 		height: 500px;
-		text-align: center;
 		position: absolute;
-		bottom:20px;
-		left:600px;
-
 	}
-  .box1{
+
+	.box1 {
 		z-index: 10;
 	}
-	.box2{
-			z-index: 1;
-	}
-	.meter-container{
-		position: absolute;
-		width:500px;
-		height: 500px;
-		left:600px;
-		top:200px
-  }
-	.slider-container{
-		position: absolute;
-		top:20px;
-		left:20px;
+
+	.box2 {
+		z-index: 1;
 
 	}
+
+	.meter-container {
+
+		width:40%;
+		height:60%;
+		margin: 10% 35%;
+		background-color: #f2f0f0;
+		box-shadow:1px 1px 6px 1px #d6d6d6;
+		width:550px;
+		height:350px;
+	}
+
+	.slider-container {
+		position: absolute;
+		top: 20px;
+		left: 20px;
+	}
+
 	.slider {
 		-webkit-appearance: none;
 		width: 300px;
@@ -63,6 +66,5 @@
 		background: #3f5c8c;
 		cursor: pointer;
 	}
-
 
 }

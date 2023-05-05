@@ -4,74 +4,44 @@ import ReactSpeedometer from 'react-d3-speedometer';
 import SPFManager from '../services/SPFManager';
 
 const SPFLabels = (context) => {
-	const { state, setState } = context;
+	const { config: { meterWidth, customLabels, paddingForLabel },
+		state: { inputText }} = context;
+
 	const handleMouseClick = (event) => {
 		SPFManager.updateLocalMousePos({ ...context, dataLocal: event });
 	};
 
 	return (
-		<div>
-
+		<div className="">
 			<div
 				className="box box1"
-				onClick={ handleMouseClick }
+				onMouseDown={ handleMouseClick }
 			/>
 			<div className="box box2">
 
 				<ReactSpeedometer
-					width={ 500 }
-					needleHeightRatio={ 0.9 }
+					maxValue={ 160 }
+					width={ meterWidth }
+					height={ meterWidth }
+					needleHeightRatio={ 1 }
+					needleTransitionDuration={ 300 }
+					needleTransition="easeLinear"
 					value={ SPFManager.findNeedlePosition(context) }
-					currentValueText="Happiness Level"
-					customSegmentLabels={ [
-						{
-							text: '50%',
-							position: 'INSIDE',
-							color: '#555',
-						},
-						{
-							text: '75%',
-							position: 'INSIDE',
-							color: '#555',
-						},
-						{
-							text: '90%',
-							position: 'INSIDE',
-							color: '#555',
-							fontSize: '19px',
-						},
-						{
-							text: '93%',
-							position: 'INSIDE',
-							color: '#555',
-						},
-						{
-							text: '97%',
-							position: 'INSIDE',
-							color: '#555',
-						},
-						{
-							text: '98%',
-							position: 'INSIDE',
-							color: '#555',
-						},
-						{
-							text: '98.5%',
-							position: 'INSIDE',
-							color: '#555',
-						},
-						{
-							text: '99%',
-							position: 'INSIDE',
-							color: '#555',
-						},
-					] }
-					ringWidth={ 47 }
-					needleTransitionDuration={ 3333 }
-					needleTransition="easeElastic"
-					needleColor="#90f2ff"
-					textColor="#d8dee9"
+
+					customSegmentLabels={ customLabels }
+					ringWidth={ 100 }
+					textColor="#002222"
+
 					segments={ 8 }
+					paddingHorizontal={ paddingForLabel }
+					paddingVertical={ paddingForLabel }
+					labelFontSize="31px"
+					valueTextFontSize="37px"
+					valueTextFontWeight="500"
+
+					// eslint-disable-next-line no-template-curly-in-string
+					currentValueText="SPF"
+
 				/>
 			</div>
 		</div>

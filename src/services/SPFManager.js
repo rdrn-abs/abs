@@ -1,9 +1,8 @@
 /* eslint-disable no-magic-numbers */
-import { find } from '@laufire/utils/collection';
 import { peek } from '@laufire/utils/debug';
 
 const updateGlobalMousePos = (context) => {
-	const { data, state, setState } = context;
+	const { data, setState } = context;
 
 	setState((prevState) => ({
 		...prevState,
@@ -12,10 +11,9 @@ const updateGlobalMousePos = (context) => {
 	}));
 };
 
+// eslint-disable-next-line max-statements
 const updateLocalMousePos = (context) => {
-	const { dataLocal, state, setState } = context;
-
-	peek(dataLocal.clientX, dataLocal.target.offsetLeft);
+	const { dataLocal, setState } = context;
 
 	setState((prevState) => ({
 		...prevState,
@@ -25,31 +23,61 @@ const updateLocalMousePos = (context) => {
 };
 
 const segmentValueFormatter = (context) => {
-	peek(context);
-
 	const label = 600;
 
 	return label;
 };
-const findNeedlePosition = (context) => {
-	const { state: { localMouse }, config: { spfDictionary }} = context;
-	const mousePosPercent = localMouse.x / 5;
 
-	peek('mousePos', localMouse.x);
-	peek('mousePosPercent', mousePosPercent);
-	const value = find(spfDictionary, (val, key) =>
-		mousePosPercent < key);
+const calculateMousePosition = (context) => {
+	const { state: { localMouse },
+		config: { meterWidth, paddingForLabel }} = context;
 
-	peek('protection', value.protection);
-	return localMouse.x * 2;
+	const needleOriginX = (meterWidth + paddingForLabel + paddingForLabel) / 2 ;
+	const needleOriginY = (meterWidth + paddingForLabel + paddingForLabel) / 2;
+	const angleRad = Math.atan2(needleOriginY - localMouse.y,
+		localMouse.x - needleOriginX);
+	const theta = 180 - (angleRad * 180 / Math.PI);
+
+	return roundValue(
+		theta, 0, 180, 270
+	);
 };
-// eslint-disable-next-line complexity
-const findProtection = (context) => {
-	const { state: { spf }, config: { spfDictionary }} = context;
+const findNeedlePosition = (context) =>
+	calculateMousePosition(context) * 160 / 180
+;
 
-	return find(spfDictionary, (percentage, key) => spf < key);
+const limitValue = (
+	val, minVal, maxVal
+) =>
+	(peek(val) < minVal
+		? minVal
+		: val > maxVal
+			? maxVal
+			: val);
+
+// eslint-disable-next-line complexity
+const roundValue = (
+	val, minVal, maxVal, limit
+) =>
+	peek(val < minVal
+		? minVal
+		: val > limit
+			? minVal
+			: val > maxVal && val < limit
+				? maxVal
+				: val);
+
+const findSegment = (context) => {
+	const {	config: { spfDictionary }} = context;
+	const mousePosPercent
+		= calculateMousePosition(context) * (100 / 180);
+
+	const foundSegment = spfDictionary.find((obj) =>
+		mousePosPercent <= obj.segment);
+
+	return foundSegment;
 };
 const SPFManager = { updateGlobalMousePos, updateLocalMousePos,
-	segmentValueFormatter, findProtection, findNeedlePosition };
+	segmentValueFormatter, findSegment, findNeedlePosition };
 
 export default SPFManager;

@@ -1,5 +1,4 @@
 /* eslint-disable no-magic-numbers */
-import { peek } from '@laufire/utils/debug';
 
 const updateGlobalMousePos = (context) => {
 	const { data, setState } = context;
@@ -22,18 +21,12 @@ const updateLocalMousePos = (context) => {
 	}));
 };
 
-const segmentValueFormatter = (context) => {
-	const label = 600;
-
-	return label;
-};
-
 const calculateMousePosition = (context) => {
-	const { state: { localMouse },
-		config: { meterWidth, paddingForLabel }} = context;
+	const { state: { localMouse, containerProps: { width, height }},
+		config: { paddingForLabel }} = context;
 
-	const needleOriginX = (meterWidth + paddingForLabel + paddingForLabel) / 2 ;
-	const needleOriginY = (meterWidth + paddingForLabel + paddingForLabel) / 2;
+	const needleOriginX = 0 ;
+	const needleOriginY = (width + paddingForLabel + paddingForLabel) / 2;
 	const angleRad = Math.atan2(needleOriginY - localMouse.y,
 		localMouse.x - needleOriginX);
 	const theta = 180 - (angleRad * 180 / Math.PI);
@@ -42,6 +35,7 @@ const calculateMousePosition = (context) => {
 		theta, 0, 180, 270
 	);
 };
+
 const findNeedlePosition = (context) =>
 	calculateMousePosition(context) * 160 / 180
 ;
@@ -49,7 +43,7 @@ const findNeedlePosition = (context) =>
 const limitValue = (
 	val, minVal, maxVal
 ) =>
-	(peek(val) < minVal
+	(val < minVal
 		? minVal
 		: val > maxVal
 			? maxVal
@@ -59,7 +53,7 @@ const limitValue = (
 const roundValue = (
 	val, minVal, maxVal, limit
 ) =>
-	peek(val < minVal
+	(val < minVal
 		? minVal
 		: val > limit
 			? minVal
@@ -78,6 +72,6 @@ const findSegment = (context) => {
 	return foundSegment;
 };
 const SPFManager = { updateGlobalMousePos, updateLocalMousePos,
-	segmentValueFormatter, findSegment, findNeedlePosition };
+	findSegment, findNeedlePosition };
 
 export default SPFManager;

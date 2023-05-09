@@ -1,7 +1,6 @@
 import { React, useEffect, useRef } from 'react';
 import SPFDial from './SPFDial';
 import SPFManager from '../services/SPFManager';
-import { peek } from '@laufire/utils/debug';
 
 const handleResize = (context) => {
 	const { setState, data: container } = context;
@@ -9,7 +8,7 @@ const handleResize = (context) => {
 	setState((prevState) => ({
 		...prevState,
 		containerProps: {
-			width: peek(container.current.clientWidth),
+			width: container.current.clientWidth,
 			height: container.current.clientWidth,
 		},
 	}));
@@ -18,8 +17,6 @@ const handleResize = (context) => {
 // eslint-disable-next-line max-lines-per-function
 const DisplayMeter = (context) => {
 	const container = useRef();
-
-	// eslint-disable-next-line react/destructuring-assignment
 
 	useEffect(() => {
 		window.addEventListener('resize',

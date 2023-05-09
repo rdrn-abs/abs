@@ -15,52 +15,52 @@ const config = {
 		{
 			text: ' 2',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 
 		},
 		{
 			text: '4 ',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 		},
 		{
 			text: '10',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 		},
 		{
 			text: '15',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 
 		},
 		{
 			text: '30',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 		},
 		{
 			text: ' 50',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 		},
 		{
 			text: '70',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 		},
 
 		{
 			text: ' 100',
 			position: 'OUTSIDE',
-			color: '#555',
+			color: '#212121',
 			fontSize: '19px',
 		},
 	],

@@ -19,7 +19,7 @@ const SPFDial = (context) => {
 			value={ SPFManager.findNeedlePosition(context) }
 			customSegmentLabels={ customLabels }
 			ringWidth={ ringWidth }
-			textColor="#002222"
+			textColor="#212121"
 			segments={ 8 }
 			paddingHorizontal={ paddingForLabel }
 			paddingVertical={ paddingForLabel }

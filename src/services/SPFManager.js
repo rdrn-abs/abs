@@ -1,31 +1,23 @@
 /* eslint-disable no-magic-numbers */
 
-const updateGlobalMousePos = (context) => {
-	const { data, setState } = context;
-
-	setState((prevState) => ({
-		...prevState,
-		globalMouse: { x: data.clientX, y: data.clientY },
-
-	}));
-};
-
-// eslint-disable-next-line max-statements
 const updateLocalMousePos = (context) => {
 	const { dataLocal, setState } = context;
 
 	setState((prevState) => ({
 		...prevState,
-		localMouse: { x: dataLocal.clientX - dataLocal.target.offsetLeft,
-			y: dataLocal.clientY - dataLocal.target.offsetTop },
+		localMouse:
+		{
+			x: dataLocal.clientX - dataLocal.target.offsetLeft,
+			y: dataLocal.clientY - dataLocal.target.offsetTop,
+		},
 	}));
 };
 
 const calculateMousePosition = (context) => {
-	const { state: { localMouse, containerProps: { width, height }},
+	const { state: { localMouse, containerProps: { width }},
 		config: { paddingForLabel }} = context;
 
-	const needleOriginX = 0 ;
+	const needleOriginX = 0;
 	const needleOriginY = (width + paddingForLabel + paddingForLabel) / 2;
 	const angleRad = Math.atan2(needleOriginY - localMouse.y,
 		localMouse.x - needleOriginX);
@@ -36,33 +28,25 @@ const calculateMousePosition = (context) => {
 	);
 };
 
-const findNeedlePosition = (context) =>
-	calculateMousePosition(context) * 160 / 180
-;
+const findNeedlePosition = (context) => {
+	const { config: { maxDialValue }} = context;
 
-const limitValue = (
-	val, minVal, maxVal
-) =>
-	(val < minVal
-		? minVal
-		: val > maxVal
-			? maxVal
-			: val);
+	return calculateMousePosition(context) * maxDialValue / 180;
+}
+	;
 
 // eslint-disable-next-line complexity
 const roundValue = (
 	val, minVal, maxVal, limit
 ) =>
-	(val < minVal
+	(val < minVal || val > limit
 		? minVal
-		: val > limit
-			? minVal
-			: val > maxVal && val < limit
-				? maxVal
-				: val);
+		: val > maxVal && val < limit
+			? maxVal
+			: val);
 
 const findSegment = (context) => {
-	const {	config: { spfDictionary }} = context;
+	const { config: { spfDictionary }} = context;
 	const mousePosPercent
 		= calculateMousePosition(context) * (100 / 180);
 
@@ -71,7 +55,7 @@ const findSegment = (context) => {
 
 	return foundSegment;
 };
-const SPFManager = { updateGlobalMousePos, updateLocalMousePos,
+const SPFManager = { updateLocalMousePos,
 	findSegment, findNeedlePosition };
 
 export default SPFManager;

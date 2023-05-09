@@ -1,8 +1,6 @@
 const config = {
-	mobileWidthPercent: 80,
-	normalWidthPercent: 40,
-	breakPoint: 'max-width: 550px',
 	paddingForLabel: 20,
+	maxDialValue: 160,
 	spfDictionary: [
 		{ segment: 12.5, protection: '50%', spf: '2' },
 		{ segment: 25, protection: '75%', spf: '4' },

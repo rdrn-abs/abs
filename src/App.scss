@@ -7,19 +7,14 @@
 	}
 
 	.display-text {
-		width: 80%
+		width: 80%;
+		color: #212121;
 	}
 
-	.pretection {
+	.protection {
 		font-size: 35px;
-	}
-
-	.container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		width: 100%;
-
+		color:#ae9461;
+		font-weight: 700;
 	}
 
 	.dial-container {
@@ -27,62 +22,36 @@
 		height: 35vw;
 		position: absolute;
 		transform: translateX(-50%)translateX(-20px);
+
 	}
 
-	.slider-container {
-		position: absolute;
-		top: 20px;
-		left: 20px;
-	}
-
-	.slider {
-		-webkit-appearance: none;
-		width: 300px;
-		height: 15px;
-		border-radius: 5px;
-		background: #d3d3d3;
-		outline: none;
-		opacity: 0.7;
-		-webkit-transition: 0.2s;
-		transition: opacity 0.2s;
-	}
-
-	.slider::-webkit-slider-thumb {
-		-webkit-appearance: none;
-		appearance: none;
-		width: 25px;
-		height: 25px;
-		border-radius: 50%;
-		background: #3f5c8c;
-		cursor: pointer;
-	}
-
-	.slider::-moz-range-thumb {
-		width: 25px;
-		height: 25px;
-		border-radius: 50%;
-		background: #3f5c8c;
-		cursor: pointer;
-	}
-
-	@media only screen  and (max-width: 1400px) {
+	@media only screen and (max-width: 1400px) {
 		.dial-container {
 			width: 50vw;
 			height: 50vw;
 		}
 	}
-	@media only screen  and (max-width: 750px) {
+
+	@media only screen and (max-width: 750px) {
 		.dial-container {
 			width: 60vw;
 			height: 60vw;
 		}
 	}
 
-	@media only screen  and (max-width: 550px) {
+	@media only screen and (max-width: 550px) {
 		.dial-container {
 			width: 80vw;
 			height: 80vw;
 		}
 	}
+
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 
 }

@@ -35,15 +35,21 @@ const findNeedlePosition = (context) => {
 }
 	;
 
-// eslint-disable-next-line complexity
+const getMaxVal = (
+	val, maxVal, limit
+) => (val > maxVal && val < limit
+	? maxVal
+	: val);
+
 const roundValue = (
 	val, minVal, maxVal, limit
 ) =>
 	(val < minVal || val > limit
 		? minVal
-		: val > maxVal && val < limit
-			? maxVal
-			: val);
+		: getMaxVal(
+			val, maxVal, limit
+		)
+	);
 
 const findSegment = (context) => {
 	const { config: { spfDictionary }} = context;

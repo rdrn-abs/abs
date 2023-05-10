@@ -16,7 +16,8 @@ const handleResize = (context) => {
 
 const DisplayMeter = (context) => {
 	const container = useRef();
-	const handler = () => handleResize({ ...context, data: container });
+	const extendedContext = { ...context, data: container };
+	const handler = () => handleResize(extendedContext);
 
 	useEffect(() => {
 		window.addEventListener('resize',	handler);
@@ -25,9 +26,7 @@ const DisplayMeter = (context) => {
 
 	return (
 		<div>
-			<div 	ref={ container } className="dial-container">
-				<SPFDial { ...context }/>
-			</div>
+			<SPFDial { ...extendedContext }/>
 			<MouseDetector { ...context }/>
 		</div>
 	);

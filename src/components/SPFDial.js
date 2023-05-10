@@ -2,12 +2,13 @@ import React from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
 import SPFManager from '../services/SPFManager';
 
+const lowerRingWidth = 70;
+const higherRingWidth = 100;
 // eslint-disable-next-line max-lines-per-function
 const SPFDial = (context) => {
 	const { config: { customLabels, paddingForLabel, maxDialValue }} = context;
 	const media = window.matchMedia('(max-width: 550px)');
-	// eslint-disable-next-line no-magic-numbers
-	const ringWidth = media.matches ? 70 : 110;
+	const ringWidth = media.matches ? lowerRingWidth : higherRingWidth;
 
 	return (
 		<ReactSpeedometer

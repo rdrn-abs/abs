@@ -22,6 +22,7 @@ const DisplayMeter = (context) => {
 	useEffect(() => {
 		window.addEventListener('resize',	handler);
 		handler();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

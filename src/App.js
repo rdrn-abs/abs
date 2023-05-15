@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import DisplayText from './components/DisplayText';
 import DisplayMeter from './components/DisplayMeter';

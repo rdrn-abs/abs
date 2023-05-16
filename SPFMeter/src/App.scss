@@ -1,0 +1,56 @@
+.App {
+	text-align: center;
+
+	button {
+		font-weight: bold;
+	}
+
+	.display-text {
+		width: 80%;
+		color: #212121;
+	}
+
+	.protection {
+		font-size: 35px;
+		color:#ae9461;
+		font-weight: 700;
+	}
+
+	.dial-container {
+		width: 35vw;
+		height: 35vw;
+		position: absolute;
+		transform: translateX(-50%)translateX(-20px);
+
+	}
+
+	@media only screen and (max-width: 1400px) {
+		.dial-container {
+			width: 50vw;
+			height: 50vw;
+		}
+	}
+
+	@media only screen and (max-width: 750px) {
+		.dial-container {
+			width: 60vw;
+			height: 60vw;
+		}
+	}
+
+	@media only screen and (max-width: 550px) {
+		.dial-container {
+			width: 80vw;
+			height: 80vw;
+		}
+	}
+
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+
+}

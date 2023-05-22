@@ -2,36 +2,47 @@ import React from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
 import SPFManager from '../services/SPFManager';
 
-const lowerRingWidth = 70;
-const higherRingWidth = 100;
-// eslint-disable-next-line max-lines-per-function
+const two = 2;
+const fontValFactor = 17;
+const ringWidthFactor = 6;
+const fontColor = '#212121';
+const valueTextFontWeight = '500';
+const needleTransitionDuration = 300;
+
+const dialStyles = (context) => {
+	const { config:	{ customLabels, paddingForLabel, maxDialValue }} = context;
+
+	return {
+		textColor: fontColor,
+		segments: customLabels.length,
+		paddingHorizontal: paddingForLabel,
+		paddingVertical: paddingForLabel,
+		labelFontSize: '50px',
+		valueTextFontWeight: valueTextFontWeight,
+		currentValueText: 'SPF',
+		maxValue: maxDialValue,
+		needleTransitionDuration: needleTransitionDuration,
+		needleTransition: 'easeLinear',
+		customSegmentLabels: customLabels,
+	};
+};
+
 const SPFDial = (context) => {
-	const { config: { customLabels, paddingForLabel, maxDialValue },
-		data: container } = context;
-	const media = window.matchMedia('(max-width: 550px)');
-	const ringWidth = media.matches ? lowerRingWidth : higherRingWidth;
+	const { config: { paddingForLabel }, state: { containerProps }} = context;
+	const fontVal = `${ Math.round(containerProps.width / fontValFactor) }px`;
 
 	return (
-		<div 	ref={ container } className="dial-container">
-			<ReactSpeedometer
-				forceRender={ true }
-				fluidWidth={ true }
-				maxValue={ maxDialValue }
-				needleTransitionDuration={ 300 }
-				needleTransition="easeLinear"
-				value={ SPFManager.findNeedlePosition(context) }
-				customSegmentLabels={ customLabels }
-				ringWidth={ ringWidth }
-				textColor="#212121"
-				segments={ 8 }
-				paddingHorizontal={ paddingForLabel }
-				paddingVertical={ paddingForLabel }
-				labelFontSize="31px"
-				valueTextFontSize="37px"
-				valueTextFontWeight="500"
-				currentValueText="SPF"
-			/>
-		</div>
+		<ReactSpeedometer
+			{ ...{
+				...dialStyles(context),
+				forceRender: true,
+				width: containerProps.width - (two * paddingForLabel),
+				height: containerProps.height - (two * paddingForLabel),
+				value: SPFManager.findNeedlePosition(context),
+				ringWidth: containerProps.width / ringWidthFactor,
+				valueTextFontSize: fontVal,
+			}		}
+		/>
 	);
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import SPFDial from './SPFDial';
-import MouseDetector from './MouseDetector';
+import SPFManager from '../services/SPFManager';
 
 const handleResize = (context) => {
 	const { setState, data: container } = context;
@@ -10,9 +10,13 @@ const handleResize = (context) => {
 		containerProps: {
 			width: container.current.clientWidth,
 			height: container.current.clientWidth,
+			offsetLeft: container.current.offsetLeft,
+			offsetTop: container.current.offsetTop,
 		},
 	}));
 };
+const updateLocalMousePos = (context) => (event) =>
+	SPFManager.updateLocalMousePos({ ...context, data: event });
 
 const DisplayMeter = (context) => {
 	const container = useRef();
@@ -26,9 +30,14 @@ const DisplayMeter = (context) => {
 	}, []);
 
 	return (
-		<div>
+		<div
+			{ ...{
+				ref: container,
+				className: 'dial-container',
+				onClick: updateLocalMousePos(context),
+			} }
+		>
 			<SPFDial { ...extendedContext }/>
-			<MouseDetector { ...context }/>
 		</div>
 	);
 };

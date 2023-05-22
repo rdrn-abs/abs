@@ -1,3 +1,5 @@
+import { peek } from '@laufire/utils/debug';
+
 const straightAngle = 180;
 const centum = 100;
 const twoSeventy = 270;
@@ -10,8 +12,8 @@ const updateLocalMousePos = (context) => {
 		...prevState,
 		localMouse:
 		{
-			x: data.clientX - offsetLeft,
-			y: data.clientY - offsetTop,
+			x: peek(data.pageX - offsetLeft),
+			y: data.pageY - offsetTop,
 		},
 	}));
 };

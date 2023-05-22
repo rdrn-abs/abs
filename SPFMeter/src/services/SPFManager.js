@@ -12,8 +12,8 @@ const updateLocalMousePos = (context) => {
 		...prevState,
 		localMouse:
 		{
-			x: peek(data.pageX - offsetLeft),
-			y: data.pageY - offsetTop,
+			x: peek(data.screenX - offsetLeft),
+			y: data.screenY - offsetTop,
 		},
 	}));
 };

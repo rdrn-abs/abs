@@ -23,11 +23,19 @@
 		display: inline-block;
 	}
 .spf-heading{
-	font-family: afterglow;
+	font-family:'Afterglow-Regular';
+	font-weight: 500;
 	font-size: 60px!important;
 	text-align: center;
 
 }
+
+@media screen and (max-width: 992px) {
+	.spf-heading {font-size:40px !important;} }
+
+	@media screen and (max-width: 480px) {
+		.spf-heading {font-size:22px !important;}
+  }
 
 	@media only screen and (max-width: 1400px) {
 		.dial-container {

@@ -5,9 +5,13 @@ const DisplayText = (context) => {
 	const { spf, protection } = SPFManager.findSegment(context);
 
 	return <div className="display-text">
-		<h1>Sun Protection Factor Meter!!!!</h1>
-		<h4>Click on the dial to find the SPF protection!</h4>
-		<h2>  SPF {spf} blocks
+		<h1 className="spf-subheading ">
+			Sun Protection Factor Meter</h1>
+		<h2 className=" tt-title recipe-title-desktop  ">
+			Click on the dial to find the SPF protection!</h2>
+		<h2 className=" tt-title recipe-title-mobile  ">
+			Click on the dial to find the SPF protection!</h2>
+		<h2 className="tt-title-subpages noborder">  SPF {spf} blocks
 			<span className="protection">
 				{ ` ${ protection }` }
 			</span> of the UVB rays.

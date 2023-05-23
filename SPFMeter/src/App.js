@@ -13,7 +13,7 @@ const App = (context) => {
 	const extendedContext = { ...context, state, setState };
 
 	return (
-		<div className="App container">
+		<div className="App spf-container">
 			<DisplayText { ...extendedContext }/>
 			<DisplayMeter { ...extendedContext }/>
 		</div>);

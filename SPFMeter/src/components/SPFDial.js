@@ -37,7 +37,7 @@ const SPFDial = (context) => {
 				...dialStyles(context),
 				forceRender: true,
 				width: containerProps.width - (two * paddingForLabel),
-				height: containerProps.height - (two * paddingForLabel),
+				height: containerProps.height,
 				value: SPFManager.findNeedlePosition(context),
 				ringWidth: containerProps.width / ringWidthFactor,
 				valueTextFontSize: fontVal,

@@ -24,7 +24,7 @@ const calculateMousePosition = (context) => {
 	} = context;
 	const half = 0.5;
 	const needleOriginX = width * half;
-	const needleOriginY = height * half;
+	const needleOriginY = width * half;
 	const angleRad = Math.atan2(needleOriginY - localMouse.y,
 		localMouse.x - needleOriginX);
 	const theta = straightAngle - (angleRad * straightAngle / Math.PI);

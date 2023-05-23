@@ -4,12 +4,13 @@ import SPFManager from '../services/SPFManager';
 
 const handleResize = (context) => {
 	const { setState, data: container } = context;
+	const heightFactor = 0.6;
 
 	setState((prevState) => ({
 		...prevState,
 		containerProps: {
 			width: container.current.clientWidth,
-			height: container.current.clientWidth,
+			height: container.current.clientWidth * heightFactor,
 			offsetLeft: container.current.offsetLeft,
 			offsetTop: container.current.offsetTop,
 		},
@@ -39,6 +40,7 @@ const DisplayMeter = (context) => {
 		>
 			<SPFDial { ...extendedContext }/>
 		</div>
+
 	);
 };
 

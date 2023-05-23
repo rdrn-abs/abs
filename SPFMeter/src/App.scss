@@ -19,28 +19,29 @@
 
 	.dial-container {
 		width: 35vw;
-		height: 35vw;
+
 		display: inline-block;
 	}
+
 
 	@media only screen and (max-width: 1400px) {
 		.dial-container {
 			width: 50vw;
-			height: 50vw;
+
 		}
 	}
 
 	@media only screen and (max-width: 750px) {
 		.dial-container {
 			width: 60vw;
-			height: 60vw;
+
 		}
 	}
 
 	@media only screen and (max-width: 550px) {
 		.dial-container {
 			width: 80vw;
-			height: 80vw;
+
 		}
 	}
 

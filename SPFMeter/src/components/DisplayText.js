@@ -7,13 +7,12 @@ const DisplayText = (context) => {
 	return <div className="display-text tt-post-single">
 		<h1 className="spf-heading">
 			Sun Protection Factor Meter</h1>
-		<h2 className="spf-subheading">  SPF {spf} blocks
+		<h2>  SPF {spf} blocks
 			<span className="protection">
 				{ ` ${ protection }` }
 			</span> of the UVB rays.
 		</h2>
-		<h2 className="spf-title">
-			Click on the dial to find the SPF protection!</h2>
+		<h4>Click on the dial to find the SPF protection!</h4>
 
 	</div>;
 }	;

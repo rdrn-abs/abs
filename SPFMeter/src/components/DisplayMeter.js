@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import React, { useEffect, useRef } from 'react';
 import SPFDial from './SPFDial';
 import SPFManager from '../services/SPFManager';
@@ -39,6 +40,7 @@ const DisplayMeter = (context) => {
 		>
 			<SPFDial { ...extendedContext }/>
 		</div>
+
 	);
 };
 

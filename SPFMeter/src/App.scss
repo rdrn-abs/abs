@@ -21,7 +21,14 @@
 		height: 35vw;
 		display: inline-block;
 	}
-
+	.wrapper{
+		width:650px;
+	}
+.sibling{
+	width: 40vw;
+	height: 100vw;
+	background-color: #ae9461;
+}
 	@media only screen and (max-width: 1400px) {
 		.dial-container {
 			width: 50vw;

@@ -12,7 +12,7 @@ const DisplayText = (context) => {
 				{ ` ${ protection }` }
 			</span> of the UVB rays.
 		</h2>
-		<h6>(Click on the dial to find the SPF protection!)</h6>
+		<h6>(Click on the dial to find the SPF protection.)</h6>
 	</div>;
 }	;
 

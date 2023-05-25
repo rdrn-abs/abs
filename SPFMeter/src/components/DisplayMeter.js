@@ -8,6 +8,7 @@ const handleResize = (context) => {
 
 	setState((prevState) => ({
 		...prevState,
+
 		containerProps: {
 			width: container.current.clientWidth,
 			height: container.current.clientWidth * heightFactor,
@@ -16,9 +17,8 @@ const handleResize = (context) => {
 		},
 	}));
 };
-const updateLocalMousePos = (context) => (event) =>
-	SPFManager.updateLocalMousePos({ ...context, data: event });
 
+// eslint-disable-next-line max-lines-per-function
 const DisplayMeter = (context) => {
 	const container = useRef();
 	const extendedContext = { ...context, data: container };
@@ -35,8 +35,11 @@ const DisplayMeter = (context) => {
 			{ ...{
 				ref: container,
 				className: 'dial-container',
-				onClick: updateLocalMousePos(context),
-			} }
+				onClick: (event) => {
+					SPFManager.updateLocalMousePos({ ...context, data: event });
+				},
+			}
+			}
 		>
 			<SPFDial { ...extendedContext }/>
 		</div>

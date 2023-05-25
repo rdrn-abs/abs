@@ -1,20 +1,31 @@
-
 const straightAngle = 180;
 const centum = 100;
 const twoSeventy = 270;
 
+const updateDialValue = (context) => {
+	const { state, setState } = context;
+
+	setState({
+		...state,
+		dialValue: SPFManager.findNeedlePosition(context),
+	});
+};
+
 const updateLocalMousePos = (context) => {
-	const { data, setState,
+	const { data, state,
 		state: { containerProps: { offsetLeft, offsetTop }}} = context;
 
-	setState((prevState) => ({
-		...prevState,
+	const newState = {
+		...state,
 		localMouse:
-		{
-			x: data.pageX - offsetLeft,
-			y: data.pageY - offsetTop,
-		},
-	}));
+			{
+				x: data.pageX - offsetLeft,
+				y: data.pageY - offsetTop,
+			},
+
+	};
+
+	updateDialValue({ ...context, state: newState });
 };
 
 const calculateMousePosition = (context) => {
@@ -67,7 +78,7 @@ const findSegment = (context) => {
 
 	return foundSegment;
 };
-const SPFManager = { updateLocalMousePos,
+const SPFManager = { updateLocalMousePos, updateDialValue,
 	findSegment, findNeedlePosition };
 
 export default SPFManager;

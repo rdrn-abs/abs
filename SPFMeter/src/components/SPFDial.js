@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
-import SPFManager from '../services/SPFManager';
 
 const two = 2;
 const fontValFactor = 17;
@@ -27,8 +26,12 @@ const dialStyles = (context) => {
 	};
 };
 
+// eslint-disable-next-line max-lines-per-function
 const SPFDial = (context) => {
-	const { config: { paddingForLabel }, state: { containerProps }} = context;
+	const {
+		config: { paddingForLabel },
+		state: { dialValue, containerProps },
+	} = context;
 	const fontVal = `${ Math.round(containerProps.width / fontValFactor) }px`;
 
 	return (
@@ -38,7 +41,7 @@ const SPFDial = (context) => {
 				forceRender: true,
 				width: containerProps.width - (two * paddingForLabel),
 				height: containerProps.height,
-				value: SPFManager.findNeedlePosition(context),
+				value: dialValue,
 				ringWidth: containerProps.width / ringWidthFactor,
 				valueTextFontSize: fontVal,
 			}		}

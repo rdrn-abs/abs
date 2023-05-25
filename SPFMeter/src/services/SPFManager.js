@@ -11,18 +11,18 @@ const updateDialValue = (context) => {
 	});
 };
 
-const updateLocalMousePos = (context) => {
-	const { data, state,
+const updateLocalMousePos = (context) => (event) => {
+	const { state,
 		state: { containerProps: { offsetLeft, offsetTop }}} = context;
 
 	const newState = {
 		...state,
 		localMouse:
 			{
-				x: data.pageX - offsetLeft,
-				y: data.pageY - offsetTop,
+				x: event.pageX - offsetLeft,
+				y: event.pageY - offsetTop,
 			},
-
+		forceRender: false,
 	};
 
 	updateDialValue({ ...context, state: newState });
@@ -31,7 +31,7 @@ const updateLocalMousePos = (context) => {
 const calculateMousePosition = (context) => {
 	const {
 		state: { localMouse,
-			containerProps: { width, height }},
+			containerProps: { width }},
 	} = context;
 	const half = 0.5;
 	const needleOriginX = width * half;
@@ -49,8 +49,7 @@ const findNeedlePosition = (context) => {
 	const { config: { maxDialValue }} = context;
 
 	return calculateMousePosition(context) * maxDialValue / straightAngle;
-}
-	;
+};
 
 const getMaxVal = (
 	val, maxVal, limit

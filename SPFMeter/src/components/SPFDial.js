@@ -8,7 +8,7 @@ const fontColor = '#212121';
 const valueTextFontWeight = '500';
 const needleTransitionDuration = 300;
 
-const dialStyles = (context) => {
+const getDialStyles = (context) => {
 	const { config:	{ customLabels, paddingForLabel, maxDialValue }} = context;
 
 	return {
@@ -26,24 +26,23 @@ const dialStyles = (context) => {
 	};
 };
 
-// eslint-disable-next-line max-lines-per-function
 const SPFDial = (context) => {
 	const {
 		config: { paddingForLabel },
-		state: { dialValue, containerProps },
+		state: { dialValue, containerProps, forceRender },
 	} = context;
-	const fontVal = `${ Math.round(containerProps.width / fontValFactor) }px`;
+	const fontSize = `${ Math.round(containerProps.width / fontValFactor) }px`;
 
 	return (
 		<ReactSpeedometer
 			{ ...{
-				...dialStyles(context),
-				forceRender: true,
+				...getDialStyles(context),
+				forceRender: forceRender,
 				width: containerProps.width - (two * paddingForLabel),
 				height: containerProps.height,
 				value: dialValue,
 				ringWidth: containerProps.width / ringWidthFactor,
-				valueTextFontSize: fontVal,
+				valueTextFontSize: fontSize,
 			}		}
 		/>
 	);

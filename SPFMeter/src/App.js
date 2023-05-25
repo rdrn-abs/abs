@@ -11,6 +11,7 @@ const App = (context) => {
 		inputText: 0,
 		dialValue: maxDialValue * half,
 		containerProps: { width: 300, height: 300 },
+		forceRender: false,
 	});
 
 	const extendedContext = { ...context, state, setState };

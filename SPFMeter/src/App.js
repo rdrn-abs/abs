@@ -5,11 +5,10 @@ import DisplayMeter from './components/DisplayMeter';
 
 const App = (context) => {
 	const { config: { maxDialValue }} = context;
-	const half = 0.5;
+	const third = 0.33;
 	const [state, setState] = useState({
-		localMouse: { x: 100, y: 160 },
-		inputText: 0,
-		dialValue: maxDialValue * half,
+		localMouse: { x: 50, y: 0 },
+		dialValue: maxDialValue * third,
 		containerProps: { width: 300, height: 300 },
 		forceRender: false,
 	});

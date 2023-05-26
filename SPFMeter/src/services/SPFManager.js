@@ -1,3 +1,4 @@
+import { peek } from '@laufire/utils/debug';
 const straightAngle = 180;
 const centum = 100;
 const twoSeventy = 270;
@@ -70,7 +71,7 @@ const roundValue = (
 const findSegment = (context) => {
 	const { config: { spfDictionary }} = context;
 	const mousePosPercent
-		= calculateMousePosition(context) * (centum / straightAngle);
+		= peek(calculateMousePosition(context) * (centum / straightAngle));
 
 	const foundSegment = spfDictionary.find((obj) =>
 		mousePosPercent <= obj.segment);

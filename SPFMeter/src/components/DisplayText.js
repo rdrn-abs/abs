@@ -8,7 +8,7 @@ const DisplayText = (context) => {
 	return <div className="display-text tt-post-single">
 		<h1 className="spf-heading">
 			Sunscreen SPF Meter</h1>
-		<h6 className="spf-subheading">(Tap on the dial to find the
+		<h6 className="spf-subheading">(Tap dial to find the
 			<br className="mobile-break"/>
 			{text}</h6>
 		<h2>  SPF {spf} blocks

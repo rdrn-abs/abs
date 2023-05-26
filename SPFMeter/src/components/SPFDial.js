@@ -7,22 +7,32 @@ const ringWidthFactor = 6;
 const fontColor = '#212121';
 const valueTextFontWeight = '500';
 const needleTransitionDuration = 300;
+const dialLimit = 400;
+const needleHeightRatioDefault = 0.9;
+const needleHeightRatioSmaller = 0.825;
 
+// eslint-disable-next-line max-lines-per-function
 const getDialStyles = (context) => {
-	const { config:	{ customLabels, paddingForLabel, maxDialValue }} = context;
+	const {
+		config:	{ customLabels, paddingForLabel, maxDialValue },
+		state: { containerProps },
+	} = context;
+	const needleHeightRatio = containerProps.width < dialLimit
+		? needleHeightRatioSmaller
+		: needleHeightRatioDefault;
 
 	return {
 		textColor: fontColor,
 		segments: customLabels.length,
 		paddingHorizontal: paddingForLabel,
 		paddingVertical: paddingForLabel,
-		labelFontSize: '50px',
 		valueTextFontWeight: valueTextFontWeight,
 		currentValueText: 'SPF',
 		maxValue: maxDialValue,
 		needleTransitionDuration: needleTransitionDuration,
 		needleTransition: 'easeLinear',
 		customSegmentLabels: customLabels,
+		needleHeightRatio: needleHeightRatio,
 	};
 };
 
@@ -43,6 +53,7 @@ const SPFDial = (context) => {
 				value: dialValue,
 				ringWidth: containerProps.width / ringWidthFactor,
 				valueTextFontSize: fontSize,
+
 			}		}
 		/>
 	);

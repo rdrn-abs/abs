@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "dev": "webpack-dev-server --config ./webpack.dev.js"
+    "dev": "webpack-dev-server --config ./webpack.dev.js",
+    "copy": "cp ./components/package.json ./dist/components",
+    "buildComp":"webpack --config ./webpack.comp.js && pnpm run copy"
   },
   "keywords": [],
   "author": "",

@@ -60,6 +60,13 @@ app.get("/api/products/create", async (_req, res) => {
   res.status(status).send({ success: status === 200, error });
 });
 
+// Custom Api
+
+app.get("/custom/api/scrambleWord", async (req, res) => {
+
+  res.json('HELLO');
+});
+
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 

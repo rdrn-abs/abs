@@ -2,9 +2,6 @@ import { shuffle } from "@laufire/utils/collection.js";
 import { rndValue } from "@laufire/utils/random.js";
 import crypto from "crypto";
 import config from "./config.js";
-import {config as c} from 'dotenv'
-
-c()
 
 
 const hashWord = (word) => {
@@ -57,6 +54,14 @@ const getLastWon = async (context) => {
   return lastWon;
 };
 
+const timeDelta = ({ lastWon }) => {
+  const previousWonDate = Date.parse(lastWon);
+  const currentDate = Date.parse(new Date());
+  const timeDelta = currentDate - previousWonDate;
+
+  return timeDelta;
+};
+
 const scramble = (word) => {
   const strArr = word.split("");
 
@@ -74,8 +79,19 @@ const createScrambledWord = () => {
 
 const GET = async (context) => {
   const lastWon = await getLastWon(context);
+  const timeDifference = timeDelta({ lastWon });
+  const isValid = timeDifference > config.millisecondsPerDay;
+  const date = new Date(timeDifference);
+  const hours = date.getUTCHours();
 
-  return ({ data: createScrambledWord() });
+  return isValid
+    ? { data: createScrambledWord() }
+    : {
+        error: {
+          type: "Come back the next day.",
+          lastPlayed: hours,
+        },
+      };
 };
 
 const scrambler = { GET };

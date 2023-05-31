@@ -1,5 +1,5 @@
 import { shuffle } from "@laufire/utils/collection.js";
-import { rndValue } from "@laufire/utils/random.js";
+import { rndString, rndValue } from "@laufire/utils/random.js";
 import crypto from "crypto";
 import config from "./config.js";
 
@@ -44,6 +44,125 @@ const getCustomerMetaField = async ({ customerId }) => {
 
   return metafield;
 };
+
+const updateCustomerMetaField = async ({ customerId }) => {
+  const { id } = await getCustomerMetaField({ customerId });
+
+  const query = `mutation updateCustomerMetafields($input: CustomerInput!) {
+    customerUpdate(input: $input) {
+      customer {
+        id
+        metafields(first: 3) {
+          edges {
+            node {
+              id
+              namespace
+              key
+              value
+            }
+          }
+        }
+      }
+      userErrors {
+        message
+        field
+      }
+    }
+  }`;
+  const variables = {
+    input: {
+      metafields: [
+        {
+          id: id,
+          value: `{\"scrambler\":{\"discount\":{\"lastWon\":\"${new Date()}\"}}}`,
+        },
+      ],
+      id: `gid://shopify/Customer/${customerId}`,
+    },
+  };
+
+  const response = await graphQLFetch({ query, variables });
+  const { data } = await response.json();
+
+  return data;
+};
+
+const createDiscount = async ({ customerId }) => {
+  const mutation = `mutation discountCodeBasicCreate($basicCodeDiscount: DiscountCodeBasicInput!) {
+  discountCodeBasicCreate(basicCodeDiscount: $basicCodeDiscount) {
+    codeDiscountNode {
+      codeDiscount {
+        ... on DiscountCodeBasic {
+          title
+          codes(first: 10) {
+            nodes {
+              code
+            }
+          }
+          startsAt
+          endsAt
+          customerSelection {
+            ... on DiscountCustomerAll {
+              allCustomers
+            }
+          }
+          customerGets {
+            value {
+              ... on DiscountPercentage {
+                percentage
+              }
+            }
+            items {
+              ... on AllDiscountItems {
+                allItems
+              }
+            }
+          }
+          appliesOncePerCustomer
+        }
+      }
+    }
+    userErrors {
+      field
+      code
+      message
+    }
+  }
+}`;
+  const variables = {
+    basicCodeDiscount: {
+      title: "10% off all items during the summer of 2023",
+      code: `SUMMER${rndString(config.codeLength)}`,
+      startsAt: new Date(),
+      endsAt: new Date(new Date().getTime() + config.millisecondsPerDay),
+      customerSelection: {
+        customers: {
+          add: [`gid://shopify/Customer/${customerId}`],
+        },
+      },
+      customerGets: {
+        value: {
+          percentage: 0.1,
+        },
+        items: {
+          all: true,
+        },
+      },
+      appliesOncePerCustomer: true,
+    },
+  };
+
+  const response = await graphQLFetch({
+    query: mutation,
+    variables: variables,
+  });
+  const { data } = await response.json();
+
+  await updateCustomerMetaField({ customerId });
+
+  return data;
+};
+
 
 const getLastWon = async (context) => {
   const { value } = await getCustomerMetaField(context);
@@ -94,6 +213,15 @@ const GET = async (context) => {
       };
 };
 
-const scrambler = { GET };
+const POST = async ({ digest, word, customerId }) => {
+  const userInputDigest = hashWord(word);
+  const isMatch = digest === userInputDigest;
+
+  return isMatch
+    ? { data: await createDiscount({ customerId }) }
+    : { error: { type: "Not match" } };
+};
+
+const scrambler = { GET , POST };
 
 export default scrambler;

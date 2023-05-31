@@ -69,6 +69,12 @@ app.get("/custom/api/scrambleWord", async (req, res) => {
   res.json(await scrambler.GET({ customerId }));
 });
 
+app.post("/custom/api/scrambleWord", async (req, res) => {
+  const customerId = req.query.logged_in_customer_id;
+
+  res.json(await scrambler.POST({ ...req.body, customerId }));
+});
+
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 

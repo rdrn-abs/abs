@@ -7,6 +7,7 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+import scrambler from "./scrambler.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -63,8 +64,9 @@ app.get("/api/products/create", async (_req, res) => {
 // Custom Api
 
 app.get("/custom/api/scrambleWord", async (req, res) => {
+  const customerId = req.query.logged_in_customer_id;
 
-  res.json('HELLO');
+  res.json(await scrambler.GET({ customerId }));
 });
 
 app.use(shopify.cspHeaders());

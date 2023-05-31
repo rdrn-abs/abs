@@ -10,6 +10,18 @@ const hashWord = (word) => {
   return hash.digest("hex");
 };
 
+const graphQLFetch = async (data) => {
+  const response = await fetch(config.shopifyEndpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Shopify-Access-Token": config.accessToken,
+    },
+    body: JSON.stringify(data),
+  });
+  return response;
+};
+
 const scramble = (word) => {
   const strArr = word.split("");
 

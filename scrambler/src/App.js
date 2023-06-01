@@ -1,32 +1,23 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { useState } from 'react';
 import './App.scss';
-import Game from './components/Game';
-import ScramblerManager from './services/scramblerManager';
-import Success from './components/Success';
+import RedirectToLogin from 'components/RedirectToLogin';
+import Start from './components/Start';
+
+const isUserLoggedIn = window.__st?.cid !== undefined;
 
 const App = (context) => {
 	const [state, setState] = useState({
 		input: '',
 		wordObject: {},
 		discountShown: false,
-
 	});
 	const extendedContext = { ...context, state, setState };
+	const { config: { login }} = context;
 
-	useEffect(() => {
-		setState({
-			...state,
-			wordObject: ScramblerManager.createWord(extendedContext),
-		});
-
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	return <div className="App">
-		{!state.discountShown && <Game { ...extendedContext }/>}
-		<Success { ...extendedContext }/>
-
-	</div>;
+	return !isUserLoggedIn
+		? <Start { ...extendedContext }/>
+		: <RedirectToLogin { ...{ link: login } }/>;
 };
 
 export default App;

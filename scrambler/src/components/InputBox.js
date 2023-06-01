@@ -1,22 +1,18 @@
 import React from 'react';
 import ScramblerManager from '../services/scramblerManager';
-import { peek } from '@laufire/utils/debug';
 
 const InputHandler = (contextData) => {
-	const { state, setState, data } = contextData;
+	const { setState, data } = contextData;
 
-	peek(ScramblerManager.updateLetters(contextData));
-
-	return setState({
-		...state,
+	return setState((prev) => ({
+		...prev,
 		wordObject: {
-			...state.wordObject,
+			...prev.wordObject,
 			scrambledLetters: ScramblerManager.updateLetters(contextData),
 		},
 		input: data,
-	});
-}
-	;
+	}));
+};
 
 const InputBox = (context) => {
 	const { state } = context;
@@ -28,11 +24,8 @@ const InputBox = (context) => {
 			placeholder="Click here to start"
 			pattern="A-Z"
 			onChange={ (event) =>
-				InputHandler({ ...context,
-					data: event.target.value }) }
-
+				InputHandler({ ...context, data: event.target.value }) }
 		/>
-
 	);
 };
 

@@ -1,16 +1,11 @@
-import React from 'react';
 import Game from './Game';
-import ScramblerManager from '../services/scramblerManager';
+import VisitLater from './VisitLater';
 
-const ScrambleGame = (context) => {
-	const { setState, state } = context;
-
-	setState({
-		...state,
-		wordObject: ScramblerManager.scrambleLetters(context),
-	});
-
-	return <Game { ...context }/>;
+const comp = {
+	data: Game,
+	error: VisitLater,
 };
+
+const ScrambleGame = (context) => comp[context.data.key](context);
 
 export default ScrambleGame;

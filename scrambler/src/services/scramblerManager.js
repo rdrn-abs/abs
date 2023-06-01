@@ -1,24 +1,19 @@
 import { map, shuffle } from '@laufire/utils/collection';
-import { rndValue } from '@laufire/utils/random';
 
 const scramble = (word) => {
 	const strArr = word.split('');
 
 	return shuffle(strArr).join('');
 };
-const createWord = (context) => {
-	const { config: { wordList }} = context;
-	const word = rndValue(wordList);
+const getScrambleLetters = (context) => {
+	const { data } = context;
 
-	const letterObject = {};
+	const scrambledLetters = data?.word.split('').map((letter) =>
+		({ letter: letter, entered: false }));
 
-	const letters = word.split('').map((letter) =>
-		({ ...letterObject, letter: letter, entered: false }));
-
-	const scrambledLetters = shuffle(letters);
-
-	return { word, scrambledLetters };
+	return { scrambledLetters };
 };
+
 const checkWord = (word, input) => word.toUpperCase() === input.toUpperCase();
 
 const clearInput = (context) => {
@@ -68,7 +63,7 @@ const updateLetters = (context) => {
 };
 
 const ScramblerManager = {
-	scramble, checkWord, createWord, clearInput, showDiscount,
+	scramble, checkWord, getScrambleLetters, clearInput, showDiscount,
 	updateLetters,
 };
 

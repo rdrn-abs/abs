@@ -11,6 +11,7 @@ const App = (context) => {
 		input: '',
 		wordObject: {},
 		discountShown: false,
+		scrambler: {},
 	});
 	const extendedContext = { ...context, state, setState };
 	const { config: { login }} = context;

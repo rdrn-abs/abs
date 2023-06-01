@@ -131,7 +131,7 @@ const createDiscount = async ({ customerId }) => {
 }`;
   const variables = {
     basicCodeDiscount: {
-      title: "10% off all items during the summer of 2023",
+      title: "3% off all items during the summer of 2023",
       code: `SUMMER${rndString(config.codeLength)}`,
       startsAt: new Date(),
       endsAt: new Date(new Date().getTime() + config.millisecondsPerDay),
@@ -142,7 +142,7 @@ const createDiscount = async ({ customerId }) => {
       },
       customerGets: {
         value: {
-          percentage: 0.1,
+          percentage: 0.03,
         },
         items: {
           all: true,
@@ -201,14 +201,14 @@ const GET = async (context) => {
   const timeDifference = timeDelta({ lastWon });
   const isValid = timeDifference > config.millisecondsPerDay;
   const date = new Date(timeDifference);
-  const hours = date.getUTCHours();
+  const nextAvailableAt = config.hoursPerDay - date.getUTCHours();
 
   return isValid
     ? { data: createScrambledWord() }
     : {
         error: {
           type: "Come back the next day.",
-          lastPlayed: hours,
+          nextAvailableAt
         },
       };
 };

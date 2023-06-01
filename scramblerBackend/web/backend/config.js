@@ -8,6 +8,7 @@ const config = {
   accessToken:process.env.SHOPIFY_ACCESS_TOKEN,
   millisecondsPerDay: 86400000,
   codeLength: 5,
+  hoursPerDay:24
 };
 
 export default config

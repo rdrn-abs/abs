@@ -64,13 +64,13 @@ app.get("/api/products/create", async (_req, res) => {
 // Custom Api
 
 app.get("/custom/api/scrambleWord", async (req, res) => {
-  const customerId = req.query.logged_in_customer_id;
+  const customerId = Number(req.query.logged_in_customer_id);
 
   res.json(await scrambler.GET({ customerId }));
 });
 
 app.post("/custom/api/scrambleWord", async (req, res) => {
-  const customerId = req.query.logged_in_customer_id;
+  const customerId = Number(req.query.logged_in_customer_id);
 
   res.json(await scrambler.POST({ ...req.body, customerId }));
 });

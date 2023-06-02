@@ -19,6 +19,7 @@ node_modules
 !.editorconfig
 !.eslint*
 dist
+componentDist
 !.vscode
 .vscode/*
 !.vscode/launch.json

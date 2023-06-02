@@ -8,7 +8,7 @@ module.exports = {
       "/home/rkr/dev/React/CHOSEN/abs/components/RedirectToLogin.js",
   },
   output: {
-    path: resolve(__dirname, "dist"),
+    path: resolve(__dirname, "componentDist"),
     publicPath: "/",
     libraryTarget: "umd",
   },

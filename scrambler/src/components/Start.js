@@ -5,7 +5,7 @@ import ScramblerManager from '../services/scramblerManager';
 import axios from 'axios';
 import Success from './Success';
 
-const request = async ({ setState }) => {
+const getScrambleWord = async ({ setState }) => {
 	// eslint-disable-next-line max-len
 	const { data } = await axios.get(`${ process.env.REACT_APP_URL }/custom/api/scrambleWord?logged_in_customer_id=${ process.env.REACT_APP_CUSTOMER_ID }`);
 
@@ -17,12 +17,12 @@ const request = async ({ setState }) => {
 };
 
 const Start = (context) => {
-	const { state: { scrambler, discount: { discountShown }}} = context;
+	const { state: { scrambler, discount: { hasDiscount }}} = context;
 
-	useEffect(() => request(context), []);
+	useEffect(() => getScrambleWord(context), []);
 
 	return <div className="App">
-		{!discountShown
+		{!hasDiscount
 			?	values(map(scrambler, (value, key) =>
 				<ScrambleGame
 					key={ key }

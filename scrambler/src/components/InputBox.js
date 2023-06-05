@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ScramblerManager from '../services/scramblerManager';
 import axios from 'axios';
 
-const setDiscountShown = async (context) => {
+const setDiscount = async (context) => {
 	const { state: { scrambler, input }, setState } = context;
 	// eslint-disable-next-line max-len
 	const { data } = await axios.post(`${ process.env.REACT_APP_URL }/custom/api/scrambleWord?logged_in_customer_id=${ process.env.REACT_APP_CUSTOMER_ID }`,
@@ -13,20 +13,21 @@ const setDiscountShown = async (context) => {
 
 	setState((prev) => ({
 		...prev,
-		discount: { discountShown: !prev.discountShown, data: data },
+		discount: { hasDiscount: !prev.hasDiscount, data: data },
 	}));
 };
 
-const InputHandler = (contextData) => {
-	const { setState, data } = contextData;
+const InputHandler = (context) => ({ target: { value }}) => {
+	const { setState } = context;
 
 	return setState((prev) => ({
 		...prev,
 		wordObject: {
 			...prev.wordObject,
-			scrambledLetters: ScramblerManager.updateLetters(contextData),
+			scrambledLetters: ScramblerManager
+				.updateLetters({ ...context, data: value }),
 		},
-		input: data,
+		input: value,
 	}));
 };
 
@@ -37,7 +38,7 @@ const InputBox = (context) => {
 		const isAllLetterMatch = scrambledLetters
 			.every((scrambledLetter) => scrambledLetter.entered);
 
-		isAllLetterMatch && setDiscountShown(context);
+		isAllLetterMatch && setDiscount(context);
 	}, [scrambledLetters]);
 
 	return (
@@ -46,8 +47,7 @@ const InputBox = (context) => {
 			value={ input }
 			placeholder="Click here to start"
 			pattern="A-Z"
-			onChange={ (event) =>
-				InputHandler({ ...context, data: event.target.value }) }
+			onChange={ InputHandler(context) }
 		/>
 	);
 };

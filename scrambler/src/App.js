@@ -9,9 +9,8 @@ const App = (context) => {
 	const [state, setState] = useState({
 		input: '',
 		wordObject: {},
-
 		scrambler: {},
-		discount: { discountShown: false },
+		discount: { hasDiscount: false },
 	});
 	const extendedContext = { ...context, state, setState };
 

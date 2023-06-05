@@ -47,28 +47,53 @@
 	}
 
 	.highlighted {
-		background-color: yellow;
+		background-color: #ae9461;
 	}
 
-	.retry-btn {
-		width: max-content;
-		background-color: black;
-		color: #fff;
-		border: none;
-		border-radius: 6px;
-		font-size: 20px;
-		line-height: 48px;
-		padding: 0 1px;
-		width: 28vw;
-		cursor: pointer;
-		transition: all 0.2s linear;
+	.retry-btn:hover {
+		background-color: #ae9461;
 	}
-	.discount-code,
+
 	.retry-title,
-	.visitLater-hour {
-		font-size: 3rem;
+	.visitLater-title,
+	.discount-title {
+		font-size: 2rem;
 		text-transform: uppercase;
 		padding: 1.5rem;
+		font-family: "Geomanist-Bold", sans-serif;
+		color: #191919;
+	}
+	.discount-code {
+		font-family: Geomanist-Bold;
+		font-size: 40px;
+		color: #9a9a9a;
+		padding: 1.5rem;
+	}
+	.redirect-btn-home,
+	.retry-btn {
+		font-family: "Geomanist-Regular", sans-serif;
+		border: none;
+		font-size: 14px;
+		line-height: 1;
+		font-weight: 400;
+		letter-spacing: 0.03em;
+		position: relative;
+		outline: none;
+		padding: 6px 31px 4px;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 6px;
+		height: 40px;
+		cursor: pointer;
+		color: rgb(255, 255, 255);
+		background: rgb(40, 121, 254);
+		transition: all 0.3s linear;
+	}
+	.redirect-btn-home:hover {
+		background-color: rgb(34, 103, 216);
 	}
 	@media only screen and (max-width: 400px) {
 		.game-card,
@@ -88,7 +113,9 @@
 			letter-spacing: 1rem;
 			width: 100%;
 		}
-		.test-word {
+		.test-word,
+		.discount-title,
+		.discount-code {
 			font-size: 1.5rem;
 			padding: 5px;
 			margin: 3px;

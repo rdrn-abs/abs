@@ -4,27 +4,24 @@
 	button {
 		font-weight: bold;
 	}
-	.game-card{
-
-		background-color:rgb(234, 237, 237);
-		margin:5rem auto;
+	.game-card,
+	.retry-card,
+	.visitLater {
+		background-color: rgb(234, 237, 237);
+		margin: 5rem auto;
 		padding: 5rem;
 	}
-	.display-word{
-
-		margin-top: .7rem;
-
-
+	.display-word {
+		margin-top: 0.7rem;
 	}
-	.text-input{
+	.text-input {
 		text-align: center;
 		text-transform: uppercase;
 		font-size: 3rem;
 
-
-		border:none;
+		border: none;
 		border-bottom: 2px solid rgb(206, 203, 203);
-		padding:.5rem;
+		padding: 0.5rem;
 
 		background: transparent;
 		transition: border-color 0.2s;
@@ -33,71 +30,68 @@
 	}
 	.text-input::placeholder {
 		font-size: 1.9rem;
-		letter-spacing: .5rem;
-		color:rgb(210, 215, 215)
-
+		letter-spacing: 0.5rem;
+		color: rgb(210, 215, 215);
 	}
-	.text-input:focus{
-		border:none;
+	.text-input:focus {
+		border: none;
 		border-bottom: 2px solid rgb(166, 103, 103);
 	}
-	.test-word{
+	.test-word {
 		text-transform: uppercase;
 		text-align: center;
 		font-size: 3rem;
-		letter-spacing: .3rem;
-		padding:5px;
-			margin:3px;
-
-
+		letter-spacing: 0.3rem;
+		padding: 5px;
+		margin: 3px;
 	}
 
-	.highlighted{
+	.highlighted {
 		background-color: yellow;
-
 	}
 
-	.discount-btn{
-		padding: 2rem;
-		font-size:2rem;
-		width:max-content;
-		display: block;
+	.retry-btn {
+		width: max-content;
+		background-color: black;
+		color: #fff;
+		border: none;
+		border-radius: 6px;
+		font-size: 20px;
+		line-height: 48px;
+		padding: 0 1px;
+		width: 28vw;
+		cursor: pointer;
+		transition: all 0.2s linear;
 	}
-	.discount-code{
+	.discount-code,
+	.retry-title,
+	.visitLater-hour {
 		font-size: 3rem;
 		text-transform: uppercase;
 		padding: 1.5rem;
 	}
 	@media only screen and (max-width: 400px) {
-		.game-card{
-			width:100%;
+		.game-card,
+		.retry-card,
+		.visitLater {
+			width: 100%;
 			padding: 1rem;
-			margin:  0;
+			margin: 0;
 		}
 		.text-input::placeholder {
 			font-size: 1.2rem;
-			letter-spacing: .5rem;
-			color:rgb(210, 215, 215)
-
+			letter-spacing: 0.5rem;
+			color: rgb(210, 215, 215);
 		}
-		.text-input{
-
+		.text-input {
 			font-size: 1.5rem;
 			letter-spacing: 1rem;
-
-			width:100%;
+			width: 100%;
 		}
-		.test-word{
+		.test-word {
 			font-size: 1.5rem;
-
-			padding:5px;
-			margin:3px;
-		}
-		.discount-btn{
-			padding: 1rem;
-			font-size:1.5rem;
-
+			padding: 5px;
+			margin: 3px;
 		}
 	}
-
 }

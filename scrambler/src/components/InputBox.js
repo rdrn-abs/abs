@@ -13,7 +13,7 @@ const setDiscountShown = async (context) => {
 
 	setState((prev) => ({
 		...prev,
-		discountShown: data,
+		discount: { discountShown: !prev.discountShown, data: data },
 	}));
 };
 

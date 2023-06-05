@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import ScrambleGame from './ScrambleGame';
 import { map, values } from '@laufire/utils/collection';
 import ScramblerManager from '../services/scramblerManager';
+import axios from 'axios';
 
 const request = async ({ setState }) => {
-	const response = await fetch(`${ process.env.REACT_APP_URL }/custom/api/scrambleWord?logged_in_customer_id= ${ process.env.REACT_APP_CUSTOMER_ID }`);
-	const data = await response.json();
+	// eslint-disable-next-line max-len
+	const { data } = await axios.get(`${ process.env.REACT_APP_URL }/custom/api/scrambleWord?logged_in_customer_id=${ process.env.REACT_APP_CUSTOMER_ID }`);
 
 	setState((state) => ({
 		...state,
@@ -17,7 +18,6 @@ const request = async ({ setState }) => {
 const Start = (context) => {
 	const { state: { scrambler }} = context;
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => request(context), []);
 
 	return (

@@ -1,17 +1,15 @@
-import React from 'react';
-import ScramblerManager from '../services/scramblerManager';
-import ClickDiscount from './ClickDiscount';
+import Discount from './Discount';
+import Retry from './Retry';
+
+const comp = {
+	data: Discount,
+	error: Retry,
+};
 
 const Success = (context) => {
-	const { state } = context;
-	const { wordObject: { word }, input } = state;
+	const { state: { discount: { data }}} = context;
 
-	return <div>
-		{word
-			? ScramblerManager.checkWord(word, input)
-			&& <ClickDiscount { ...context }/>
-			: <div/>}
-	</div>;
+	return comp[Object.keys(data)[0]](context);
 };
 
 export default Success;

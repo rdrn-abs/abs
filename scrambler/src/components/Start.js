@@ -3,6 +3,7 @@ import ScrambleGame from './ScrambleGame';
 import { map, values } from '@laufire/utils/collection';
 import ScramblerManager from '../services/scramblerManager';
 import axios from 'axios';
+import Success from './Success';
 
 const request = async ({ setState }) => {
 	// eslint-disable-next-line max-len
@@ -16,19 +17,19 @@ const request = async ({ setState }) => {
 };
 
 const Start = (context) => {
-	const { state: { scrambler }} = context;
+	const { state: { scrambler, discount: { discountShown }}} = context;
 
 	useEffect(() => request(context), []);
 
-	return (
-		<div className="App">
-			{values(map(scrambler, (value, key) =>
+	return <div className="App">
+		{!discountShown
+			?	values(map(scrambler, (value, key) =>
 				<ScrambleGame
 					key={ key }
 					{ ...{ ...context, data: { key, value }} }
-				/>))}
-		</div>
-	);
+				/>))
+			: <Success { ...context }/>}
+	</div>;
 };
 
 export default Start;

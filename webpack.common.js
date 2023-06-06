@@ -1,5 +1,6 @@
 const { parse, resolve } = require('path');
 const glob = require('glob');
+const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const entries = glob.sync("**/src/index.js");
@@ -52,5 +53,5 @@ module.exports = {
       },
 		],
 	},
-	plugins: [new CleanWebpackPlugin()],
+	plugins: [new Dotenv({path:'/home/rkr/clients/chosen/abs/scrambler/.env'}), new CleanWebpackPlugin()],
 }

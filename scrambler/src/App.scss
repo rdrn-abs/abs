@@ -6,7 +6,8 @@
 	}
 	.game-card,
 	.retry-card,
-	.visitLater {
+	.visitLater,
+	.loading-card {
 		background-color: rgb(234, 237, 237);
 		margin: 5rem auto;
 		padding: 5rem;
@@ -46,17 +47,15 @@
 		margin: 3px;
 	}
 
-	.highlighted {
-		background-color: #ae9461;
-	}
-
+	.highlighted,
 	.retry-btn:hover {
 		background-color: #ae9461;
 	}
 
 	.retry-title,
 	.visitLater-title,
-	.discount-title {
+	.discount-title,
+	.loading-title {
 		font-size: 2rem;
 		text-transform: uppercase;
 		padding: 1.5rem;
@@ -74,16 +73,11 @@
 		font-family: "Geomanist-Regular", sans-serif;
 		border: none;
 		font-size: 14px;
-		line-height: 1;
-		font-weight: 400;
 		letter-spacing: 0.03em;
 		position: relative;
-		outline: none;
 		padding: 6px 31px 4px;
 		display: inline-flex;
-		justify-content: center;
 		align-items: center;
-		text-align: center;
 		text-decoration: none;
 		border-radius: 6px;
 		height: 40px;
@@ -95,6 +89,34 @@
 	.redirect-btn-home:hover {
 		background-color: rgb(34, 103, 216);
 	}
+
+	.loading-card {
+		display: flex;
+		justify-content: center;
+		.loading-title {
+			font-family: Geomanist-Bold;
+			position: relative;
+			font-size: 3rem;
+			color: black;
+			&::before {
+				content: "LOADING...";
+				overflow: hidden;
+				position: absolute;
+				color: #ae9461;
+				transition: width 0.3 linear;
+				animation: loading 3s ease infinite;
+			}
+		}
+	}
+	@keyframes loading {
+		0% {
+			width: 0;
+		}
+		100% {
+			width: 83%;
+		}
+	}
+
 	@media only screen and (max-width: 400px) {
 		.game-card,
 		.retry-card,

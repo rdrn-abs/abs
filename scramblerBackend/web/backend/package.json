@@ -12,6 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "@laufire/utils": "3.0.0-0",
-    "dotenv": "^16.1.1"
+    "dotenv": "^16.1.4"
   }
 }

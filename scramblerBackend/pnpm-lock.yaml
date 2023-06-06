@@ -31,6 +31,14 @@ importers:
       prettier: 2.8.8
       pretty-quick: 3.1.3_prettier@2.8.8
 
+  web/backend:
+    specifiers:
+      '@laufire/utils': 3.0.0-0
+      dotenv: ^16.1.4
+    dependencies:
+      '@laufire/utils': 3.0.0-0
+      dotenv: 16.1.4
+
   web/frontend:
     specifiers:
       '@shopify/app-bridge': ^3.1.0
@@ -689,6 +697,14 @@ packages:
 
   /@kwsites/promise-deferred/1.1.1:
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
+    dev: false
+
+  /@laufire/utils/3.0.0-0:
+    resolution: {integrity: sha512-NQK/odg5weAAG9UqFhibSfW0BLgGcT+H7yNc82jEbqfToCyJL0SBI40pB34HqlF850IhKRUQ6uBFA6Ip6K66ww==}
+    dependencies:
+      '@babel/runtime': 7.22.3
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: false
 
   /@luckycatfactory/esbuild-graphql-loader/3.8.1_5ui5knna7gdvxvqey333bw3kfa:
@@ -2608,6 +2624,11 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       type-fest: 2.19.0
+    dev: false
+
+  /dotenv/16.1.4:
+    resolution: {integrity: sha512-m55RtE8AsPeJBpOIFKihEmqUcoVncQIwo7x9U8ZwLEZw9ZpXboz2c+rvog+jUaJvVrZ5kBOeYQBX5+8Aa/OZQw==}
+    engines: {node: '>=12'}
     dev: false
 
   /eastasianwidth/0.2.0:

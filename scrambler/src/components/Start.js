@@ -5,9 +5,8 @@ import ScramblerManager from '../services/scramblerManager';
 import axios from 'axios';
 import Success from './Success';
 
-const getScrambleWord = async ({ setState }) => {
-	// eslint-disable-next-line max-len
-	const { data } = await axios.get(`${ process.env.REACT_APP_URL }/custom/api/scrambleWord?logged_in_customer_id=${ process.env.REACT_APP_CUSTOMER_ID }`);
+const getScrambleWord = async ({ setState, config }) => {
+	const { data } = await axios.get(`${ config.appUrl }/custom/api/scrambleWord?logged_in_customer_id=${ config.cid }`);
 
 	setState((state) => ({
 		...state,

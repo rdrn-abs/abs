@@ -18,6 +18,7 @@ const getScrambleWord = async ({ setState, config }) => {
 const Start = (context) => {
 	const { state: { scrambler, discount: { hasDiscount }}} = context;
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => getScrambleWord(context), []);
 
 	return <div className="App">

@@ -9,7 +9,7 @@ const setDiscount = async (context) => {
 		...prev,
 		isLoading: !prev.isLoading,
 	}));
-	// eslint-disable-next-line max-len
+
 	const { data } = await axios.post(`${ config.appUrl }/custom/api/scrambleWord?logged_in_customer_id=${ config.cid }`,
 		{
 			...scrambler.data,
@@ -38,14 +38,13 @@ const InputHandler = (context) => ({ target: { value }}) => {
 };
 
 const InputBox = (context) => {
-	const { state: { input, wordObject: { scrambledLetters }}} = context;
+	const { state: { input }} = context;
 
 	useEffect(() => {
-		const isAllLetterMatch = scrambledLetters
-			.every((scrambledLetter) => scrambledLetter.entered);
+		const isAllLetterMatch = ScramblerManager.isAllLetterMatch(context);
 
 		isAllLetterMatch && setDiscount(context);
-	}, [scrambledLetters]);
+	}, [context]);
 
 	return (
 		<input

@@ -62,9 +62,16 @@ const updateLetters = (context) => {
 	return updatedLetters;
 };
 
+const isAllLetterMatch = (context) => {
+	const { state: { wordObject: { scrambledLetters }}} = context;
+
+	return scrambledLetters
+		.every((scrambledLetter) => scrambledLetter.entered);
+};
+
 const ScramblerManager = {
 	scramble, checkWord, getScrambleLetters, clearInput, showDiscount,
-	updateLetters,
+	updateLetters, isAllLetterMatch,
 };
 
 export default ScramblerManager;

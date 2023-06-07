@@ -5,7 +5,7 @@ module.exports = {
 	mode: 'production',
   entry: {
     "components/RedirectToLogin":
-      "/home/rkr/dev/React/CHOSEN/abs/components/RedirectToLogin.js",
+      "/home/rkr/clients/chosen/abs/components/RedirectToLogin.js",
   },
   output: {
     path: resolve(__dirname, "componentDist"),

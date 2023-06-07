@@ -3,9 +3,14 @@ import ScramblerManager from '../services/scramblerManager';
 import axios from 'axios';
 
 const setDiscount = async (context) => {
-	const { state: { scrambler, input }, setState } = context;
+	const { state: { scrambler, input }, setState, config } = context;
+
+	setState((prev) => ({
+		...prev,
+		isLoading: !prev.isLoading,
+	}));
 	// eslint-disable-next-line max-len
-	const { data } = await axios.post(`${ process.env.REACT_APP_URL }/custom/api/scrambleWord?logged_in_customer_id=${ process.env.REACT_APP_CUSTOMER_ID }`,
+	const { data } = await axios.post(`${ config.appUrl }/custom/api/scrambleWord?logged_in_customer_id=${ config.cid }`,
 		{
 			...scrambler.data,
 			word: input,
@@ -14,6 +19,7 @@ const setDiscount = async (context) => {
 	setState((prev) => ({
 		...prev,
 		discount: { hasDiscount: !prev.hasDiscount, data: data },
+		isLoading: !prev.isLoading,
 	}));
 };
 

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import Start from './components/Start';
+import RedirectToLogin from 'components/RedirectToLogin';
 
 const isUserLoggedIn = window.__st?.cid !== undefined;
 
@@ -11,12 +12,13 @@ const App = (context) => {
 		wordObject: {},
 		scrambler: {},
 		discount: { hasDiscount: false },
+		isLoading: false,
 	});
 	const extendedContext = { ...context, state, setState };
 
 	return !isUserLoggedIn
 		? <Start { ...extendedContext }/>
-		: <div><a href={ process.env.REACT_APP_LOGIN_URL }>login</a></div>;
+		: <RedirectToLogin { ...context }/>;
 };
 
 export default App;

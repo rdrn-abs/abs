@@ -32,6 +32,8 @@
 		left: 48.5%;
 		bottom: 0;
 		width: 3%;
+		transition: rotate 300ms ease-out;
+		transform-origin: center bottom
 	}
 
 	.holder {
@@ -53,8 +55,9 @@
 		.child {
 			width: 90vw;
 		}
-		.display-text{
-			margin:auto 5% ;
+
+		.display-text {
+			margin: auto 5%;
 
 		}
 	}

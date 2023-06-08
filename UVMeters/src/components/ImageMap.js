@@ -10,28 +10,23 @@ const ImageMap = (context) => {
 		const { value } = props;
 		const gotSegment = segments[type][value];
 
-		gotSegment && setState((prevState) =>
-			({ ...prevState, [type]: gotSegment }));
+		gotSegment
+		&& setState((prevState) => ({ ...prevState, [type]: gotSegment }));
 	};
 
 	return (
 		<Mask
-			className="parent"
-			src={ parent }
-			{ ...{ ...context, onChange: getSegment } }
+			{ ...{ onChange: getSegment, src: parent, className: 'parent' } }
 		>
 			<div>
-				<img className="child" src={ parent } alt="img"/>
-				<img
-					className="needle"
-					src={ needle }
-					alt="img"
-					style={ { rotate: state[type].angle,
-						transition: 'rotate 300ms ease-out',
-						transformOrigin: 'center bottom' } }
+				<img{ ...{ className: 'child', src: parent, alt: 'img' } }/>
+				<img { ... { className: 'needle',
+					src: needle,
+					alt: 'img',
+					style: { rotate: state[type].angle }}
+				}
 				/>
 			</div>
-
 		</Mask>
 	);
 };

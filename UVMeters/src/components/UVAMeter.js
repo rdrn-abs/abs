@@ -1,7 +1,6 @@
 import React from 'react';
 import ImageMap from './ImageMap';
 import DisplayUVAText from './DisplayUVAText';
-
 import parent from '../images/UVADial.png';
 import needle from '../images/UVANeedleCrop.png';
 

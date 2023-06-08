@@ -40,18 +40,21 @@ const getColor = (evt, canvasRef) => {
 
 // eslint-disable-next-line max-lines-per-function
 const Mask = (props) => {
-	const [state, setState] = useState({ width: 0, height: 0 });
+	const [state, setState] = useState({ with: 0, height: 0 });
 	const { children, onChange = () => {}, style = {}} = props;
 	const canvasRef = useRef(0);
 	const imgRef = useRef(0);
 
 	useEffect(() => {
 		setCanvasImage({ ...props, canvasRef, imgRef });
+	}, [state]);
+
+	useEffect(() => {
 		onChange({ ...state });
 	}, [state]);
 
 	const cOnChange = (data) => {
-		setState({ ...state, ...data });
+		setState(data);
 	};
 
 	return (
@@ -62,12 +65,7 @@ const Mask = (props) => {
 					ref={ canvasRef }
 					className="mask"
 					onClick={ (evt) => {
-						setState((prevState) => {
-							const value = getColor(evt, canvasRef);
-
-							onChange({ ...prevState, value });
-							return { ...prevState, value };
-						});
+						onChange({ value: getColor(evt, canvasRef), ...state });
 					} }
 				/>
 			</div>

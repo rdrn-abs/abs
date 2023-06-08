@@ -1,32 +1,25 @@
 import React from 'react';
 import Mask from './Mask';
-import parent from '../images/UVBDial.png';
-import needle from '../images/UVBNeedle.png';
+
 import { find } from '@laufire/utils/collection';
-import { peek } from '@laufire/utils/debug';
 
 // eslint-disable-next-line max-lines-per-function
 const ImageMap = (context) => {
-	const { config: { spfDictionary }, state, setState } = context;
-	const getSegment = (gotColor) => {
-		const segment = find(spfDictionary, ({ imgColor }) =>
-			imgColor === gotColor);
+	const { config: { spfDictionary }, state, setState,
+		images: { parent, needle }} = context;
+	const getSegment = (props) => {
+		const { value } = props;
+		const gotSegment = find(spfDictionary, ({ imgColor }) =>
+			imgColor === value);
 
-		peek('help', gotColor);
-
-		const angle = segment
-			? segment.angle
-			: '33.75deg';
-
-		setState(angle);
-		peek(angle);
+		gotSegment && setState({ ...state, segment: gotSegment });
 	};
 
 	return (
 		<Mask
 			className="parent"
 			src={ parent }
-			{ ...{ ...context, getSegment } }
+			{ ...{ ...context, onChange: getSegment } }
 		>
 			<div>
 				<img className="child" src={ parent } alt="img"/>
@@ -34,8 +27,9 @@ const ImageMap = (context) => {
 					className="needle"
 					src={ needle }
 					alt="img"
-					style={ { rotate: state,
-						transformOrigin: 'center 70%' } }
+					style={ { rotate: state.segment.angle,
+						transition: 'rotate 300ms ease-out',
+						transformOrigin: 'center bottom' } }
 				/>
 			</div>
 		</Mask>

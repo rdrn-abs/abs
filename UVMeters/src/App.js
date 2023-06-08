@@ -1,14 +1,20 @@
 import { React, useState } from 'react';
 import './App.scss';
-import Meter from './components/Meter';
+import UVBMeter from './components/UVBMeter';
+import UVAMeter from './components/UVAMeter';
 
 const App = (context) => {
-	const [state, setState] = useState('45deg');
+	const { config: { spfDictionary }} = context;
+
+	const [state, setState] = useState({
+		segment: spfDictionary[4],
+	});
 	const extendedContext = { ...context, state, setState };
 
 	return <div className="UVBMeter">
 		<div className="holder">
-			<Meter { ...extendedContext }/>
+			<UVAMeter { ...extendedContext }/>
+			<UVBMeter { ...extendedContext }/>
 		</div>
 	</div>;
 };

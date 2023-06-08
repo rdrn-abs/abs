@@ -1,0 +1,12 @@
+<svg class="speedometer" width="666px" height="340px" role="img" focusable="false" aria-label="React d3 speedometer"
+	style="width: 666px; height: 340px;">
+
+
+	<g transform="translate(333, 353)"><text class="current-value" text-anchor="middle" y="23"
+			style="font-size: 0px; font-weight: 500; fill: rgb(33, 33, 33);">80</text></g>
+	<g class="pointer" transform="translate(333, 333)" style="fill: steelblue;">
+		<path
+			d="M5,0C3.333333333333333,-141,1.6666666666666667,-282,0,-282C-1.6666666666666667,-282,-3.333333333333333,0,-5,0C-3.333333333333333,0,-1.6666666666666667,5,0,5C1.6666666666666667,5,3.333333333333333,2.5,5,0"
+			transform="rotate(0)"></path>
+	</g>
+</svg>

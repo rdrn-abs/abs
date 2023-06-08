@@ -10,11 +10,12 @@ const needleTransitionDuration = 300;
 const dialLimit = 400;
 const needleHeightRatioDefault = 0.9;
 const needleHeightRatioSmaller = 0.825;
+const maxSegLabels = 0;
 
 // eslint-disable-next-line max-lines-per-function
 const getDialStyles = (context) => {
 	const {
-		config:	{ customLabels, paddingForLabel, maxDialValue },
+		config:	{ UVALabels, paddingForLabel, maxDialValue },
 		state: { containerProps },
 	} = context;
 	const needleHeightRatio = containerProps.width < dialLimit
@@ -23,33 +24,37 @@ const getDialStyles = (context) => {
 
 	return {
 		textColor: fontColor,
-		segments: customLabels.length,
+		segments: UVALabels.length,
 		paddingHorizontal: paddingForLabel,
 		paddingVertical: paddingForLabel,
 		valueTextFontWeight: valueTextFontWeight,
-		currentValueText: 'SPF',
+		currentValueText: '',
 		maxValue: maxDialValue,
 		needleTransitionDuration: needleTransitionDuration,
 		needleTransition: 'easeLinear',
-		customSegmentLabels: customLabels,
+		customSegmentLabels: UVALabels,
 		needleHeightRatio: needleHeightRatio,
+
 	};
 };
 
+// eslint-disable-next-line max-lines-per-function
 const SPFDial = (context) => {
 	const {
 		config: { paddingForLabel },
 		state: { dialValue, containerProps, forceRender },
 	} = context;
-	const fontSize = `${ Math.round(containerProps.width / fontValFactor) }px`;
+	// const fontSize = `${ Math.round(containerProps.width / fontValFactor) }px`;
+
+	const fontSize = '0px';
 
 	return (
 		<ReactSpeedometer
 			{ ...{
 				...getDialStyles(context),
 				forceRender: forceRender,
-				width: containerProps.width - (two * paddingForLabel),
-				height: containerProps.height,
+				width: containerProps.width - two * paddingForLabel,
+
 				value: dialValue,
 				ringWidth: containerProps.width / ringWidthFactor,
 				valueTextFontSize: fontSize,

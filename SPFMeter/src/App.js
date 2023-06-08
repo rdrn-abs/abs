@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.scss';
 import DisplayText from './components/DisplayText';
 import DisplayMeter from './components/DisplayMeter';
+import ImageMap from './components/ImageMap';
+import { peek } from '@laufire/utils/debug';
 
 const App = (context) => {
 	const { config: { maxDialValue }} = context;
@@ -15,12 +17,15 @@ const App = (context) => {
 
 	const extendedContext = { ...context, state, setState };
 
+	peek(state);
 	return (
 		<div className="spf-meter">
 			<div className="spf-container">
 				<DisplayText { ...extendedContext }/>
 				<DisplayMeter { ...extendedContext }/>
+				<ImageMap { ...extendedContext }/>
 			</div>
+
 		</div>);
 };
 

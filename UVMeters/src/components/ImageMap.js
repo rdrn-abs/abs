@@ -1,18 +1,17 @@
 import React from 'react';
 import Mask from './Mask';
 
-import { find } from '@laufire/utils/collection';
-
 // eslint-disable-next-line max-lines-per-function
 const ImageMap = (context) => {
-	const { config: { spfDictionary }, state, setState,
-		images: { parent, needle }} = context;
+	const { config: { segments }, state, setState,
+		data: { parent, needle, type }} = context;
+
 	const getSegment = (props) => {
 		const { value } = props;
-		const gotSegment = find(spfDictionary, ({ imgColor }) =>
-			imgColor === value);
+		const gotSegment = segments[type][value];
 
-		gotSegment && setState({ ...state, segment: gotSegment });
+		gotSegment && setState((prevState) =>
+			({ ...prevState, [type]: gotSegment }));
 	};
 
 	return (
@@ -27,11 +26,12 @@ const ImageMap = (context) => {
 					className="needle"
 					src={ needle }
 					alt="img"
-					style={ { rotate: state.segment.angle,
+					style={ { rotate: state[type].angle,
 						transition: 'rotate 300ms ease-out',
 						transformOrigin: 'center bottom' } }
 				/>
 			</div>
+
 		</Mask>
 	);
 };

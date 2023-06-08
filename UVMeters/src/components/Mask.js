@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import color from './color';
 import Container from './Container';
-import { peek } from '@laufire/utils/debug';
 
 const setCanvasImage = ({ canvasRef, imgRef, src }) => {
 	const canvas = canvasRef.current;
@@ -19,10 +18,6 @@ const setCanvasImage = ({ canvasRef, imgRef, src }) => {
 		);
 	};
 	image.src = src;
-
-	peek(
-		img.clientWidth, img.clientHeight, src
-	);
 };
 
 const getColor = (evt, canvasRef) => {

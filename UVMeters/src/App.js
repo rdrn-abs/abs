@@ -4,11 +4,13 @@ import UVBMeter from './components/UVBMeter';
 import UVAMeter from './components/UVAMeter';
 
 const App = (context) => {
-	const { config: { spfDictionary }} = context;
+	const { config: { segments }} = context;
 
 	const [state, setState] = useState({
-		segment: spfDictionary[4],
+		UVA: segments.UVA['#d4e725ff'],
+		UVB: segments.UVB['#d4e725ff'],
 	});
+
 	const extendedContext = { ...context, state, setState };
 
 	return <div className="UVBMeter">

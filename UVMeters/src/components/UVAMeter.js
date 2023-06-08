@@ -1,14 +1,18 @@
 import React from 'react';
 import ImageMap from './ImageMap';
 import DisplayUVAText from './DisplayUVAText';
-import parent from '../images/dial11Crop.png';
-import needle from '../images/needle11CropWidth.png';
 
-const UVAMeter = (context) =>
+import parent from '../images/UVADial.png';
+import needle from '../images/UVANeedleCrop.png';
 
-	<div>
-		<DisplayUVAText { ...context }/>
-		<ImageMap { ...{ ...context, images: { parent, needle }} }/>
-	</div>;
+const UVAMeter = (context) => <div className="display-meter">
+	<DisplayUVAText { ... { ...context, data: { type: 'UVA' }} }/>
+	<ImageMap { ...{
+		...context,
+		data: { parent: parent, needle: needle, type: 'UVA' },
+	} }
+	/>
+	<h4 className="spf-label">SPF</h4>
+</div>;
 
 export default UVAMeter;

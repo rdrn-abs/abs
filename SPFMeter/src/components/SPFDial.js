@@ -10,12 +10,11 @@ const needleTransitionDuration = 300;
 const dialLimit = 400;
 const needleHeightRatioDefault = 0.9;
 const needleHeightRatioSmaller = 0.825;
-const maxSegLabels = 0;
 
 // eslint-disable-next-line max-lines-per-function
 const getDialStyles = (context) => {
 	const {
-		config:	{ UVALabels, paddingForLabel, maxDialValue },
+		config:	{ customLabels, paddingForLabel, maxDialValue },
 		state: { containerProps },
 	} = context;
 	const needleHeightRatio = containerProps.width < dialLimit
@@ -24,16 +23,17 @@ const getDialStyles = (context) => {
 
 	return {
 		textColor: fontColor,
-		segments: UVALabels.length,
+		segments: customLabels.length,
 		paddingHorizontal: paddingForLabel,
 		paddingVertical: paddingForLabel,
 		valueTextFontWeight: valueTextFontWeight,
-		currentValueText: '',
+		currentValueText: 'SPF',
 		maxValue: maxDialValue,
 		needleTransitionDuration: needleTransitionDuration,
 		needleTransition: 'easeLinear',
-		customSegmentLabels: UVALabels,
+		customSegmentLabels: customLabels,
 		needleHeightRatio: needleHeightRatio,
+		maxSegmentLabels: customLabels.length,
 
 	};
 };

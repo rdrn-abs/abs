@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.scss';
 import DisplayText from './components/DisplayText';
 import DisplayMeter from './components/DisplayMeter';
-import ImageMap from './components/ImageMap';
 import { peek } from '@laufire/utils/debug';
 
 const App = (context) => {
@@ -23,7 +22,7 @@ const App = (context) => {
 			<div className="spf-container">
 				<DisplayText { ...extendedContext }/>
 				<DisplayMeter { ...extendedContext }/>
-				<ImageMap { ...extendedContext }/>
+
 			</div>
 
 		</div>);

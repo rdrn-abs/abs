@@ -2,7 +2,7 @@ import { shuffle } from "@laufire/utils/collection.js";
 import { rndString, rndValue } from "@laufire/utils/random.js";
 import crypto from "crypto";
 import config from "./config.js";
-
+import { isDefined } from "@laufire/utils/reflection.js";
 
 const hashWord = (word) => {
   const hash = crypto.createHash("sha256");
@@ -45,9 +45,7 @@ const getCustomerMetaField = async ({ customerId }) => {
   return metafield;
 };
 
-const updateCustomerMetaField = async ({ customerId }) => {
-  const { id } = await getCustomerMetaField({ customerId });
-
+const updateCustomerMetaField = async ({ customerId, metafield: { id } }) => {
   const query = `mutation updateCustomerMetafields($input: CustomerInput!) {
     customerUpdate(input: $input) {
       customer {
@@ -74,7 +72,7 @@ const updateCustomerMetaField = async ({ customerId }) => {
       metafields: [
         {
           id: id,
-          value: `{\"scrambler\":{\"discount\":{\"lastWon\":\"${new Date()}\"}}}`,
+          value: `{\"scrambler\":{\"discount\":{\"lastWonAt\":\"${new Date()}\"}}}`,
         },
       ],
       id: `gid://shopify/Customer/${customerId}`,
@@ -87,7 +85,105 @@ const updateCustomerMetaField = async ({ customerId }) => {
   return data;
 };
 
+const createCustomerMetaField = async ({ customerId }) => {
+  const query = `mutation createCustomerMetaField($customerInput: CustomerInput!) {
+    customerUpdate(input: $customerInput) {
+      customer {
+        id
+        metafields(first: 100) {
+          edges {
+            node {
+              namespace
+              key
+              value
+              id
+            }
+          }
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }`;
+
+  const variables = {
+    customerInput: {
+      id: `gid://shopify/Customer/${customerId}`,
+      metafields: [
+        {
+          namespace: "custom",
+          key: "custom",
+          value: `{\"scrambler\":{\"discount\":{\"lastWonAt\":\"${new Date()}\"}}}`,
+          type: "json",
+        },
+      ],
+    },
+  };
+
+  const response = await graphQLFetch({ query, variables });
+  const { data } = await response.json();
+
+  return data;
+};
+
+const getCollectionId = async ({ collectionName }) => {
+  const query = `{
+    collectionByHandle(handle: "${collectionName}") {
+      id
+    }
+  }`;
+
+  const response = await graphQLFetch({ query });
+  const data = await response.json();
+  return data;
+};
+
+const getCollection = async () => {
+  const query = ` {
+    metafieldDefinition(id: "gid://shopify/MetafieldDefinition/${config.pageMetaFieldsId}") {
+      metafields(first:1){
+        edges{
+          node{
+            value
+          }
+        }
+      }
+    }
+  }`;
+  const response = await graphQLFetch({ query });
+  const data = await response.json();
+  const {
+    data: {
+      metafieldDefinition: {
+        metafields: { edges },
+      },
+    },
+  } = data;
+  const [
+    {
+      node: { value },
+    },
+  ] = edges;
+  const collectionLink = value;
+  const [collectionUrl, collectionName] = collectionLink.match(
+    config.collectionNameRegex
+  );
+
+  const {
+    data: {
+      collectionByHandle: { id: collectionId },
+    },
+  } = await getCollectionId({ collectionName });
+
+  return { collectionUrl, collectionName, collectionId };
+};
+
 const createDiscount = async ({ customerId }) => {
+  const { collectionId, collectionUrl } = await getCollection();
+  const metafield = await getCustomerMetaField({ customerId });
+
   const mutation = `mutation discountCodeBasicCreate($basicCodeDiscount: DiscountCodeBasicInput!) {
   discountCodeBasicCreate(basicCodeDiscount: $basicCodeDiscount) {
     codeDiscountNode {
@@ -131,7 +227,7 @@ const createDiscount = async ({ customerId }) => {
 }`;
   const variables = {
     basicCodeDiscount: {
-      title: "3% off all items during the summer of 2023",
+      title: config.discountTitle,
       code: `SUMMER${rndString(config.codeLength)}`,
       startsAt: new Date(),
       endsAt: new Date(new Date().getTime() + config.millisecondsPerDay),
@@ -142,10 +238,12 @@ const createDiscount = async ({ customerId }) => {
       },
       customerGets: {
         value: {
-          percentage: 0.03,
+          percentage: config.discountPercentage,
         },
         items: {
-          all: true,
+          collections: {
+            add: [collectionId],
+          },
         },
       },
       appliesOncePerCustomer: true,
@@ -158,27 +256,27 @@ const createDiscount = async ({ customerId }) => {
   });
   const { data } = await response.json();
 
-  await updateCustomerMetaField({ customerId });
+  metafield?.id
+    ? await updateCustomerMetaField({ customerId, metafield })
+    : await createCustomerMetaField({ customerId });
 
-  return data;
+  return { ...data, collectionUrl };
 };
 
-
-const getLastWon = async (context) => {
-  const { value } = await getCustomerMetaField(context);
-
-  const response = JSON.parse(value);
-  const { lastWon } = response.scrambler.discount;
-
-  return lastWon;
-};
-
-const timeDelta = ({ lastWon }) => {
-  const previousWonDate = Date.parse(lastWon);
+const timeDelta = ({ lastWonAt }) => {
+  const previousWonDate = Date.parse(lastWonAt);
   const currentDate = Date.parse(new Date());
   const timeDelta = currentDate - previousWonDate;
 
   return timeDelta;
+};
+
+const getTimeDifference = async ({ metafield: { value } }) => {
+  const response = JSON.parse(value);
+  const { lastWonAt } = response.scrambler.discount;
+  const timeDifference = timeDelta({ lastWonAt });
+
+  return timeDifference;
 };
 
 const scramble = (word) => {
@@ -196,19 +294,34 @@ const createScrambledWord = () => {
   };
 };
 
-const GET = async (context) => {
-  const lastWon = await getLastWon(context);
-  const timeDifference = timeDelta({ lastWon });
-  const isValid = timeDifference > config.millisecondsPerDay;
+const getNextAvailableAt = async (context) => {
+  const metafield = await getCustomerMetaField(context);
+  const timeDifference = await getTimeDifference({ ...context, metafield });
   const date = new Date(timeDifference);
   const nextAvailableAt = config.hoursPerDay - date.getUTCHours();
 
-  return isValid
+  return nextAvailableAt;
+};
+
+const isEligibleToPlay = async (context) => {
+  const metafield = await getCustomerMetaField(context);
+
+  return (
+    !metafield?.value ||
+    (await getTimeDifference({ ...context, metafield })) >
+      config.millisecondsPerDay
+  );
+};
+
+const GET = async (context) => {
+  const isEligible = await isEligibleToPlay(context);
+
+  return isEligible
     ? { data: createScrambledWord() }
     : {
         error: {
           type: "Come back the next day.",
-          nextAvailableAt
+          nextAvailableAt: await getNextAvailableAt(context),
         },
       };
 };
@@ -222,6 +335,6 @@ const POST = async ({ digest, word, customerId }) => {
     : { error: { type: "Not match" } };
 };
 
-const scrambler = { GET , POST };
+const scrambler = { GET, POST };
 
 export default scrambler;

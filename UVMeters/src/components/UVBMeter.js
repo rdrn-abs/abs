@@ -4,7 +4,7 @@ import DisplayUVBText from './DisplayUVBText';
 
 const UVBMeter = (context) => {
 	const parent = '/images/UVBDial.png';
-	const needle = '/images/UVBNeedle.png';
+	const needle = '/images/needle.png';
 
 	return <div className="display-meter">
 		<DisplayUVBText { ...{ ...context, data: { type: 'UVB' }} }/>

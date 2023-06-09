@@ -4,7 +4,7 @@ import DisplayUVAText from './DisplayUVAText';
 
 const UVAMeter = (context) => {
 	const parent = '/images/UVADial.png';
-	const needle = '/images/UVANeedle.png';
+	const needle = '/images/needle.png';
 
 	return <div className="display-meter">
 		<DisplayUVAText { ...{ ...context, data: { type: 'UVA' }} }/>
@@ -13,7 +13,7 @@ const UVAMeter = (context) => {
 			data: { parent: parent, needle: needle, type: 'UVA' },
 		} }
 		/>
-		<h4 className="spf-label">SPF</h4>
+		<h4 className="spf-label">PF</h4>
 	</div>;
 };
 

@@ -8,7 +8,7 @@ const App = (context) => {
 
 	const [state, setState] = useState({
 		UVA: segments.UVA['#d4e725ff'],
-		UVB: segments.UVB['#d4e725ff'],
+		UVB: segments.UVB['#ecdb23ff'],
 	});
 
 	const extendedContext = { ...context, state, setState };

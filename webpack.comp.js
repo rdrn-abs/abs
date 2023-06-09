@@ -12,6 +12,12 @@ module.exports = {
     publicPath: "/",
     libraryTarget: "umd",
   },
+  resolve: {
+		alias: {
+			'react': 'preact/compat',
+			'react-dom': 'preact/compat',
+		},
+	},
   module: {
     rules: [
       {

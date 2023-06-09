@@ -3,20 +3,16 @@ import React, { useState } from 'react';
 import './App.scss';
 import Start from './components/Start';
 import RedirectToLogin from 'components/RedirectToLogin';
+import { isDefined } from '@laufire/utils/reflection';
 
-const isUserLoggedIn = window.__st?.cid !== undefined;
+const isUserLoggedIn = isDefined(window.__st?.cid);
 
 const App = (context) => {
-	const [state, setState] = useState({
-		input: '',
-		wordObject: {},
-		scrambler: {},
-		discount: { hasDiscount: false },
-		isLoading: false,
-	});
+	const { seed: { initialState }} = context;
+	const [state, setState] = useState(initialState);
 	const extendedContext = { ...context, state, setState };
 
-	return !isUserLoggedIn
+	return isUserLoggedIn
 		? <Start { ...extendedContext }/>
 		: <RedirectToLogin { ...context }/>;
 };

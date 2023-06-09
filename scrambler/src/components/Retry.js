@@ -1,9 +1,12 @@
 import React from 'react';
 
-const Retry = () =>
+const Retry = ({ setState, seed: { initialState }}) =>
 	<div className="retry-card">
 		<div className="retry-title">You are almost there.</div>
-		<a href="/pages/scrambler" className="retry-btn">Retry</a>
-	</div>;
+		<button className="retry-btn" onClick={ () => setState(initialState) }>
+			Retry
+		</button>
+	</div>
+;
 
 export default Retry;

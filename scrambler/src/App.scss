@@ -1,4 +1,7 @@
-.App {
+$hover-color: #ae9461;
+$primary-color:black;
+
+.scrambler {
 	text-align: center;
 
 	button {
@@ -6,7 +9,7 @@
 	}
 	.game-card,
 	.retry-card,
-	.visitLater,
+	.visitLater-card,
 	.loading-card {
 		background-color: rgb(234, 237, 237);
 		margin: 5rem auto;
@@ -19,11 +22,9 @@
 		text-align: center;
 		text-transform: uppercase;
 		font-size: 3rem;
-
 		border: none;
 		border-bottom: 2px solid rgb(206, 203, 203);
 		padding: 0.5rem;
-
 		background: transparent;
 		transition: border-color 0.2s;
 		outline: none;
@@ -48,8 +49,9 @@
 	}
 
 	.highlighted,
-	.retry-btn:hover {
-		background-color: #ae9461;
+	.retry-btn:hover,
+	.redirect-btn-home:hover {
+		background-color: $hover-color;
 	}
 
 	.retry-title,
@@ -60,10 +62,13 @@
 		text-transform: uppercase;
 		padding: 1.5rem;
 		font-family: "Geomanist-Bold", sans-serif;
-		color: #191919;
+		color: $primary-color;
+	}
+	.visitLater-hours{
+		color: $hover-color;
 	}
 	.discount-code {
-		font-family: Geomanist-Bold;
+		font-family: "Geomanist-Bold";
 		font-size: 40px;
 		color: #9a9a9a;
 		padding: 1.5rem;
@@ -71,38 +76,33 @@
 	.redirect-btn-home,
 	.retry-btn {
 		font-family: "Geomanist-Regular", sans-serif;
-		border: none;
 		font-size: 14px;
-		letter-spacing: 0.03em;
-		position: relative;
+		text-transform: uppercase;
 		padding: 6px 31px 4px;
 		display: inline-flex;
 		align-items: center;
 		text-decoration: none;
+		border:none;
 		border-radius: 6px;
 		height: 40px;
 		cursor: pointer;
 		color: rgb(255, 255, 255);
-		background: rgb(40, 121, 254);
+		background: $primary-color;
 		transition: all 0.3s linear;
-	}
-	.redirect-btn-home:hover {
-		background-color: rgb(34, 103, 216);
 	}
 
 	.loading-card {
 		display: flex;
 		justify-content: center;
 		.loading-title {
-			font-family: Geomanist-Bold;
+			font-family: "Geomanist-Bold";
 			position: relative;
 			font-size: 3rem;
-			color: black;
 			&::before {
 				content: "LOADING...";
 				overflow: hidden;
 				position: absolute;
-				color: #ae9461;
+				color: $hover-color;
 				transition: width 0.3 linear;
 				animation: loading 3s ease infinite;
 			}
@@ -120,7 +120,7 @@
 	@media only screen and (max-width: 400px) {
 		.game-card,
 		.retry-card,
-		.visitLater {
+		.visitLater-card {
 			width: 100%;
 			padding: 1rem;
 			margin: 0;

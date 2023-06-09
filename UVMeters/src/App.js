@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import UVBMeter from './components/UVBMeter';
 import UVAMeter from './components/UVAMeter';

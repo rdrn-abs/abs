@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import UVAMeter from './components/UVAMeter';
+import UVMeter from './components/UVMeter';
 
 const App = (context) => {
 	const { config: { segments }} = context;
@@ -11,11 +11,17 @@ const App = (context) => {
 	});
 
 	const extendedContext = { ...context, state, setState };
+	const UVMeters = ['UVAMeter', 'UVBMeter'];
 
 	return <div className="UVMeters">
 		<div className="holder">
-			<UVAMeter { ...{ ...extendedContext, data: { type: 'UVAMeter' }} }/>
-			<UVAMeter { ...{ ...extendedContext, data: { type: 'UVBMeter' }} }/>
+			{
+				UVMeters.map((type, index) =>
+					<UVMeter
+						key={ index }
+						{ ...{ ...extendedContext, data: { type }} }
+					/>)
+			}
 		</div>
 	</div>;
 };

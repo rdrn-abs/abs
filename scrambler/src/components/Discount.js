@@ -2,7 +2,7 @@ import React from 'react';
 
 const Discount = (context) => {
 	const { state: { discount: { data:
-		{ data: { discountCodeBasicCreate, collectionUrl }}}}} = context;
+		{ discountCodeBasicCreate, collectionUrl }}}} = context;
 
 	const { codeDiscountNode: { codeDiscount:
 		{ title, codes: { nodes }}}} = discountCodeBasicCreate;

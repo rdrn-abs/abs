@@ -8,8 +8,8 @@ const components = {
 };
 
 const Success = (context) => {
-	const { state: { discount: { data }}} = context;
-	const [first] = keys(data);
+	const { state: { discount }} = context;
+	const [first] = keys(discount);
 
 	return components[first](context);
 };

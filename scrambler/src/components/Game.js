@@ -4,10 +4,9 @@ import GameContent from './GameContent';
 
 const Game = (context) => {
 	const { state: { isLoading }} = context;
+	const Component = !isLoading ? GameContent : Loading;
 
-	return !isLoading
-		? <GameContent { ...context }/>
-		: <Loading { ...context }/>;
+	return <Component { ...context }/>;
 };
 
 export default Game;

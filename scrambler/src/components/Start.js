@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ScrambleGame from './ScrambleGame';
 import { map, values } from '@laufire/utils/collection';
-import ScramblerManager from '../services/scramblerManager';
+import ScrambleManager from '../services/scrambleManager';
 import axios from 'axios';
 import Success from './Success';
 
@@ -11,7 +11,7 @@ const setScrambleWord = async ({ setState }) => {
 	setState((state) => ({
 		...state,
 		scrambler: data,
-		wordObject: ScramblerManager.getScrambleLetters(data),
+		letters: ScrambleManager.getScrambledLetters(data),
 	}));
 };
 

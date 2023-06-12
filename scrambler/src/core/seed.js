@@ -1,7 +1,7 @@
 const seed = {
 	initialState: {
 		input: '',
-		wordObject: {},
+		letters: {},
 		scrambler: {},
 		discount: {},
 		canPlay: false,

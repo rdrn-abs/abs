@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ScramblerManager from '../services/scramblerManager';
+import ScrambleManager from '../services/scrambleManager';
 import axios from 'axios';
 
 const setDiscount = async (context) => {
@@ -27,11 +27,11 @@ const setDiscount = async (context) => {
 const InputHandler = (context) => ({ target: { value }}) => {
 	const { setState } = context;
 
-	return setState((prev) => ({
+	setState((prev) => ({
 		...prev,
-		wordObject: {
-			...prev.wordObject,
-			scrambledLetters: ScramblerManager
+		letters: {
+			...prev.letters,
+			scrambledLetters: ScrambleManager
 				.updateLetters({ ...context, data: value }),
 		},
 		input: value,
@@ -42,7 +42,7 @@ const InputBox = (context) => {
 	const { state: { input }} = context;
 
 	useEffect(() => {
-		const isAllLetterMatch = ScramblerManager.isAllLetterMatch(context);
+		const isAllLetterMatch = ScrambleManager.isAllLetterMatch(context);
 
 		isAllLetterMatch && setDiscount(context);
 	}, [context]);

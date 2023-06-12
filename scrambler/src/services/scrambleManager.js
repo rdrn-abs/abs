@@ -5,7 +5,7 @@ const scramble = (word) => {
 
 	return shuffle(strArr).join('');
 };
-const getScrambleLetters = (context) => {
+const getScrambledLetters = (context) => {
 	const { data } = context;
 
 	const scrambledLetters = data?.word.split('').map((letter) =>
@@ -40,7 +40,7 @@ const resetHighlightLetters = (scrambledLetters) => scrambledLetters
 
 const updateLetters = (context) => {
 	const { state, data } = context;
-	const { wordObject: { scrambledLetters }} = state;
+	const { letters: { scrambledLetters }} = state;
 
 	const inputLetterFreq = frequencyTable(data.split(''));
 	const updatedLetters = resetHighlightLetters(scrambledLetters);
@@ -63,15 +63,15 @@ const updateLetters = (context) => {
 };
 
 const isAllLetterMatch = (context) => {
-	const { state: { wordObject: { scrambledLetters }}} = context;
+	const { state: { letters: { scrambledLetters }}} = context;
 
 	return scrambledLetters
 		.every((scrambledLetter) => scrambledLetter.entered);
 };
 
-const ScramblerManager = {
-	scramble, checkWord, getScrambleLetters, clearInput, showDiscount,
+const ScrambleManager = {
+	scramble, checkWord, getScrambledLetters, clearInput, showDiscount,
 	updateLetters, isAllLetterMatch,
 };
 
-export default ScramblerManager;
+export default ScrambleManager;

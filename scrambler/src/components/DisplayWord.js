@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisplayWord = ({ state: { wordObject: { scrambledLetters }}}) =>
+const DisplayWord = ({ state: { letters: { scrambledLetters }}}) =>
 	<div className="display-word">
 		{scrambledLetters
 			&& scrambledLetters.map((item, index) =>

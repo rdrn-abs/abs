@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import './App.scss';
-import UVBMeter from './components/UVBMeter';
 import UVAMeter from './components/UVAMeter';
 
 const App = (context) => {
 	const { config: { segments }} = context;
 
 	const [state, setState] = useState({
-		UVA: segments.UVA['#d4e725ff'],
-		UVB: segments.UVB['#ecdb23ff'],
+		UVAMeter: segments.UVAMeter['#d4e725ff'],
+		UVBMeter: segments.UVBMeter['#ecdb23ff'],
 	});
 
 	const extendedContext = { ...context, state, setState };
 
-	return <div className="UVBMeter">
+	return <div className="UVMeters">
 		<div className="holder">
-			<UVAMeter { ...extendedContext }/>
-			<UVBMeter { ...extendedContext }/>
+			<UVAMeter { ...{ ...extendedContext, data: { type: 'UVAMeter' }} }/>
+			<UVAMeter { ...{ ...extendedContext, data: { type: 'UVBMeter' }} }/>
 		</div>
 	</div>;
 };

@@ -1,17 +1,20 @@
 const config = {
 	segments: {
-		UVB:
+		UVBMeter:
 		{
 			'#ff471aff': {
-				protection: '50%', spf: '2',
+				protection: '50%',
+				spf: '2',
 				angle: '-81deg',
 			},
 			'#fa701cff': {
-				protection: '75%', spf: '4',
+				protection: '75%',
+				spf: '4',
 				angle: '-63deg',
 			},
 			'#f6961eff': {
-				protection: '90%', spf: '10',
+				protection: '90%',
+				spf: '10',
 				angle: '-45deg',
 			},
 			'#f1ba20ff': {
@@ -43,7 +46,7 @@ const config = {
 				angle: '81deg',
 			},
 		},
-		UVA:
+		UVAMeter:
 		{
 			'#ff471aff': {
 				pf: '+', protection: 'of 50 - 75%',

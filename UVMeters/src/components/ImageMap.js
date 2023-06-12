@@ -1,8 +1,6 @@
 import React from 'react';
 import Mask from './Mask';
 
-import { peek } from '@laufire/utils/debug';
-
 // eslint-disable-next-line max-lines-per-function
 const ImageMap = (context) => {
 	const { config: { segments }, state, setState,
@@ -11,8 +9,6 @@ const ImageMap = (context) => {
 	const getSegment = (props) => {
 		const { value } = props;
 		const gotSegment = segments[type][value];
-
-		peek(value);
 
 		gotSegment
 		&& setState((prevState) => ({ ...prevState, [type]: gotSegment }));

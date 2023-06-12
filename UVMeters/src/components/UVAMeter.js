@@ -2,18 +2,23 @@ import React from 'react';
 import ImageMap from './ImageMap';
 import DisplayUVAText from './DisplayUVAText';
 
+const UVLabels = {
+	UVAMeter: 'PF',
+	UVBMeter: 'SPF',
+};
 const UVAMeter = (context) => {
-	const parent = '/images/UVADial.png';
+	const { data } = context;
+	const parent = `/images/${ data.type }.png`;
 	const needle = '/images/needle.png';
 
 	return <div className="display-meter">
-		<DisplayUVAText { ...{ ...context, data: { type: 'UVA' }} }/>
+		<DisplayUVAText { ...context }/>
 		<ImageMap { ...{
 			...context,
-			data: { parent: parent, needle: needle, type: 'UVA' },
+			data: { ...data, parent, needle },
 		} }
 		/>
-		<h4 className="spf-label">PF</h4>
+		<h4 className="spf-label">{UVLabels[data.type]}</h4>
 	</div>;
 };
 

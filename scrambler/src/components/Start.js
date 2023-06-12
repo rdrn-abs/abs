@@ -16,13 +16,13 @@ const setScrambleWord = async ({ setState }) => {
 };
 
 const Start = (context) => {
-	const { state: { scrambler, discount: { hasDiscount }}} = context;
+	const { state: { scrambler, canPlay }} = context;
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect(() => setScrambleWord(context), [hasDiscount]);
+	useEffect(() => setScrambleWord(context), [canPlay]);
 
 	return <div className="scrambler">
-		{!hasDiscount
+		{!canPlay
 			?	values(map(scrambler, (value, key) =>
 				<ScrambleGame
 					key={ key }

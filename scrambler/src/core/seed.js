@@ -3,7 +3,8 @@ const seed = {
 		input: '',
 		wordObject: {},
 		scrambler: {},
-		discount: { hasDiscount: false },
+		discount: {},
+		canPlay: false,
 		isLoading: false,
 	},
 };

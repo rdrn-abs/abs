@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import './App.scss';
 import UVMeter from './components/UVMeter';
 
+const colorUVA = '#d4e725ff';
+const colorUVB = '#ecdb23ff';
+
 const App = (context) => {
 	const { config: { segments }} = context;
 
 	const [state, setState] = useState({
-		UVAMeter: segments.UVAMeter['#d4e725ff'],
-		UVBMeter: segments.UVBMeter['#ecdb23ff'],
+		UVAMeter: segments.UVAMeter[colorUVA],
+		UVBMeter: segments.UVBMeter[colorUVB],
 	});
 
 	const extendedContext = { ...context, state, setState };

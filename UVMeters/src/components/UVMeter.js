@@ -14,19 +14,13 @@ const UVText = {
 };
 
 const UVMeter = (context) => {
-	const { data } = context;
-	const parent = `/images/${ data.type }.png`;
-	const needle = '/images/needle.png';
-	const DisplayComponent = UVText[data.type];
+	const { data: { type }} = context;
+	const DisplayComponent = UVText[type];
 
 	return <div className="display-meter">
 		<DisplayComponent { ...context }/>
-		<ImageMap { ...{
-			...context,
-			data: { ...data, parent, needle },
-		} }
-		/>
-		<h4 className="spf-label">{UVLabels[data.type]}</h4>
+		<ImageMap { ...context }/>
+		<h4 className="spf-label">{UVLabels[type]}</h4>
 	</div>;
 };
 

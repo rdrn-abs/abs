@@ -11,10 +11,9 @@ const App = (context) => {
 	const { seed: { initialState }} = context;
 	const [state, setState] = useState(initialState);
 	const extendedContext = { ...context, state, setState };
+	const Component = isUserLoggedIn ? Start : RedirectToLogin;
 
-	return isUserLoggedIn
-		? <Start { ...extendedContext }/>
-		: <RedirectToLogin { ...context }/>;
+	return <Component { ...extendedContext }/>;
 };
 
 export default App;

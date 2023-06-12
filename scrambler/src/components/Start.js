@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import ScrambleGame from './ScrambleGame';
-import { map, values } from '@laufire/utils/collection';
 import ScrambleManager from '../services/scrambleManager';
 import axios from 'axios';
 import Success from './Success';
 
-const setScrambleWord = async ({ setState }) => {
-	const { data } = await axios.get(`${ window.shopUrl }/apps/backend/custom/api/scrambleWord`);
+const setScrambleWord = async ({ setState, config }) => {
+	const { data } = await axios.get(`${ config.appUrl }/custom/api/scrambleWord?logged_in_customer_id=${ config.cid }`);
 
 	setState((state) => ({
 		...state,
@@ -16,20 +15,19 @@ const setScrambleWord = async ({ setState }) => {
 };
 
 const Start = (context) => {
-	const { state: { scrambler, canPlay }} = context;
+	const {
+		state: { canPlay },
+	} = context;
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => setScrambleWord(context), [canPlay]);
+	const GameComponent = !canPlay ? ScrambleGame : Success;
 
-	return <div className="scrambler">
-		{!canPlay
-			?	values(map(scrambler, (value, key) =>
-				<ScrambleGame
-					key={ key }
-					{ ...{ ...context, data: { key, value }} }
-				/>))
-			: <Success { ...context }/>}
-	</div>;
+	return (
+		<div className="scrambler">
+			<GameComponent { ...context }/>
+		</div>
+	);
 };
 
 export default Start;

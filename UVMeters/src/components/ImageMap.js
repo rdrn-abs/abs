@@ -9,26 +9,43 @@ const getSegment = (context) => ({ value }) => {
 	&& setState((prevState) => ({ ...prevState, [type]: segment }));
 };
 
-const needle = '/images/needle.png';
+const needle = '/needle.png';
+
+const ChildImagesHolder = (context) => {
+	const { state, data: { type }} = context;
+	const child = `/${ type }.png`;
+
+	return (
+		<div>
+			<img { ...{
+				className: 'child',
+				src: child,
+				alt: 'dial',
+			} }
+			/>
+			<img { ...{
+				className: 'needle',
+				src: needle,
+				alt: 'needle',
+				style: { rotate: state[type].angle },
+			}	}
+			/>
+		</div>);
+};
 
 const ImageMap = (context) => {
-	const { state, data: { type }} = context;
-	const parent = `/images/${ type }.png`;
+	const { data: { type }} = context;
+	const parent = `/${ type }Filled.png`;
 
 	return (
 		<Mask
 			{ ...{
 				onChange: getSegment(context),
-				src: parent, className: 'parent',
+				src: parent,
+				className: 'parent',
 			} }
 		>
-			<div>
-				<img{ ...{ className: 'child', src: parent, alt: 'img' } }/>
-				<img { ... { className: 'needle',	src: needle,
-					alt: 'img',	style: { rotate: state[type].angle }}
-				}
-				/>
-			</div>
+			<ChildImagesHolder { ...context }/>
 		</Mask>
 	);
 };

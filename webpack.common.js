@@ -12,7 +12,7 @@ module.exports = {
 	}),{}),
 	output: {
 		path: resolve(__dirname, 'dist'),
-		publicPath: '/',
+		publicPath: process.env.PUBLIC_URL,
 	},
 	resolve: {
 		alias: {

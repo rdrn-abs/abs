@@ -62,7 +62,7 @@ const updateLetters = (context) => {
 	return updatedLetters;
 };
 
-const isAllLetterMatch = (context) => {
+const checkLetterMatch = (context) => {
 	const { state: { letters: { scrambledLetters }}} = context;
 
 	return scrambledLetters
@@ -71,7 +71,7 @@ const isAllLetterMatch = (context) => {
 
 const ScrambleManager = {
 	scramble, checkWord, getScrambledLetters, clearInput, showDiscount,
-	updateLetters, isAllLetterMatch,
+	updateLetters, checkLetterMatch,
 };
 
 export default ScrambleManager;

@@ -42,9 +42,9 @@ const InputBox = (context) => {
 	const { state: { input }} = context;
 
 	useEffect(() => {
-		const isAllLetterMatch = ScrambleManager.isAllLetterMatch(context);
+		const isMatched = ScrambleManager.checkLetterMatch(context);
 
-		isAllLetterMatch && setDiscount(context);
+		isMatched && setDiscount(context);
 	}, [context]);
 
 	return (

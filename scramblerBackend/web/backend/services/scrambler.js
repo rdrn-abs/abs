@@ -1,7 +1,7 @@
 import { shuffle } from "@laufire/utils/collection.js";
 import { rndString, rndValue } from "@laufire/utils/random.js";
 import crypto from "crypto";
-import config from "./config.js";
+import config from "../config.js";
 import { isDefined } from "@laufire/utils/reflection.js";
 
 const hashWord = (word) => {

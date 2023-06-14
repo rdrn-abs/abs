@@ -1,11 +1,16 @@
+import { result } from '@laufire/utils/collection';
 import React from 'react';
 
 const Discount = (context) => {
-	const { state: { discount: { data:
-		{ discountCodeBasicCreate, collectionUrl }}}} = context;
+	const {
+		discountCodeBasicCreate,
+		collectionUrl,
+	} = result(context, 'state/discount/data');
 
-	const { codeDiscountNode: { codeDiscount:
-		{ title, codes: { nodes }}}} = discountCodeBasicCreate;
+	const {
+		title,
+		codes: { nodes },
+	} = result(discountCodeBasicCreate, 'codeDiscountNode/codeDiscount');
 
 	const [{ code }] = nodes;
 

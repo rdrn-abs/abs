@@ -3,8 +3,8 @@ import RedirectToHome from './RedirectToHome';
 
 const VisitLater = (context) => {
 	const {
-		data: {
-			value: { nextAvailableAt },
+		state: {
+			scrambler: { nextAvailableAt },
 		},
 	} = context;
 
@@ -13,7 +13,7 @@ const VisitLater = (context) => {
 			<p className="visitLater-title">
 				Come back after <b className="visitLater-hours">
 					{nextAvailableAt}
-				</b> hours
+				</b>hours
 			</p>
 			<RedirectToHome { ...context }/>
 		</div>

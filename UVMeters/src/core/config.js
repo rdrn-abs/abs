@@ -7,12 +7,12 @@ const config = {
 				spf: '2',
 				angle: '-81deg',
 			},
-			'#fa701cff': {
+			'#fa6f1cff': {
 				protection: '75%',
 				spf: '4',
 				angle: '-63deg',
 			},
-			'#f6961eff': {
+			'#f7961eff': {
 				protection: '90%',
 				spf: '10',
 				angle: '-45deg',
@@ -22,32 +22,32 @@ const config = {
 				spf: '15',
 				angle: '-27deg',
 			},
-			'#ecdb23ff': {
+			'#ecdc22ff': {
 				protection: '97%',
 				spf: '30',
 				angle: '-9deg',
 			},
-			'#d4e725ff': {
+			'#d5e724ff': {
 				protection: '97.5%',
 				spf: '40',
 				angle: '9deg',
 			},
-			'#aee228ff': {
+			'#aee329ff': {
 				protection: '98%',
 				spf: '50',
 				angle: '27deg',
 			},
-			'#8bdc2aff': {
+			'#8bdc2bff': {
 				protection: '98.3%',
 				spf: '60',
 				angle: '45deg',
 			},
-			'#6ad72dff': {
+			'#6ad72cff': {
 				protection: '98.5%',
 				spf: '70',
 				angle: '63deg',
 			},
-			'#4dd230ff': {
+			'#4cd22eff': {
 				protection: '99%',
 				spf: '100',
 				angle: '81deg',
@@ -57,22 +57,26 @@ const config = {
 		{
 			'#ff471aff': {
 				pf: '+',
-				protection: 'of 50 - 75%',
+				joiningWord: ' of ',
+				protection: ' 50 - 75%',
 				angle: '-67.5deg',
 			},
 			'#f3a81fff': {
 				pf: '++',
-				protection: 'of 75 - 87.5%',
+				joiningWord: ' of ',
+				protection: ' 75 - 87.5%',
 				angle: '-22.5deg',
 			},
 			'#d4e725ff': {
 				pf: '+++',
-				protection: 'of 87.5 - 93.5%',
+				joiningWord: ' of ',
+				protection: ' 87.5 - 93.5%',
 				angle: '22.5deg',
 			},
 			'#7ada2cff': {
 				pf: '++++',
-				protection: 'greater than 93.75%',
+				joiningWord: ' greater than ',
+				protection: ' 93.75%',
 				angle: '67.5deg',
 			},
 		},

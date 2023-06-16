@@ -1,19 +1,35 @@
 import React from 'react';
 import Mask from './Mask';
+import needle from '../assets/images/needle.png';
+import childUVA from '../assets/images/UVAMeter.png';
+import parentUVA from '../assets/images/UVAMeterFilled.png';
+import childUVB from '../assets/images/UVBMeter.png';
+import parentUVB from '../assets/images/UVBMeterFilled.webp';
+import { peek } from '@laufire/utils/debug';
 
 const getSegment = (context) => ({ value }) => {
 	const { config: { segments }, setState, data: { type }} = context;
-	const segment = segments[type][value];
+
+	peek('value', value);
+	const segment = peek(segments[type][value]);
 
 	segment
 	&& setState((prevState) => ({ ...prevState, [type]: segment }));
 };
 
-const needle = '/needle.png';
+const childImages = {
+	UVAMeter: childUVA,
+	UVBMeter: childUVB,
+};
+
+const parentImages = {
+	UVAMeter: parentUVA,
+	UVBMeter: parentUVB,
+};
 
 const ChildImagesHolder = (context) => {
 	const { state, data: { type }} = context;
-	const child = `/${ type }.png`;
+	const child = childImages[type];
 
 	return (
 		<div>
@@ -35,7 +51,7 @@ const ChildImagesHolder = (context) => {
 
 const ImageMap = (context) => {
 	const { data: { type }} = context;
-	const parent = `/${ type }Filled.png`;
+	const parent = parentImages[type];
 
 	return (
 		<Mask

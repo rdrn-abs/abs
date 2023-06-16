@@ -9,9 +9,10 @@ const DisplayUVAText = (context) => {
 			<h6 className="spf-subheading">(Tap dial)</h6>
 			<h4 className="spf-subheading">UVA Meter</h4>
 			<h2>UVA PF {state[type].pf} indicates UVA protection
-				<span className="protection">
-					{` ${ state[type].protection }`}
-				</span>.
+				{`${ state[type].joiningWord }`}
+				<span className="newLine">
+					<span className="protection">{`${ state[type].protection }`}</span>
+				</span>
 			</h2>
 		</div>
 	);

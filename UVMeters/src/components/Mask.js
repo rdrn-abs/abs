@@ -18,6 +18,7 @@ const setCanvasImage = ({ canvasRef, imgRef, src }) => {
 		);
 	};
 	image.src = src;
+	image.setAttribute('crossOrigin', '');
 };
 
 const getColor = (evt, canvasRef) => {

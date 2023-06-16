@@ -12,7 +12,7 @@ module.exports = {
 	}),{}),
 	output: {
 		path: resolve(__dirname, 'dist'),
-		publicPath: process.env.PUBLIC_URL,
+		publicPath:process.env.PUBLIC_URL,
 	},
 	resolve: {
 		alias: {
@@ -48,9 +48,17 @@ module.exports = {
 				],
 			},
 			{
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        test: /\.(png|jpe?g|gif|webp)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+						options: {
+							name: '[name].[ext]',
+						},
+          },
+        ],
       },
+			
 		],
 	},
 	plugins: [new Dotenv({path:'/home/rkr/clients/chosen/abs/scrambler/.env'}), new CleanWebpackPlugin()],

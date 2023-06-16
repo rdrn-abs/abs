@@ -5,16 +5,16 @@ import childUVA from '../assets/images/UVAMeter.png';
 import parentUVA from '../assets/images/UVAMeterFilled.png';
 import childUVB from '../assets/images/UVBMeter.png';
 import parentUVB from '../assets/images/UVBMeterFilled.webp';
-import { peek } from '@laufire/utils/debug';
 
 const getSegment = (context) => ({ value }) => {
 	const { config: { segments }, setState, data: { type }} = context;
-
-	peek('value', value);
-	const segment = peek(segments[type][value]);
+	const segment = segments[type][value];
 
 	segment
-	&& setState((prevState) => ({ ...prevState, [type]: segment }));
+	&& setState((prevState) => ({
+		...prevState,
+		[type]: segment,
+	}));
 };
 
 const childImages = {
@@ -31,22 +31,21 @@ const ChildImagesHolder = (context) => {
 	const { state, data: { type }} = context;
 	const child = childImages[type];
 
-	return (
-		<div>
-			<img { ...{
-				className: 'child',
-				src: child,
-				alt: 'dial',
-			} }
-			/>
-			<img { ...{
-				className: 'needle',
-				src: needle,
-				alt: 'needle',
-				style: { rotate: state[type].angle },
-			}	}
-			/>
-		</div>);
+	return <div>
+		<img { ...{
+			className: 'child',
+			src: child,
+			alt: 'dial',
+		} }
+		/>
+		<img { ...{
+			className: 'needle',
+			src: needle,
+			alt: 'needle',
+			style: { rotate: state[type].angle },
+		}	}
+		/>
+	</div>;
 };
 
 const ImageMap = (context) => {

@@ -4,7 +4,7 @@ import DisplayUVAText from './DisplayUVAText';
 import DisplayUVBText from './DisplayUVBText';
 
 const UVLabels = {
-	UVAMeter: 'PF',
+	UVAMeter: 'PA',
 	UVBMeter: 'SPF',
 };
 

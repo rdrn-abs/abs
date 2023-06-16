@@ -5,12 +5,12 @@ const DisplayUVBText = (context) => {
 
 	return (
 		<div className="display-text tt-post-single">
-			<h4 className="spf-subheading">UVB Meter</h4>
-			<h2>  SPF {state[type].spf} blocks
+			<h2 className="spf-subheading">UVB Meter</h2>
+			<h4>  SPF {state[type].spf} blocks
 				<span className="protection">
 					{ ` ${ state[type].protection }` }
 				</span> of the UVB rays.
-			</h2>
+			</h4>
 		</div>
 	);
 }	;

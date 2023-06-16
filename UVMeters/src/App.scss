@@ -57,7 +57,7 @@
 	}
 
 	.spf-subheading {
-		padding:0 0 28px !important
+		padding: 0 0 28px !important
 	}
 
 	.display-meter {
@@ -65,13 +65,13 @@
 	}
 
 	.protection {
-		font-size: 35px;
+		font-size: 1.4em;
 		color: #ae9461;
 		font-weight: 700;
 	}
-	.newLine{
-	display: inline;
 
+	.newLine {
+		display: inline;
 	}
 
 	@media screen and (max-width: 480px) {
@@ -81,25 +81,23 @@
 
 		.display-text {
 			margin: auto 8%;
-
 		}
 	}
 
 	@media only screen and (max-width: 550px) {
 
-
 		.spf-heading {
 			font-size: 35px !important;
 			margin: 20px 0 0 0;
-
 		}
+
 		.spf-subheading {
-			padding:0 0 22px !important
-		}
-		.newLine{
-			display: block;
-			padding:.3em 0
+			padding: 0 0 22px !important
 		}
 
+		.newLine {
+			display: block;
+			padding: .25em 0
+		}
 	}
 }

@@ -1,0 +1,42 @@
+
+:root{
+  --hover-color: #ae9461;
+  --primary-color:black;
+}
+.redirect-login-card {
+  background-color: rgb(234, 237, 237);
+  margin: 5rem auto;
+  padding: 5rem;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.redirect-btn-login:hover {
+  background-color: var(--hover-color);
+	color: white;
+}
+.redirect-login-title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  padding: 1.5rem;
+  font-family: "Geomanist-Bold", sans-serif;
+  color: var(--primary-color);
+}
+
+.redirect-btn-login {
+		font-family: "Geomanist-Regular", sans-serif;
+		font-size: 14px;
+		text-transform: uppercase;
+		padding: 6px 31px 4px;
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+		border:none;
+		border-radius: 6px;
+		height: 40px;
+		cursor: pointer;
+		color: rgb(255, 255, 255);
+		background: var(--primary-color);
+		transition: all 0.3s linear;
+	}

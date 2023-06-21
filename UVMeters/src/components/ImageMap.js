@@ -4,11 +4,14 @@ import needle from '../assets/images/needle.png';
 import childUVA from '../assets/images/UVAMeter.png';
 import parentUVA from '../assets/images/UVAMeterFilled.png';
 import childUVB from '../assets/images/UVBMeter.png';
-import parentUVB from '../assets/images/UVBMeterFilled.webp';
+import parentUVB from '../assets/images/UVBMeterFilled.svg';
+import { peek } from '@laufire/utils/debug';
 
 const getSegment = (context) => ({ value }) => {
 	const { config: { segments }, setState, data: { type }} = context;
-	const segment = segments[type][value];
+	const segment = peek(segments[type][value]);
+
+	peek(value);
 
 	segment
 	&& setState((prevState) => ({

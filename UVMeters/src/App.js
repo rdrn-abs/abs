@@ -3,7 +3,7 @@ import './App.scss';
 import UVMeter from './components/UVMeter';
 
 const colorUVA = '#d4e725ff';
-const colorUVB = '#aee329ff';
+const colorUVB = '#faff00ff';
 
 const App = (context) => {
 	const { config: { segments }} = context;

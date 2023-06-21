@@ -2,52 +2,102 @@ const config = {
 	segments: {
 		UVBMeter:
 		{
-			'#ff471aff': {
+			// '#ff471aff': {
+			// 	protection: '50%',
+			// 	spf: '2',
+			// 	angle: '-81deg',
+			// },
+			// '#fb701dff': {
+			// 	protection: '75%',
+			// 	spf: '4',
+			// 	angle: '-63deg',
+			// },
+			// '#f7961eff': {
+			// 	protection: '90%',
+			// 	spf: '10',
+			// 	angle: '-45deg',
+			// },
+			// '#f1ba20ff': {
+			// 	protection: '93%',
+			// 	spf: '15',
+			// 	angle: '-27deg',
+			// },
+			// '#eddb24ff': {
+			// 	protection: '97%',
+			// 	spf: '30',
+			// 	angle: '-9deg',
+			// },
+			// '#d5e724ff': {
+			// 	protection: '97.5%',
+			// 	spf: '40',
+			// 	angle: '9deg',
+			// },
+			// '#aee329ff': {
+			// 	protection: '98%',
+			// 	spf: '50',
+			// 	angle: '27deg',
+			// },
+			// '#8bdc2bff': {
+			// 	protection: '98.3%',
+			// 	spf: '60',
+			// 	angle: '45deg',
+			// },
+			// '#6bd92dff': {
+			// 	protection: '98.5%',
+			// 	spf: '70',
+			// 	angle: '63deg',
+			// },
+			// '#4ed332ff': {
+			// 	protection: '99%',
+			// 	spf: '100',
+			// 	angle: '81deg',
+			// },
+			'#ff1a1aff': {
 				protection: '50%',
 				spf: '2',
 				angle: '-81deg',
 			},
-			'#fa6f1cff': {
+			'#faff00ff': {
 				protection: '75%',
 				spf: '4',
 				angle: '-63deg',
 			},
-			'#f7961eff': {
+			'#7fff00ff': {
 				protection: '90%',
 				spf: '10',
 				angle: '-45deg',
 			},
-			'#f1ba20ff': {
+			'#0038ffff': {
 				protection: '93%',
 				spf: '15',
 				angle: '-27deg',
 			},
-			'#ecdc22ff': {
+			'#fa00ffff': {
 				protection: '97%',
 				spf: '30',
 				angle: '-9deg',
 			},
-			'#d5e724ff': {
+			'#00d1ffff': {
 				protection: '97.5%',
 				spf: '40',
 				angle: '9deg',
 			},
-			'#aee329ff': {
+			'#765604ff': {
 				protection: '98%',
 				spf: '50',
 				angle: '27deg',
 			},
-			'#8bdc2bff': {
+			'#8000ffff': {
 				protection: '98.3%',
 				spf: '60',
 				angle: '45deg',
 			},
-			'#6ad72cff': {
+			'#751437ff': {
 				protection: '98.5%',
 				spf: '70',
 				angle: '63deg',
 			},
-			'#4cd22eff': {
+			'#ff7a00ff': {
 				protection: '99%',
 				spf: '100',
 				angle: '81deg',

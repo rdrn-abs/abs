@@ -2,25 +2,13 @@ import { shuffle } from "@laufire/utils/collection.js";
 import { rndString, rndValue } from "@laufire/utils/random.js";
 import crypto from "crypto";
 import config from "../config.js";
-import { isDefined } from "@laufire/utils/reflection.js";
+import graphQLFetch from "./grapQLFetch.js";
 
 const hashWord = (word) => {
   const hash = crypto.createHash("sha256");
   hash.update(word.toUpperCase());
 
   return hash.digest("hex");
-};
-
-const graphQLFetch = async (data) => {
-  const response = await fetch(config.shopifyEndpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Shopify-Access-Token": config.accessToken,
-    },
-    body: JSON.stringify(data),
-  });
-  return response;
 };
 
 const getCustomerMetaField = async ({ customerId }) => {

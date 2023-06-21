@@ -8,23 +8,26 @@
 		width:80vw;
 		position: relative;
 
+
 	}
 
 	.parent {
 		position: relative;
 		display: inline-block;
+
 	}
 
 	.mask {
 		position: absolute;
 		top: 0;
 		left: 0;
-		opacity: 0
+		opacity: 0;
 	}
 
 	.mask-container {
 		position: relative;
 		display: inline-block;
+		cursor: url('assets/mustache_32.png'), pointer;
 	}
 
 

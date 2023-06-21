@@ -11,15 +11,17 @@ const getSegment = (context) => ({ value }) => {
 
 	peek(value);
 
-	value
-	&& setState((prevState) => ({
+	const segment = UVIndex[value];
+
+	segment && setState((prevState) => ({
 		...prevState,
 		value,
 	}));
+
 	peek(UVIndex[value]);
 };
 
-const ChildImagesHolder = (context) =>
+const ChildImageHolder = () =>
 	<div>
 		<img { ...{
 			className: 'child',
@@ -27,23 +29,17 @@ const ChildImagesHolder = (context) =>
 			alt: 'bg',
 		} }
 		/>
-
 	</div>;
 
-const ImageMap = (context) => {
-	const { data } = context;
-
-	return (
-		<Mask
-			{ ...{
-				onChange: getSegment(context),
-				src: parentImage,
-				className: 'parent',
-			} }
-		>
-			<ChildImagesHolder { ...context }/>
-		</Mask>
-	);
-};
+const ImageMap = (context) =>
+	<Mask
+		{ ...{
+			onChange: getSegment(context),
+			src: parentImage,
+			className: 'parent',
+		} }
+	>
+		<ChildImageHolder/>
+	</Mask>;
 
 export default ImageMap;

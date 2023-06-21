@@ -3,8 +3,10 @@ import './App.scss';
 import ImageMap from './components/ImageMap';
 import DisplayText from './components/DisplayText';
 
+const initColor = '#91bf39ff';
+
 const App = (context) => {
-	const [state, setState] = useState({ value: '#91bf39ff' });
+	const [state, setState] = useState({ value: initColor });
 	const extendedContext = { ...context, state, setState };
 
 	return <div className="UVIndex">

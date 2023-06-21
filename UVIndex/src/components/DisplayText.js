@@ -6,7 +6,7 @@ const DisplayText = (context) => {
 
 	return (
 		<div>
-			<h1>The UVIndex is {level}. The risk is {danger}.</h1>
+			<h1>The UV index is {level}. The risk is {danger}.</h1>
 		</div>
 	);
 };

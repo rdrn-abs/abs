@@ -7,17 +7,16 @@ import parentImage from '../assets/bgFlat.jpg';
 import { peek } from '@laufire/utils/debug';
 
 const getSegment = (context) => ({ value }) => {
-	// const { config: { segments }, setState, data: { type }} = context;
-	// const segment = peek(segments[type][value]);
+	const { config: { UVIndex }, setState } = context;
 
-	// peek(value);
-
-	// segment
-	// && setState((prevState) => ({
-	// 	...prevState,
-	// 	[type]: segment,
-	// }));
 	peek(value);
+
+	value
+	&& setState((prevState) => ({
+		...prevState,
+		value,
+	}));
+	peek(UVIndex[value]);
 };
 
 const ChildImagesHolder = (context) =>

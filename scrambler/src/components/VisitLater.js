@@ -2,18 +2,16 @@ import React from 'react';
 import RedirectToHome from './RedirectToHome';
 
 const VisitLater = (context) => {
-	const {
-		state: {
-			scrambler: { nextAvailableAt },
-		},
-	} = context;
+	const { state: { scrambler: { error: { nextAvailableAt }}}} = context;
 
 	return (
 		<div className="visitLater-card">
 			<p className="visitLater-title">
-				Come back after <b className="visitLater-hours">
+				You&apos;ve conquered the scramble challenge!
+				Take a breather and prepare for another thrilling
+				scramble session in just <b className="visitLater-hours">
 					{nextAvailableAt}
-				</b>hours
+				</b> hours!
 			</p>
 			<RedirectToHome { ...context }/>
 		</div>

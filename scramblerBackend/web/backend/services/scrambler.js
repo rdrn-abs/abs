@@ -11,6 +11,36 @@ const hashWord = (word) => {
   return hash.digest("hex");
 };
 
+const getPageMetaField = async () => {
+  const query = ` {
+    metafieldDefinition(id: "gid://shopify/MetafieldDefinition/${config.pageMetaFieldsId}") {
+      metafields(first:1){
+        edges{
+          node{
+            value
+          }
+        }
+      }
+    }
+  }`;
+  const response = await graphQLFetch({ query });
+  const data = await response.json();
+  const {
+    data: {
+      metafieldDefinition: {
+        metafields: { edges },
+      },
+    },
+  } = data;
+  const [
+    {
+      node: { value },
+    },
+  ] = edges;
+
+  return value;
+};
+
 const getCustomerMetaField = async ({ customerId }) => {
   const query = `query {
     customer(id: "gid://shopify/Customer/${customerId}") {
@@ -129,36 +159,11 @@ const getCollectionId = async ({ collectionName }) => {
 };
 
 const getCollection = async () => {
-  const query = ` {
-    metafieldDefinition(id: "gid://shopify/MetafieldDefinition/${config.pageMetaFieldsId}") {
-      metafields(first:1){
-        edges{
-          node{
-            value
-          }
-        }
-      }
-    }
-  }`;
-  const response = await graphQLFetch({ query });
-  const data = await response.json();
-  const {
-    data: {
-      metafieldDefinition: {
-        metafields: { edges },
-      },
-    },
-  } = data;
-  const [
-    {
-      node: { value },
-    },
-  ] = edges;
-  const collectionLink = value;
-  const [collectionUrl, collectionName] = collectionLink.match(
+  const pageMetaField = await getPageMetaField();
+  const { collectionUrl } = await JSON.parse(pageMetaField);
+  const [dummy, collectionName] = collectionUrl.match(
     config.collectionNameRegex
   );
-
   const {
     data: {
       collectionByHandle: { id: collectionId },
@@ -171,6 +176,8 @@ const getCollection = async () => {
 const createDiscount = async ({ customerId }) => {
   const { collectionId, collectionUrl } = await getCollection();
   const metafield = await getCustomerMetaField({ customerId });
+  const pageMetaField = await getPageMetaField();
+  const { codePrefix, discountTitle } = await JSON.parse(pageMetaField);
 
   const mutation = `mutation discountCodeBasicCreate($basicCodeDiscount: DiscountCodeBasicInput!) {
   discountCodeBasicCreate(basicCodeDiscount: $basicCodeDiscount) {
@@ -215,8 +222,8 @@ const createDiscount = async ({ customerId }) => {
 }`;
   const variables = {
     basicCodeDiscount: {
-      title: config.discountTitle,
-      code: `SUMMER${rndString(config.codeLength)}`,
+      title: discountTitle,
+      code: `${codePrefix + rndString(config.codeLength)}`,
       startsAt: new Date(),
       endsAt: new Date(new Date().getTime() + config.millisecondsPerDay),
       customerSelection: {
@@ -273,8 +280,10 @@ const scramble = (word) => {
   return shuffle(strArr).join("");
 };
 
-const createScrambledWord = () => {
-  const word = rndValue(config.words);
+const createScrambledWord = async () => {
+  const pageMetaField = await getPageMetaField();
+  const { scramblerWords } = await JSON.parse(pageMetaField);
+  const word = rndValue(scramblerWords);
 
   return {
     digest: hashWord(word),
@@ -305,7 +314,7 @@ const GET = async (context) => {
   const isEligible = await isEligibleToPlay(context);
 
   return isEligible
-    ? { data: createScrambledWord() }
+    ? { data: await createScrambledWord() }
     : {
         error: {
           type: "Come back the next day.",

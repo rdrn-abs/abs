@@ -3,14 +3,14 @@ import ScrambleManager from '../services/scrambleManager';
 import axios from 'axios';
 
 const setDiscount = async (context) => {
-	const { state: { scrambler, input }, setState, config } = context;
+	const { state: { scrambler, input }, setState } = context;
 
 	setState((prev) => ({
 		...prev,
 		isLoading: !prev.isLoading,
 	}));
 
-	const { data } = await axios.post(`${ config.appUrl }/custom/api/scrambleWord?logged_in_customer_id=${ config.cid }`,
+	const { data } = await axios.post(`${ window.shopUrl }/apps/backend/custom/api/scrambleWord`,
 		{
 			...scrambler.data,
 			word: input,

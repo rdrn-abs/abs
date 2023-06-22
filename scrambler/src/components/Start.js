@@ -3,9 +3,11 @@ import ScrambleGame from './ScrambleGame';
 import ScrambleManager from '../services/scrambleManager';
 import axios from 'axios';
 import Success from './Success';
+import { keys } from '@laufire/utils/collection';
+import Loading from './Loading';
 
-const setScrambleWord = async ({ setState, config }) => {
-	const { data } = await axios.get(`${ config.appUrl }/custom/api/scrambleWord?logged_in_customer_id=${ config.cid }`);
+const setScrambleWord = async ({ setState }) => {
+	const { data } = await axios.get(`${ window.shopUrl }/apps/backend/custom/api/scrambleWord`);
 
 	setState((state) => ({
 		...state,
@@ -16,16 +18,19 @@ const setScrambleWord = async ({ setState, config }) => {
 
 const Start = (context) => {
 	const {
-		state: { canPlay },
+		state: { canPlay, scrambler },
 	} = context;
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	useEffect(() => setScrambleWord(context), [canPlay]);
+	useEffect(() => !canPlay && setScrambleWord(context), [canPlay]);
 	const GameComponent = !canPlay ? ScrambleGame : Success;
+	const StartComponent = keys(scrambler).length !== 0
+		? GameComponent
+		: Loading;
 
 	return (
 		<div className="scrambler">
-			<GameComponent { ...context }/>
+			<StartComponent { ...context }/>
 		</div>
 	);
 };

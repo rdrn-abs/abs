@@ -5,16 +5,13 @@
 		font-weight: bold;
 	}
 	.child{
-		width:80vw;
+		width:60vw;
 		position: relative;
-
-
 	}
 
 	.parent {
 		position: relative;
 		display: inline-block;
-
 	}
 
 	.mask {
@@ -27,10 +24,7 @@
 	.mask-container {
 		position: relative;
 		display: inline-block;
-		cursor: url('assets/running_small.png'), auto;
-
-
-
+		cursor: url('assets/running_small.png')16 16, auto;
 	}
 
 

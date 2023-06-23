@@ -10,8 +10,8 @@ const App = (context) => {
 	const extendedContext = { ...context, state, setState };
 
 	return <div className="UVIndex">
-		<ImageMap { ...extendedContext }/>
 		<DisplayText { ...extendedContext }/>
+		<ImageMap { ...extendedContext }/>
 	</div>;
 };
 

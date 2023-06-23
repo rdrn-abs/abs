@@ -2,7 +2,7 @@ import React from 'react';
 import Mask from './Mask';
 
 import childImage from '../assets/bg.jpg';
-import parentImage from '../assets/bgFlat.jpg';
+import parentImage from '../assets/bg.svg';
 
 import { peek } from '@laufire/utils/debug';
 

@@ -3,27 +3,39 @@ const config = {
 		'#91bf39ff': {
 			level: '1-2',
 			danger: 'Low',
+			text: 'Grass',
 		},
-		'#928572ff': {
-			level: '3-5',
-			danger: 'Moderate',
-		},
-		'#4c5456ff': {
+		'#4c5455ff': {
 			level: '6-7',
 			danger: 'High',
-		},
-		'#618f2cff': {
-			level: '6-7',
-			danger: 'High',
+			text: 'Mountain',
 		},
 		'#5dc1e3ff': {
+			level: '3-4',
+			danger: 'Moderate',
+			text: 'Water',
+		},
+		'#928572ff': {
+			level: '1-2',
+			danger: 'Low',
+			text: 'Mud',
+		},
+		'#e89244ff': {
 			level: '8-10',
 			danger: 'Very high',
+			text: 'Trees',
 		},
 		'#c2c2c2ff': {
 			level: '11',
 			danger: 'Extremely high',
+			text: 'Cloud',
 		},
+		'#ceeaf5ff': {
+			level: '11',
+			danger: 'Extremely high',
+			text: 'Sky',
+		},
+
 	},
 
 };

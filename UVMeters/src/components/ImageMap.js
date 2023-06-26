@@ -4,7 +4,7 @@ import needle from '../assets/images/needle.png';
 import childUVA from '../assets/images/UVAMeter.png';
 import parentUVA from '../assets/images/UVAMeterFilled.png';
 import childUVB from '../assets/images/UVBMeter.png';
-import parentUVB from '../assets/testing/UVBDial_satyendran.png';
+import parentUVB from '../assets/testing/UVBDial-23062023-tiny.png';
 import { peek } from '@laufire/utils/debug';
 
 const getSegment = (context) => ({ value }) => {

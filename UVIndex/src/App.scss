@@ -1,4 +1,5 @@
 .UVIndex {
+	$assetPath :"";
 	text-align: center;
 
 	button {
@@ -24,11 +25,32 @@
 	.mask-container {
 		position: relative;
 		display: inline-block;
-		cursor: url('assets/man-orange.png')16 16, auto;
 	}
+
 	.uv-search{
 		padding: .2em .5em;
 
+	}
+	.spf-label {
+		margin-top: 0em;
+		font-size: 1.5em;
+	}
+
+	.spf-heading {
+		font-family: 'Afterglow-Regular';
+		font-weight: 500;
+		font-size: 60px !important;
+		text-align: center;
+		margin: 28px 0 11px 0;
+	}
+
+	.spf-subheading {
+		padding: 0 0 28px !important
+	}
+	.protection {
+		font-size: 1.4em;
+		color: #ae9461;
+		font-weight: 700;
 	}
 
 

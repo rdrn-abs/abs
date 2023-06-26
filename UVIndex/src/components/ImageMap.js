@@ -3,6 +3,7 @@ import Mask from './Mask';
 
 import childImage from '../assets/bg.jpg';
 import parentImage from '../assets/bg.svg';
+import cursorImage from '../assets/manOrangeTiny.png';
 
 import { peek } from '@laufire/utils/debug';
 
@@ -31,15 +32,20 @@ const ChildImageHolder = () =>
 		/>
 	</div>;
 
+const cursorStyle = { cursor: `url(${ cursorImage }) 16 16, auto` };
+
 const ImageMap = (context) =>
-	<Mask
-		{ ...{
-			onChange: getSegment(context),
-			src: parentImage,
-			className: 'parent',
-		} }
-	>
-		<ChildImageHolder/>
-	</Mask>;
+	<div>
+		<Mask
+			style={ cursorStyle }
+			{ ...{
+				onChange: getSegment(context),
+				src: parentImage,
+				className: 'parent',
+			} }
+		>
+			<ChildImageHolder/>
+		</Mask>;
+	</div>;
 
 export default ImageMap;

@@ -5,9 +5,13 @@ const DisplayText = (context) => {
 	const { level, danger, text } = UVIndex[value];
 
 	return (
-		<div>
-			<h1> This is {text}</h1>
-			<h1>The UV index is {level}. The risk is {danger}.</h1>
+		<div className="display-text tt-post-single">
+			<h1 className="spf-heading">UV Index</h1>
+			<h4> This is {text}.</h4>
+			<h4>The UV index is <span className="protection">
+				{level}</span>
+				. The risk is {danger}.
+			</h4>
 		</div>
 	);
 };

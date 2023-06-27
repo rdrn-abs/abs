@@ -177,7 +177,7 @@ const createDiscount = async ({ customerId }) => {
   const { collectionId, collectionUrl } = await getCollection();
   const metafield = await getCustomerMetaField({ customerId });
   const pageMetaField = await getPageMetaField();
-  const { codePrefix, discountTitle } = await JSON.parse(pageMetaField);
+  const { discountCodePrefix, discountTitle } = await JSON.parse(pageMetaField);
 
   const mutation = `mutation discountCodeBasicCreate($basicCodeDiscount: DiscountCodeBasicInput!) {
   discountCodeBasicCreate(basicCodeDiscount: $basicCodeDiscount) {
@@ -223,7 +223,7 @@ const createDiscount = async ({ customerId }) => {
   const variables = {
     basicCodeDiscount: {
       title: discountTitle,
-      code: `${codePrefix + rndString(config.codeLength)}`,
+      code: `${discountCodePrefix + rndString(config.codeLength)}`,
       startsAt: new Date(),
       endsAt: new Date(new Date().getTime() + config.millisecondsPerDay),
       customerSelection: {

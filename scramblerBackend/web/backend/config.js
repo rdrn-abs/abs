@@ -1,16 +1,16 @@
-import {config as c} from 'dotenv'
+import dotenv from "dotenv";
 
-c()
+dotenv.config();
 
 const config = {
   shopifyEndpoint: `https://${process.env.SHOPIFY_SUB_DOMAIN}.myshopify.com/admin/api/2023-04/graphql.json`,
-  accessToken:process.env.SHOPIFY_ACCESS_TOKEN,
+  accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
   millisecondsPerDay: 86400000,
   codeLength: 5,
-  hoursPerDay:24,
-  discountPercentage:0.03,
+  hoursPerDay: 24,
+  discountPercentage: 0.03,
   collectionNameRegex: /(?:.*\/)(.*)/,
-  pageMetaFieldsId:4866736445,
+  pageMetaFieldsId: process.env.SHOPIFY_PAGE_META_DEFINITION_ID,
 };
 
-export default config
+export default config;

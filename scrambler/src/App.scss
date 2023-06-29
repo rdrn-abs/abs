@@ -1,5 +1,6 @@
 $hover-color: #ae9461;
-$primary-color:black;
+$primary-color: black;
+$animationSpeed: 5s;
 
 .scrambler {
 	text-align: center;
@@ -53,7 +54,19 @@ $primary-color:black;
 	.redirect-btn-home:hover {
 		background-color: $hover-color;
 	}
-
+	.retry-title,
+	.visitLater-title {
+		&::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			background-color: rgb(234, 237, 237);
+			animation: reveal $animationSpeed linear forwards;
+		}
+	}
 	.retry-title,
 	.visitLater-title,
 	.discount-title,
@@ -63,15 +76,17 @@ $primary-color:black;
 		padding: 1.5rem;
 		font-family: "Geomanist-Bold", sans-serif;
 		color: $primary-color;
+		position: relative;
 	}
-	.visitLater-hours{
+	.visitLater-hours {
 		color: $hover-color;
 	}
 	.discount-code {
 		font-family: "Geomanist-Bold";
 		font-size: 40px;
-		color: #9a9a9a;
+		color: white;
 		padding: 1.5rem;
+		filter: drop-shadow(3px 3px 3px #444343);
 	}
 	.redirect-btn-home,
 	.retry-btn {
@@ -82,15 +97,26 @@ $primary-color:black;
 		display: inline-flex;
 		align-items: center;
 		text-decoration: none;
-		border:none;
+		border: none;
 		border-radius: 6px;
 		height: 40px;
 		cursor: pointer;
 		color: rgb(255, 255, 255);
 		background: $primary-color;
+		opacity: 0;
+		animation: fadeInUp 1s ease calc($animationSpeed - 1s) forwards;
+		transform: translateY(3rem);
 		transition: all 0.3s linear;
 	}
-
+	.discount-collection{
+		text-decoration: none;
+		font-family: "Geomanist-Regular", sans-serif;
+		font-size: 14px;
+		text-transform: uppercase;
+		&:hover{
+			color: $hover-color;
+		}
+	}
 	.loading-card {
 		display: flex;
 		justify-content: center;
@@ -117,6 +143,18 @@ $primary-color:black;
 		}
 	}
 
+	@keyframes reveal {
+		to {
+			left: 100%;
+		}
+	}
+
+	@keyframes fadeInUp {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
 	@media only screen and (max-width: 400px) {
 		.game-card,
 		.retry-card,

@@ -1,7 +1,9 @@
-import graphQLFetch from "./grapQLFetch";
+import config from "../config.js";
+import graphQLFetch from "./grapQLFetch.js";
 
 const createMetaFieldDefinition = async (variables) => {
-  const query = `mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+  try {
+    const query = `mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
     metafieldDefinitionCreate(definition: $definition) {
       createdDefinition {
         id
@@ -16,10 +18,14 @@ const createMetaFieldDefinition = async (variables) => {
   }
   `;
 
-  const response = await graphQLFetch({ query, variables });
-  const data = await response.json();
-
-  return data;
+    const response = await graphQLFetch({ query, variables });
+    const { data } = await response.json();
+    data.metafieldDefinitionCreate.createdDefinition
+      ? console.log("Successfully created a metaDefinition")
+      : console.log("Error:",data.metafieldDefinitionCreate.userErrors.message);
+  } catch (error) {
+    console.log("Error:", error.message);
+  }
 };
 
 export default createMetaFieldDefinition;

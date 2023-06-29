@@ -177,7 +177,8 @@ const createDiscount = async ({ customerId }) => {
   const { collectionId, collectionUrl } = await getCollection();
   const metafield = await getCustomerMetaField({ customerId });
   const pageMetaField = await getPageMetaField();
-  const { discountCodePrefix, discountTitle } = await JSON.parse(pageMetaField);
+  const { discountCodePrefix, discountTitle, discountPercentage } =
+    await JSON.parse(pageMetaField);
 
   const mutation = `mutation discountCodeBasicCreate($basicCodeDiscount: DiscountCodeBasicInput!) {
   discountCodeBasicCreate(basicCodeDiscount: $basicCodeDiscount) {
@@ -233,7 +234,7 @@ const createDiscount = async ({ customerId }) => {
       },
       customerGets: {
         value: {
-          percentage: config.discountPercentage,
+          percentage: parseFloat(discountPercentage),
         },
         items: {
           collections: {

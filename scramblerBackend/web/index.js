@@ -8,6 +8,7 @@ import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 import setupRoutes from "./backend/setup/setupRoutes.js";
+import setupMetaField from "./backend/setup/setupMetaField.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -62,7 +63,9 @@ app.get("/api/products/create", async (_req, res) => {
 });
 
 // Custom Api
-
+(async () => {
+  await setupMetaField();
+})();
 setupRoutes(app);
 
 app.use(shopify.cspHeaders());

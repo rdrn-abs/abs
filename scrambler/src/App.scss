@@ -12,7 +12,6 @@ $animationSpeed: 5s;
 	.retry-card,
 	.visitLater-card,
 	.loading-card {
-		background-color: rgb(234, 237, 237);
 		margin: 5rem auto;
 		padding: 5rem;
 	}
@@ -63,7 +62,7 @@ $animationSpeed: 5s;
 			right: 0;
 			left: 0;
 			bottom: 0;
-			background-color: rgb(234, 237, 237);
+			background-color: white;
 			animation: reveal $animationSpeed linear forwards;
 		}
 	}
@@ -155,7 +154,7 @@ $animationSpeed: 5s;
 			transform: translateY(0);
 		}
 	}
-	@media only screen and (max-width: 400px) {
+	@media only screen and (max-width: 500px) {
 		.game-card,
 		.retry-card,
 		.visitLater-card {

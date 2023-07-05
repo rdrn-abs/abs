@@ -8,6 +8,7 @@ const config = {
   millisecondsPerDay: 86400000,
   codeLength: 5,
   hoursPerDay: 24,
+  retry:3,
   discountPercentage: 0.03,
   collectionNameRegex: /(?:.*\/)(.*)/,
   pageMetaFieldsId: process.env.SHOPIFY_PAGE_META_DEFINITION_ID,

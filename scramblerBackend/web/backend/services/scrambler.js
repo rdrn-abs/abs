@@ -1,17 +1,9 @@
-import { shuffle } from "@laufire/utils/collection.js";
 import { rndString, rndValue } from "@laufire/utils/random.js";
-import crypto from "crypto";
 import config from "../config.js";
 import graphQLFetch from "./grapQLFetch.js";
 import graphqlQuery from "./query.js";
 import dayjs from "dayjs";
-
-const hashWord = (word) => {
-  const hash = crypto.createHash("sha256");
-  hash.update(word.toUpperCase());
-
-  return hash.digest("hex");
-};
+import helper from "./helper.js";
 
 const getPageMetaField = async () => {
   const query = graphqlQuery.pageMetaField;
@@ -47,14 +39,18 @@ const getCustomerMetaField = async ({ customerId }) => {
   return metafield;
 };
 
-const updateCustomerMetaField = async ({ customerId, metafield: { id } }) => {
+const updateCustomerMetaField = async ({
+  customerId,
+  metafield: { id },
+  value,
+}) => {
   const query = graphqlQuery.updateCustomerMetaField;
   const variables = {
     input: {
       metafields: [
         {
           id: id,
-          value: `{\"scrambler\":{\"discount\":{\"lastWonAt\":\"${new Date()}\"}}}`,
+          value: value,
         },
       ],
       id: `gid://shopify/Customer/${customerId}`,
@@ -67,7 +63,7 @@ const updateCustomerMetaField = async ({ customerId, metafield: { id } }) => {
   return data;
 };
 
-const createCustomerMetaField = async ({ customerId }) => {
+const createCustomerMetaField = async ({ customerId, value }) => {
   const query = graphqlQuery.createCustomerMetaField;
 
   const variables = {
@@ -77,7 +73,7 @@ const createCustomerMetaField = async ({ customerId }) => {
         {
           namespace: "custom",
           key: "custom",
-          value: `{\"scrambler\":{\"discount\":{\"lastWonAt\":\"${new Date()}\"}}}`,
+          value: value,
           type: "json",
         },
       ],
@@ -117,14 +113,13 @@ const getCollection = async () => {
   return { collectionUrl, collectionName, collectionId };
 };
 
-const createDiscount = async ({ customerId }) => {
+const createDiscount = async ({ customerId, metafieldValue }) => {
   const { collectionId, collectionUrl } = await getCollection();
   const metafield = await getCustomerMetaField({ customerId });
   const pageMetaField = await getPageMetaField();
   const { discountCodePrefix, discountTitle, discountPercentage } =
     await JSON.parse(pageMetaField);
 
-  const mutation = graphqlQuery.createDiscount;
   const variables = {
     basicCodeDiscount: {
       title: discountTitle,
@@ -151,87 +146,144 @@ const createDiscount = async ({ customerId }) => {
   };
 
   const response = await graphQLFetch({
-    query: mutation,
+    query: graphqlQuery.createDiscount,
     variables: variables,
   });
   const { data } = await response.json();
 
-  metafield?.id
-    ? await updateCustomerMetaField({ customerId, metafield })
-    : await createCustomerMetaField({ customerId });
+  const value = JSON.stringify({
+    scrambler: {
+      ...metafieldValue.scrambler,
+      discount: { lastWonAt: new Date() },
+    },
+  });
+
+  await updateCustomerMetaField({ customerId, metafield, value });
 
   return { ...data, collectionUrl };
 };
 
-const timeDelta = async (context) => {
-  const metafield = await getCustomerMetaField(context);
-  const response = JSON.parse(metafield.value);
-  const discount = response.scrambler.discount;
-  const currentDate = dayjs();
-  const lastWonAt = dayjs(discount.lastWonAt);
-
-  return { currentDate, lastWonAt };
-};
-
-const checkTimeDifference = async (context) => {
-  const { currentDate, lastWonAt } = await timeDelta(context);
-  const timeDifference = currentDate.diff(lastWonAt, "d");
-
-  return timeDifference;
-};
-
-const scramble = (word) => {
-  const strArr = word.split("");
-
-  return shuffle(strArr).join("");
-};
-
-const createScrambledWord = async () => {
+const createScrambledWord = async (context) => {
+  const isMetaField = context?.metafieldValue;
   const pageMetaField = await getPageMetaField();
   const { scramblerWords } = await JSON.parse(pageMetaField);
   const word = rndValue(scramblerWords);
+  const digest = helper.hashWord(word);
+  const scrambleWord = helper.scramble(word);
+  const data = {
+    wordIssued: scrambleWord,
+    wordIssuedAt: new Date(),
+    digest,
+    retry: config.retry,
+  };
+  const value = JSON.stringify({
+    scrambler: { ...isMetaField?.scrambler, ...data },
+  });
+  isMetaField
+    ? await updateCustomerMetaField({ ...context, value })
+    : await createCustomerMetaField({ ...context, value });
 
   return {
-    digest: hashWord(word),
-    word: scramble(word),
+    word: scrambleWord,
   };
 };
 
 const getNextAvailableAt = async (context) => {
-  const { currentDate, lastWonAt } = await timeDelta(context);
-  const nextAvailableAt = config.hoursPerDay - currentDate.diff(lastWonAt, "h");
+  const {
+    metafieldValue: {
+      scrambler: {
+        discount: { lastWonAt },
+      },
+    },
+  } = context;
+  const currentDate = dayjs();
+  const date = dayjs(lastWonAt);
+  const nextAvailableAt = config.hoursPerDay - currentDate.diff(date, "h");
 
   return nextAvailableAt;
 };
 
-const isEligibleToPlay = async (context) => {
-  const metafield = await getCustomerMetaField(context);
+const checkRemainingChance = async (context) => {
+  const {
+    metafieldValue: {
+      scrambler: { retry, wordIssued },
+    },
+  } = context;
 
-  return (
-    !metafield?.value || (await checkTimeDifference({ ...context, metafield }))
-  );
+  return retry
+    ? { data: { word: wordIssued } }
+    : {
+        error: { msg: "You have no more chance to play today", code: "retry" },
+      };
 };
 
-const GET = async (context) => {
-  const isEligible = await isEligibleToPlay(context);
+const isAlreadyPlayed = async (context) => {
+  const {
+    metafieldValue: {
+      scrambler: { wordIssuedAt },
+    },
+  } = context;
+  const canPlay = helper.checkDateDifference(wordIssuedAt);
+
+  return !canPlay
+    ? await checkRemainingChance(context)
+    : await createScrambledWord(context);
+};
+
+const isEligibleToPlay = async (context) => {
+  const {
+    metafieldValue: { scrambler },
+  } = context;
+  const isEligible =
+    !scrambler?.discount || helper.checkDateDifference(scrambler.discount.lastWonAt);
 
   return isEligible
-    ? { data: await createScrambledWord() }
+    ? await isAlreadyPlayed(context)
     : {
         error: {
-          type: "Come back the next day.",
+          msg: "Come back the next day.",
           nextAvailableAt: await getNextAvailableAt(context),
         },
       };
 };
 
-const POST = async ({ digest, word, customerId }) => {
-  const userInputDigest = hashWord(word);
-  const isMatch = digest === userInputDigest;
+const updateRemainingChange = async (context) => {
+  const {
+    metafieldValue: { scrambler },
+  } = context;
+  const retry = scrambler.retry - 1;
+  const value = JSON.stringify({
+    scrambler: { ...scrambler, retry },
+  });
+  await updateCustomerMetaField({ ...context, value });
+
+  return { error: { msg: "Not match", remainingChances: retry } };
+};
+
+const GET = async (context) => {
+  const metafield = await getCustomerMetaField(context);
+  const metafieldValue =
+    metafield?.value && (await JSON.parse(metafield.value));
+  const enrichedContext = { ...context, metafield, metafieldValue };
+
+  const response = metafieldValue
+    ? await isEligibleToPlay(enrichedContext)
+    : { data: await createScrambledWord(enrichedContext) };
+
+  return response;
+};
+
+const POST = async (context) => {
+  const { word, customerId } = context;
+  const metafield = await getCustomerMetaField({ customerId });
+  const metafieldValue = await JSON.parse(metafield.value);
+  const enrichedContext = { ...context, metafieldValue, metafield };
+  const userInputDigest = helper.hashWord(word);
+  const isMatch = metafieldValue.scrambler.digest === userInputDigest;
 
   return isMatch
-    ? { data: await createDiscount({ customerId }) }
-    : { error: { type: "Not match" } };
+    ? { data: await createDiscount(enrichedContext) }
+    : await updateRemainingChange(enrichedContext);
 };
 
 const scrambler = { GET, POST };

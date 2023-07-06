@@ -4,15 +4,16 @@ import ScrambleManager from '../services/scrambleManager';
 import Success from './Success';
 import { keys } from '@laufire/utils/collection';
 import Loading from './Loading';
+import axios from 'axios';
 
-// const setScrambleWord = async ({ setState }) => {
-// const { data } = await axios.get(`${ window.shopUrl }/apps/backend/custom/api/scrambleWord`);
-const setScrambleWord = ({ setState }) => {
+const setScrambleWord = async ({ setState }) => {
+	const { data } = await axios.get(`${ window.shopUrl }/apps/backend/custom/api/scrambleWord`);
+
 	setState((state) => ({
 		...state,
-		scrambler: { data: { word: 'dummy' }},
+		scrambler: data,
 		letters: ScrambleManager
-			.getScrambledLetters({ data: { word: 'dummy' }}),
+			.getScrambledLetters(data),
 	}));
 };
 

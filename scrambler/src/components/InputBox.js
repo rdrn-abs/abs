@@ -32,7 +32,7 @@ const InputHandler = (context) => ({ target: { value }}) => {
 		letters: {
 			...prev.letters,
 			scrambledLetters: ScrambleManager
-				.updateLetters({ ...context, data: value }),
+				.updateLetters({ ...context, data: value.toUpperCase() }),
 		},
 		input: value,
 	}));

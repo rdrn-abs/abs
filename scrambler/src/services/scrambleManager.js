@@ -5,7 +5,7 @@ const getScrambledLetters = (context) => {
 
 	const scrambledLetters = data?.word
 		.split('')
-		.map((letter) => ({ letter: letter, entered: false }));
+		.map((letter) => ({ letter: letter.toUpperCase(), entered: false }));
 
 	return { scrambledLetters };
 };
@@ -39,6 +39,7 @@ const updateLetters = (context) => {
 			.slice(0, Math.min(filtered.length, key));
 
 		correctedFiltered.map((itemm) => {
+			// eslint-disable-next-line max-len
 			const found = updatedLetters.find((letter) => letter === itemm);
 
 			found.entered = true;

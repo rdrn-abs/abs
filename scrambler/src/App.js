@@ -11,7 +11,7 @@ const App = (context) => {
 	const { seed: { initialState }} = context;
 	const [state, setState] = useState(initialState);
 	const extendedContext = { ...context, state, setState };
-	const StartComponent = isUserLoggedIn ? Start : RedirectToLogin;
+	const StartComponent = !isUserLoggedIn ? Start : RedirectToLogin;
 
 	return <StartComponent { ...extendedContext }/>;
 };

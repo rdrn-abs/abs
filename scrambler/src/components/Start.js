@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import ScrambleGame from './ScrambleGame';
 import ScrambleManager from '../services/scrambleManager';
-import axios from 'axios';
 import Success from './Success';
 import { keys } from '@laufire/utils/collection';
 import Loading from './Loading';
 
-const setScrambleWord = async ({ setState }) => {
-	const { data } = await axios.get(`${ window.shopUrl }/apps/backend/custom/api/scrambleWord`);
-
+// const setScrambleWord = async ({ setState }) => {
+// const { data } = await axios.get(`${ window.shopUrl }/apps/backend/custom/api/scrambleWord`);
+const setScrambleWord = ({ setState }) => {
 	setState((state) => ({
 		...state,
-		scrambler: data,
-		letters: ScrambleManager.getScrambledLetters(data),
+		scrambler: { data: { word: 'dummy' }},
+		letters: ScrambleManager
+			.getScrambledLetters({ data: { word: 'dummy' }}),
 	}));
 };
 

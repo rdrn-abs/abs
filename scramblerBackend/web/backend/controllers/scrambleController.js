@@ -1,18 +1,19 @@
 import scramble from "../services/scrambler.js";
 
-const getScrambleWord = async (req, res) => {
+const GET = async (req, res) => {
   const customerId = Number(req.query.logged_in_customer_id);
 
-  res.json(await scramble.GET({ customerId }));
+  res.json(await scramble.getScrambledWord({ customerId }));
 };
 
-const postScrambledInput = async (req, res) => {
+const POST = async (req, res) => {
   const customerId = Number(req.query.logged_in_customer_id);
 
-  res.json(await scramble.POST({ ...req.body, customerId }));
+  res.json(await scramble.validateAnswer({ ...req.body, customerId }));
 };
+
 const scrambleController = {
-  getScrambleWord,
-  postScrambledInput,
+  GET,
+  POST,
 };
 export default scrambleController;

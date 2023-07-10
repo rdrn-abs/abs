@@ -209,7 +209,7 @@ const getNextAvailableAt = async (context) => {
   const currentDate = dayjs();
   const date = dayjs(lastWonAt);
   const nextAvailableAt = config.hoursPerDay - currentDate.diff(date, "h");
-  
+
   return nextAvailableAt;
 };
 
@@ -241,9 +241,8 @@ const isAlreadyPlayed = async (context) => {
 };
 
 const isEligibleToPlay = async (context) => {
-  const {
-    metafieldValue: { scrambler },
-  } = context;
+  const { metafieldValue: { scrambler } } = context;
+
   const isEligible =
     !scrambler?.discount ||
     helper.checkDateDifference(scrambler.discount.lastWonAt);
@@ -273,7 +272,7 @@ const updateRemainingChange = async (context) => {
   return { error: { msg: "Not match", remainingChances: retry } };
 };
 
-const GET = async (context) => {
+const getScrambledWord = async (context) => {
   const metafield = await getCustomerMetaField(context);
   const metafieldValue =
     metafield?.value && (await JSON.parse(metafield.value));
@@ -286,7 +285,7 @@ const GET = async (context) => {
   return response;
 };
 
-const POST = async (context) => {
+const validateAnswer = async (context) => {
   const { word, customerId } = context;
   const metafield = await getCustomerMetaField({ customerId });
   const metafieldValue = await JSON.parse(metafield.value);
@@ -299,6 +298,6 @@ const POST = async (context) => {
     : await updateRemainingChange(enrichedContext);
 };
 
-const scrambler = { GET, POST };
+const scrambler = { getScrambledWord,  validateAnswer };
 
 export default scrambler;

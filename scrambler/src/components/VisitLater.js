@@ -18,19 +18,23 @@ const copyDiscount = async (ref) => {
 
 	await navigator.clipboard.writeText(copyText)
 		.catch(() => peek('error'));
+
+	alert('Copied');
 };
 
 const VisitLater = (context) => {
-	const { state: { scrambler: { error: { nextAvailableAt, code }}}} = context;
+	const { state: { scrambler: {
+		error: { nextAvailableAt, code, discountCode },
+	}}} = context;
 	const ref = useRef(null);
 
 	return (
 		<div className="visitLater-card">
 			<p className="visitLater-title">
 				{messages[code]}
-				<b className="visitLater-hours">{nextAvailableAt}</b> hours!
+				<b className="visitLater-hours">{nextAvailableAt}</b>
 			</p>
-			<h1>DiscountCode</h1>
+			<h1 ref={ ref }>{ discountCode }</h1>
 			<button onClick={ () => copyDiscount(ref) }>Copy</button>
 			<RedirectToHome { ...context }/>
 		</div>

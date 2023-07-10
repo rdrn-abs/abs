@@ -5,6 +5,7 @@ const getScrambleWord = async (req, res) => {
 
   res.json(await scramble.GET({ customerId }));
 };
+
 const postScrambledInput = async (req, res) => {
   const customerId = Number(req.query.logged_in_customer_id);
 

@@ -209,7 +209,7 @@ const getNextAvailableAt = async (context) => {
   const currentDate = dayjs();
   const date = dayjs(lastWonAt);
   const nextAvailableAt = config.hoursPerDay - currentDate.diff(date, "h");
-  console.log(nextAvailableAt);
+  
   return nextAvailableAt;
 };
 

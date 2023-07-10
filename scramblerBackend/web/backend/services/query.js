@@ -12,7 +12,7 @@ const pageMetaField = ` {
   }
 }`
 
-const customerMetaField =(customerId)=> `query {
+const getCustomerMetaField =(customerId)=> `query {
   customer(id: "gid://shopify/Customer/${customerId}") {
       metafield(key:"custom",namespace:"custom"){
           value
@@ -109,7 +109,7 @@ const createDiscount=`mutation discountCodeBasicCreate($basicCodeDiscount: Disco
 
 const graphqlQuery = {
   pageMetaField,
-  customerMetaField,
+  getCustomerMetaField,
   updateCustomerMetaField,
   createCustomerMetaField,
   createDiscount

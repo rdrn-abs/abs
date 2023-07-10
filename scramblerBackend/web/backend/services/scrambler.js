@@ -26,7 +26,7 @@ const getPageMetaField = async () => {
 };
 
 const getCustomerMetaField = async ({ customerId }) => {
-  const query = graphqlQuery.customerMetaField(customerId);
+  const query = graphqlQuery.getCustomerMetaField(customerId);
 
   const response = await graphQLFetch({ query });
 
@@ -150,11 +150,21 @@ const createDiscount = async ({ customerId, metafieldValue }) => {
     variables: variables,
   });
   const { data } = await response.json();
+  const {
+    discountCodeBasicCreate: {
+      codeDiscountNode: {
+        codeDiscount: {
+          codes: { nodes },
+        },
+      },
+    },
+  } = data;
+  const [{ code }] = nodes;
 
   const value = JSON.stringify({
     scrambler: {
       ...metafieldValue.scrambler,
-      discount: { lastWonAt: new Date() },
+      discount: { lastWonAt: new Date(), code },
     },
   });
 
@@ -199,7 +209,7 @@ const getNextAvailableAt = async (context) => {
   const currentDate = dayjs();
   const date = dayjs(lastWonAt);
   const nextAvailableAt = config.hoursPerDay - currentDate.diff(date, "h");
-
+  console.log(nextAvailableAt);
   return nextAvailableAt;
 };
 
@@ -213,7 +223,7 @@ const checkRemainingChance = async (context) => {
   return retry
     ? { data: { word: wordIssued } }
     : {
-        error: { msg: "You have no more chance to play today", code: "retry" },
+        error: { msg: "You have no more chance to play today", code: "lose" },
       };
 };
 
@@ -227,7 +237,7 @@ const isAlreadyPlayed = async (context) => {
 
   return !canPlay
     ? await checkRemainingChance(context)
-    : await createScrambledWord(context);
+    : { data: await createScrambledWord(context) };
 };
 
 const isEligibleToPlay = async (context) => {
@@ -235,7 +245,8 @@ const isEligibleToPlay = async (context) => {
     metafieldValue: { scrambler },
   } = context;
   const isEligible =
-    !scrambler?.discount || helper.checkDateDifference(scrambler.discount.lastWonAt);
+    !scrambler?.discount ||
+    helper.checkDateDifference(scrambler.discount.lastWonAt);
 
   return isEligible
     ? await isAlreadyPlayed(context)
@@ -243,6 +254,8 @@ const isEligibleToPlay = async (context) => {
         error: {
           msg: "Come back the next day.",
           nextAvailableAt: await getNextAvailableAt(context),
+          code: "win",
+          discountCode: scrambler.discount.code,
         },
       };
 };

@@ -2,10 +2,10 @@ import crypto from "crypto";
 import { shuffle } from "@laufire/utils/collection.js";
 import dayjs from "dayjs";
 
-const checkDateDifference = (context) => {
+const checkDateDifference = (date) => {
   const currentDate = dayjs();
-  const date = dayjs(context.date);
-  const difference = currentDate.diff(date, "d");
+  const formattedDate = dayjs(date);
+  const difference = currentDate.diff(formattedDate, "d");
 
   return difference;
 };

@@ -91,6 +91,7 @@ $animationSpeed: 5s;
 	.retry-btn {
 		font-family: "Geomanist-Regular", sans-serif;
 		font-size: 14px;
+		margin: 5px;
 		text-transform: uppercase;
 		padding: 6px 31px 4px;
 		display: inline-flex;
@@ -124,7 +125,8 @@ $animationSpeed: 5s;
 			position: relative;
 			font-size: 3rem;
 			&::before {
-				content: "LOADING...";
+				content: attr(data-loading-attribute);
+				text-transform: uppercase;
 				overflow: hidden;
 				position: absolute;
 				color: $hover-color;

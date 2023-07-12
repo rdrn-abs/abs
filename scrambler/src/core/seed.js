@@ -6,6 +6,7 @@ const seed = {
 		discount: {},
 		canPlay: false,
 		isLoading: false,
+		timeLeft: { hours: 11, minutes: 59, seconds: 59 },
 	},
 };
 

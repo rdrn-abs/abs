@@ -4,6 +4,7 @@ import './App.scss';
 import Start from './components/Start';
 import RedirectToLogin from 'components/RedirectToLogin';
 import { isDefined } from '@laufire/utils/reflection';
+import ShowTimer from './components/ShowTimer';
 
 const isUserLoggedIn = isDefined(window.__st?.cid);
 
@@ -13,7 +14,9 @@ const App = (context) => {
 	const extendedContext = { ...context, state, setState };
 	const StartComponent = isUserLoggedIn ? Start : RedirectToLogin;
 
-	return <StartComponent { ...extendedContext }/>;
+	return <ShowTimer { ...extendedContext }/>;
+
+	// return <StartComponent { ...extendedContext }/>;
 };
 
 export default App;

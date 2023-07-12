@@ -241,7 +241,9 @@ const isAlreadyPlayed = async (context) => {
 };
 
 const isEligibleToPlay = async (context) => {
-  const { metafieldValue: { scrambler } } = context;
+  const {
+    metafieldValue: { scrambler },
+  } = context;
 
   const isEligible =
     !scrambler?.discount ||
@@ -259,7 +261,7 @@ const isEligibleToPlay = async (context) => {
       };
 };
 
-const updateRemainingChange = async (context) => {
+const updateRemainingChance = async (context) => {
   const {
     metafieldValue: { scrambler },
   } = context;
@@ -269,7 +271,7 @@ const updateRemainingChange = async (context) => {
   });
   await updateCustomerMetaField({ ...context, value });
 
-  return { error: { msg: "Not match", remainingChances: retry } };
+  return { error: { msg: "Not match", remainingChances: retry, code: "lose" } };
 };
 
 const getScrambledWord = async (context) => {
@@ -295,9 +297,9 @@ const validateAnswer = async (context) => {
 
   return isMatch
     ? { data: await createDiscount(enrichedContext) }
-    : await updateRemainingChange(enrichedContext);
+    : await updateRemainingChance(enrichedContext);
 };
 
-const scrambler = { getScrambledWord,  validateAnswer };
+const scrambler = { getScrambledWord, validateAnswer };
 
 export default scrambler;

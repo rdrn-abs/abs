@@ -1,3 +1,4 @@
+import { map } from "@laufire/utils/collection.js";
 import createMetaFieldDefinition from "../services/createMetaFieldDefinition.js";
 
 const definition = {
@@ -11,7 +12,7 @@ const definition = {
 const ownerTypes = ["PAGE", "CUSTOMER"];
 
 const setupMetaFields = () => {
-  ownerTypes.map((ownerType) =>
+  map(ownerTypes,(ownerType) =>
     createMetaFieldDefinition({
       definition: { ...definition, ownerType },
     })

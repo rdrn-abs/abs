@@ -113,7 +113,8 @@ const getCollection = async () => {
   return { collectionUrl, collectionName, collectionId };
 };
 
-const createDiscount = async ({ customerId, metafieldValue }) => {
+const createDiscount = async (context) => {
+  const { customerId, metafieldValue } = context;
   const { collectionId, collectionUrl } = await getCollection();
   const metafield = await getCustomerMetaField({ customerId });
   const pageMetaField = await getPageMetaField();
@@ -125,7 +126,7 @@ const createDiscount = async ({ customerId, metafieldValue }) => {
       title: discountTitle,
       code: `${discountCodePrefix + rndString(config.codeLength)}`,
       startsAt: new Date(),
-      endsAt: new Date(new Date().getTime() + config.millisecondsPerDay),
+      endsAt: dayjs().add(1, "day"),
       customerSelection: {
         customers: {
           add: [`gid://shopify/Customer/${customerId}`],
@@ -154,12 +155,13 @@ const createDiscount = async ({ customerId, metafieldValue }) => {
     discountCodeBasicCreate: {
       codeDiscountNode: {
         codeDiscount: {
-          codes: { nodes },
+          codes: {
+            nodes: [{ code }],
+          },
         },
       },
     },
   } = data;
-  const [{ code }] = nodes;
 
   const value = JSON.stringify({
     scrambler: {
@@ -169,8 +171,21 @@ const createDiscount = async ({ customerId, metafieldValue }) => {
   });
 
   await updateCustomerMetaField({ customerId, metafield, value });
+  const metaField = await getCustomerMetaField(context);
+  const {
+    scrambler: {
+      discount: { lastWonAt },
+    },
+  } = await JSON.parse(metaField.value);
 
-  return { ...data, collectionUrl };
+  return {
+    discount: {
+      timeLeft: await helper.getNextAvailableAt(lastWonAt),
+      code,
+      title: discountTitle,
+      collectionUrl,
+    },
+  };
 };
 
 const createScrambledWord = async (context) => {
@@ -196,21 +211,6 @@ const createScrambledWord = async (context) => {
   return {
     word: scrambleWord,
   };
-};
-
-const getNextAvailableAt = async (context) => {
-  const {
-    metafieldValue: {
-      scrambler: {
-        discount: { lastWonAt },
-      },
-    },
-  } = context;
-  const currentDate = dayjs();
-  const date = dayjs(lastWonAt);
-  const nextAvailableAt = config.hoursPerDay - currentDate.diff(date, "h");
-
-  return nextAvailableAt;
 };
 
 const checkRemainingChance = async (context) => {
@@ -248,15 +248,23 @@ const isEligibleToPlay = async (context) => {
   const isEligible =
     !scrambler?.discount ||
     helper.checkDateDifference(scrambler.discount.lastWonAt);
+  const pageMetaField = await getPageMetaField();
+  const { collectionUrl, discountTitle } = await JSON.parse(pageMetaField);
 
   return isEligible
     ? await isAlreadyPlayed(context)
     : {
-        error: {
+        data: {
           msg: "Come back the next day.",
-          nextAvailableAt: await getNextAvailableAt(context),
+          discount: {
+            timeLeft: await helper.getNextAvailableAt(
+              scrambler.discount.lastWonAt
+            ),
+            code: scrambler.discount.code,
+            title: discountTitle,
+            collectionUrl,
+          },
           code: "win",
-          discountCode: scrambler.discount.code,
         },
       };
 };

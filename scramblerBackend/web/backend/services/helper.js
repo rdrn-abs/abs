@@ -10,6 +10,20 @@ const checkDateDifference = (date) => {
   return difference;
 };
 
+const getNextAvailableAt = async (data) => {
+  const currentTime = dayjs();
+  const recordedTime = dayjs(data).add(1, "day");
+  const offset = 60;
+
+  const nextAvailableAt = {
+    hours: recordedTime.diff(currentTime, "h"),
+    minutes: recordedTime.diff(currentTime, "m") % offset,
+    seconds: recordedTime.diff(currentTime, "s") % offset,
+  };
+
+  return nextAvailableAt;
+};
+
 const hashWord = (word) => {
   const hash = crypto.createHash("sha256");
   hash.update(word.toUpperCase());
@@ -27,6 +41,7 @@ const helper = {
   hashWord,
   checkDateDifference,
   scramble,
+  getNextAvailableAt
 };
 
 export default helper;

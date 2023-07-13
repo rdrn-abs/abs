@@ -223,7 +223,11 @@ const checkRemainingChance = async (context) => {
   return retry
     ? { data: { word: wordIssued } }
     : {
-        error: { msg: "You have no more chance to play today", code: "lose" },
+        error: {
+          msg: "You have no more chance to play today",
+          remainingChances: 0,
+          code: "lose",
+        },
       };
 };
 

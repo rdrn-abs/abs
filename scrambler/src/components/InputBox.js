@@ -18,7 +18,7 @@ const setDiscount = async (context) => {
 
 	setState((prev) => ({
 		...prev,
-		discount: data,
+		scrambler: data,
 		canPlay: !prev.canPlay,
 		isLoading: !prev.isLoading,
 	}));

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Retry = (context) => {
 	const { setState, seed: { initialState },
-		state: { discount: { error: { remainingChances }}}} = context;
+		state: { scrambler: { error: { remainingChances }}}} = context;
 
 	return (
 		<div className="retry-card">

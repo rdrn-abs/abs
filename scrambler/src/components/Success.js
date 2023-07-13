@@ -1,24 +1,11 @@
 import React from 'react';
-import { keys } from '@laufire/utils/collection';
 import Discount from './Discount';
-import Retry from './Retry';
-import VisitLater from './VisitLater';
-
-const components = {
-	data: Discount,
-	error: (context) => {
-		const { state: { discount: { error: { remainingChances }}}} = context;
-		const Component = remainingChances ? Retry : VisitLater;
-
-		return <Component { ...context }/>;
-	},
-};
+import Game from './Game';
 
 const Success = (context) => {
-	const { state: { discount }} = context;
-	const [first] = keys(discount);
+	const { state: { scrambler: { data }}} = context;
 
-	return components[first](context);
+	return data?.word ? <Game { ...context }/> : <Discount { ...context }/>;
 };
 
 export default Success;

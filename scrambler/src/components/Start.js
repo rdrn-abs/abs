@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import ScrambleGame from './ScrambleGame';
 import ScrambleManager from '../services/scrambleManager';
-import Success from './Success';
 import { keys } from '@laufire/utils/collection';
 import Loading from './Loading';
 import axios from 'axios';
@@ -12,8 +11,7 @@ const setScrambleWord = async ({ setState }) => {
 	setState((state) => ({
 		...state,
 		scrambler: data,
-		letters: ScrambleManager
-			.getScrambledLetters(data),
+		letters: ScrambleManager.getScrambledLetters(data),
 	}));
 };
 
@@ -24,9 +22,9 @@ const Start = (context) => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => !canPlay && setScrambleWord(context), [canPlay]);
-	const GameComponent = !canPlay ? ScrambleGame : Success;
+
 	const StartComponent = keys(scrambler).length !== 0
-		? GameComponent
+		? ScrambleGame
 		: Loading;
 
 	return (

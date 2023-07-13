@@ -60,10 +60,25 @@ const checkLetterMatch = (context) => {
 	return scrambledLetters.every((scrambledLetter) => scrambledLetter.entered);
 };
 
+const sixty = 60;
+const toSeconds = (time) =>
+	time.hours * sixty * sixty + time.minutes * sixty + time.seconds;
+
+const toHoursAndMinutes = (totalSeconds) => {
+	const totalMinutes = Math.floor(totalSeconds / sixty);
+	const seconds = totalSeconds % sixty;
+	const hours = Math.floor(totalMinutes / sixty);
+	const minutes = totalMinutes % sixty;
+
+	return { hours, minutes, seconds };
+};
+
 const ScrambleManager = {
 	getScrambledLetters,
 	updateLetters,
 	checkLetterMatch,
+	toSeconds,
+	toHoursAndMinutes,
 };
 
 export default ScrambleManager;

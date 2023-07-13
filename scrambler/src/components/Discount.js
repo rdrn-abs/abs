@@ -1,26 +1,34 @@
-import { result } from '@laufire/utils/collection';
-import React from 'react';
+/* eslint-disable max-lines-per-function */
+import React, { useRef } from 'react';
+
+const copyDiscount = async (ref) => {
+	const copyText = ref.current.textContent;
+
+	await navigator.clipboard.writeText(copyText);
+};
 
 const Discount = (context) => {
-	const { discountCodeBasicCreate, collectionUrl } = result(context,
-		'state/discount/data');
-
-	const { title, codes: { nodes }} = result(discountCodeBasicCreate,
-		'codeDiscountNode/codeDiscount');
-
-	const [{ code }] = nodes;
+	const {
+		state: { scrambler, discount },
+	} = context;
+	const { discount: { timeLeft,	code, title, collectionUrl }}
+	= discount?.data || scrambler.data;
+	const ref = useRef(null);
 
 	return (
 		<div className="game-card">
 			<h3 className="discount-title">{title}</h3>
 			<div>Use this discount code and claim your reward.</div>
-			<div className="discount-code">{code}</div>
+			<div ref={ ref } className="discount-code">{code}</div>
 			<div><a href={ collectionUrl } className="discount-collection">
 				Click here to see the Discounted products
 			</a>
 			</div>
-			<p>Valid for 24 hours.</p>
-			<h4>Come back tomorrow for the new discount.</h4>
+			<p>Valid for {`${ timeLeft.hours }:${ timeLeft.minutes }:${ timeLeft.seconds } `}.</p>
+			<button
+				onClick={ () => copyDiscount(ref) }
+				className="retry-btn"
+			>Copy</button>
 		</div>
 	);
 };

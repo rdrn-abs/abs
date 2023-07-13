@@ -2,9 +2,14 @@ import React, { Fragment } from 'react';
 import Game from './Game';
 import VisitLater from './VisitLater';
 import { keys } from '@laufire/utils/collection';
+import Discount from './Discount';
 
 const components = {
-	data: Game,
+	data: (context) => {
+		const { state: { scrambler: { data }}} = context;
+
+		return data?.word ? <Game { ...context }/> : <Discount { ...context }/>;
+	},
 	error: VisitLater,
 };
 

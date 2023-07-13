@@ -3,7 +3,7 @@ import { map } from '@laufire/utils/collection';
 const getScrambledLetters = (context) => {
 	const { data } = context;
 
-	const scrambledLetters = data?.word
+	const scrambledLetters = data?.word && data.word
 		.split('')
 		.map((letter) => ({ letter: letter.toUpperCase(), entered: false }));
 
